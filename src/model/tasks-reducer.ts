@@ -6,7 +6,9 @@ export const tasksReducer = (state: TasksStateType, action: ActionsType): TasksS
 			const newTodolistTasks = {...state, [action.payload.todolistId]: state[action.payload.todolistId].filter(t => t.id !== action.payload.taskId)}
 			return newTodolistTasks
 		}
-
+		case 'ADD_TASK': {
+return state
+			}
 		default:
 			return state
 	}
@@ -22,8 +24,19 @@ export const removeTaskAC = (taskId: string, todolistId: string) => {
 		}
 	} as const
 }
-
+export const addTaskAC = (title: string, todolistId: string) => {
+	return {
+		type: 'ADD_TASK',
+		payload: {
+			taskId:"newId",
+			title,
+			todolistId
+		}
+	} as const
+}
 // Actions types
 export type RemoveTaskACType = ReturnType<typeof removeTaskAC>
+export type AddTaskACType = ReturnType<typeof addTaskAC>
 
 type ActionsType = RemoveTaskACType
+|  AddTaskACType
