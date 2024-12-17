@@ -16,7 +16,7 @@ export const tasksReducer = (state=initState, action: ActionsType): TasksStateTy
 		}
 		case 'ADD_TASK': {
 			const newTask = {
-				id: action.payload.taskId,
+				id: action.taskId,
 				title: action.payload.title,
 				isDone: false
 			}
@@ -53,39 +53,29 @@ return newTodolistTasks
 }
 
 // Action creators
-export const removeTaskAC = (taskId: string, todolistId: string) => {
+export const removeTaskAC = (payload:{taskId: string, todolistId: string}) => {
 	return {
 		type: 'REMOVE_TASK',
-		payload: {
-			taskId,
-			todolistId
-		}
+		payload
 	} as const
 }
-export const addTaskAC = (title: string, todolistId: string) => {
+export const addTaskAC = (payload:{title: string, todolistId: string}) => {
 	return {
 		type: 'ADD_TASK',
-		payload: {
-			taskId:v1(),
-			title,
-			todolistId
-		}
+		payload,
+		taskId: v1()
 	} as const
 }
-export const changeStatusTaskAC = (taskId: string, todolistId: string, status:boolean) => {
+export const changeStatusTaskAC = (payload:{taskId: string, todolistId: string, status: boolean}) => {
 	return {
 		type: 'CHANGE_STATUS_TASK',
-		payload: {
-			taskId, todolistId, status,
-		}
+		payload
 	} as const
 }
-export const updateTaskAC = (taskId: string, todolistId: string, title:string) => {
+export const updateTaskAC = (payload:{taskId: string, todolistId: string, title: string}) => {
 	return {
 		type: 'UPDATE_TASK',
-		payload: {
-			taskId, todolistId, title,
-		}
+		payload
 	} as const
 }
 // Actions types
