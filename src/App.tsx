@@ -14,7 +14,7 @@ import {MenuButton} from "./MenuButton";
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 import CssBaseline from "@mui/material/CssBaseline";
-import {changeStatusTaskAC, tasksReducer} from "./model/tasks-reducer";
+import {addTaskAC, changeStatusTaskAC, removeTaskAC, tasksReducer} from "./model/tasks-reducer";
 import {
 	addTodolistAC,
 	changeTodolistFilter,
@@ -80,17 +80,11 @@ function App() {
 
 	const removeTask = (taskId: string, todolistId: string) => {
 
-		// dispatchTasks(newTodolistTasks)
+	  dispatchTasks(removeTaskAC(taskId,todolistId))
 	}
 
 	const addTask = (title: string, todolistId: string) => {
-		// const newTask = {
-		// 	id: v1(),
-		// 	title: title,
-		// 	isDone: false
-		// }
-		// const newTodolistTasks = {...tasks, [todolistId]: [newTask, ...tasks[todolistId]]}
-		// dispatchTasks(newTodolistTasks)
+		 dispatchTasks(addTaskAC(title,todolistId))
 	}
 
 	const changeTaskStatus = (taskId: string, taskStatus: boolean, todolistId: string) => {
