@@ -14,8 +14,14 @@ import {MenuButton} from "./MenuButton";
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 import CssBaseline from "@mui/material/CssBaseline";
-import {tasksReducer} from "./model/tasks-reducer";
-import {addTodolistAC, changeTodolistTitleAC, removeTodolistAC, todolistsReducer} from "./model/todolists-reducer";
+import {changeStatusTaskAC, tasksReducer} from "./model/tasks-reducer";
+import {
+	addTodolistAC,
+	changeTodolistFilter,
+	changeTodolistTitleAC,
+	removeTodolistAC,
+	todolistsReducer
+} from "./model/todolists-reducer";
 
 export type TaskType = {
 	id: string
@@ -88,18 +94,12 @@ function App() {
 	}
 
 	const changeTaskStatus = (taskId: string, taskStatus: boolean, todolistId: string) => {
-		// const newTodolistTasks = {
-		// 	...tasks,
-		// 	[todolistId]: tasks[todolistId].map(t => t.id == taskId ? {...t, isDone: taskStatus} : t)
-		// }
-		// dispatchTasks(newTodolistTasks)
+		  dispatchTasks(changeStatusTaskAC(taskId,todolistId,taskStatus ))
 	}
 
 	const changeFilter = (filter: FilterValuesType, todolistId: string) => {
-		// const newTodolists = todolists.map(tl => {
-		// 	return tl.id === todolistId ? {...tl, filter} : tl
-		// })
-		// dispatchTodolists(newTodolists)
+
+		 dispatchTodolists(changeTodolistFilter(todolistId,filter))
 	}
 
 	const removeTodolist = (todolistId: string) => {
@@ -119,7 +119,7 @@ function App() {
 		// 	...tasks,
 		// 	[todolistId]: tasks[todolistId].map(t => t.id === taskId ? {...t, title} : t)
 		// }
-		// dispatchTasks(newTodolistTasks)
+		//   dispatchTasks()
 	}
 
 	const updateTodolist = (todolistId: string, title: string) => {
