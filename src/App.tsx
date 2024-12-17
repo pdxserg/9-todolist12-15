@@ -14,7 +14,7 @@ import {MenuButton} from "./MenuButton";
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 import CssBaseline from "@mui/material/CssBaseline";
-import {addTaskAC, changeStatusTaskAC, removeTaskAC, tasksReducer} from "./model/tasks-reducer";
+import {addTaskAC, changeStatusTaskAC, removeTaskAC, tasksReducer, updateTaskAC} from "./model/tasks-reducer";
 import {
 	addTodolistAC,
 	changeTodolistFilter,
@@ -109,11 +109,8 @@ function App() {
 	}
 
 	const updateTask = (todolistId: string, taskId: string, title: string) => {
-		// const newTodolistTasks = {
-		// 	...tasks,
-		// 	[todolistId]: tasks[todolistId].map(t => t.id === taskId ? {...t, title} : t)
-		// }
-		//   dispatchTasks()
+
+		   dispatchTasks(updateTaskAC(taskId,todolistId,title))
 	}
 
 	const updateTodolist = (todolistId: string, title: string) => {

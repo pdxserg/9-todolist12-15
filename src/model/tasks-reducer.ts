@@ -34,6 +34,14 @@ return newTodolistTasks
 
 			return {...state, [action.payload.todoId]:[]}
 		}
+		case 'UPDATE_TASK':{
+			const newTodolistTasks = {
+				...state,
+				[action.payload.todolistId]: state[action.payload.todolistId].map(t => t.id === action.payload.taskId ? {...t,  title:action.payload.title } : t)
+			}
+			return  newTodolistTasks
+		}
+
 		default:
 			return state
 	}
@@ -67,12 +75,22 @@ export const changeStatusTaskAC = (taskId: string, todolistId: string, status:bo
 		}
 	} as const
 }
+export const updateTaskAC = (taskId: string, todolistId: string, title:string) => {
+	return {
+		type: 'UPDATE_TASK',
+		payload: {
+			taskId, todolistId, title,
+		}
+	} as const
+}
 // Actions types
 export type RemoveTaskACType = ReturnType<typeof removeTaskAC>
 export type AddTaskACType = ReturnType<typeof addTaskAC>
 export type ChangeStatusTaskACType = ReturnType<typeof changeStatusTaskAC>
+export type UpdateTaskACType = ReturnType<typeof updateTaskAC>
 type ActionsType = RemoveTaskACType
 |  AddTaskACType
 | ChangeStatusTaskACType
 | RemoveTodolistActionType
 | AddTodolistActionType
+| UpdateTaskACType
