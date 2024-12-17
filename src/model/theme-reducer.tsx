@@ -4,13 +4,21 @@
 import {ThemeMode} from "../App";
 
 export const themeReducer=(state:ThemeMode, action:ActionsType):ThemeMode=>{
-switch (state) {
-
+switch (action.type) {
+	case 'CHANGE_MODE':{
+	return state
+}
 	default:
 		return state
 
 }
 }
-export
+export const changeModeAC=()=>{
+	return{
+		type:'CHANGE_MODE',
+		payload:{}
+	}as const
+}
+type ChangeModeACType = ReturnType<typeof changeModeAC>
 
-export const ActionsType
+type  ActionsType= ChangeModeACType
