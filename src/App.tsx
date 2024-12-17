@@ -41,7 +41,7 @@ export type TasksStateType = {
 	[key: string]: TaskType[]
 }
 
-type ThemeMode = 'dark' | 'light'
+export type ThemeMode = 'dark' | 'light'
 
 function App() {
 
@@ -65,8 +65,7 @@ function App() {
 			{id: v1(), title: 'GraphQL', isDone: false},
 		],
 	})
-	console.log(   todolists)
-	console.log(   tasks)
+
 	const [themeMode, setThemeMode] = useState<ThemeMode>('light')
 
 	const theme = createTheme({
