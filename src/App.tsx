@@ -15,7 +15,7 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 import CssBaseline from "@mui/material/CssBaseline";
 import {tasksReducer} from "./model/tasks-reducer";
-import {todolistsReducer} from "./model/todolists-reducer";
+import {addTodolistAC, removeTodolistAC, todolistsReducer} from "./model/todolists-reducer";
 
 export type TaskType = {
 	id: string
@@ -59,7 +59,8 @@ function App() {
 			{id: v1(), title: 'GraphQL', isDone: false},
 		],
 	})
-
+	console.log(   todolists)
+	console.log(   tasks)
 	const [themeMode, setThemeMode] = useState<ThemeMode>('light')
 
 	const theme = createTheme({
@@ -102,18 +103,14 @@ function App() {
 	}
 
 	const removeTodolist = (todolistId: string) => {
-		const newTodolists = todolists.filter(tl => tl.id !== todolistId)
-		dispatchTodolists(newTodolists)
 
-		delete tasks[todolistId]
-		dispatchTasks({...tasks})
+		dispatchTodolists(removeTodolistAC(todolistId))
+		dispatchTasks(removeTodolistAC(todolistId))
 	}
 
 	const addTodolist = (title: string) => {
-		// const todolistId = v1()
-		// const newTodolist: TodolistType = {id: todolistId, title: title, filter: 'all'}
-		// dispatchTodolists([newTodolist, ...todolists])
-		// dispatchTasks({...tasks, [todolistId]: []})
+		dispatchTodolists(addTodolistAC(title))
+		 // dispatchTasks({...tasks, [todolistId]: []})
 	}
 
 	const updateTask = (todolistId: string, taskId: string, title: string) => {
