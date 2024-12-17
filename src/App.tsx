@@ -110,7 +110,7 @@ function App() {
 
 	const addTodolist = (title: string) => {
 		dispatchTodolists(addTodolistAC(title))
-		 // dispatchTasks({...tasks, [todolistId]: []})
+	 dispatchTasks(addTodolistAC(title))
 	}
 
 	const updateTask = (todolistId: string, taskId: string, title: string) => {
