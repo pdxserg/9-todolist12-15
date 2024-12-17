@@ -15,7 +15,7 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 import CssBaseline from "@mui/material/CssBaseline";
 import {tasksReducer} from "./model/tasks-reducer";
-import {addTodolistAC, removeTodolistAC, todolistsReducer} from "./model/todolists-reducer";
+import {addTodolistAC, changeTodolistTitleAC, removeTodolistAC, todolistsReducer} from "./model/todolists-reducer";
 
 export type TaskType = {
 	id: string
@@ -109,8 +109,9 @@ function App() {
 	}
 
 	const addTodolist = (title: string) => {
-		dispatchTodolists(addTodolistAC(title))
-	 dispatchTasks(addTodolistAC(title))
+		const action = addTodolistAC(title)
+		dispatchTodolists(action)
+		dispatchTasks(action)
 	}
 
 	const updateTask = (todolistId: string, taskId: string, title: string) => {
@@ -122,8 +123,7 @@ function App() {
 	}
 
 	const updateTodolist = (todolistId: string, title: string) => {
-		// const newTodolists = todolists.map(tl => tl.id === todolistId ? {...tl, title} : tl)
-		// dispatchTodolists(newTodolists)
+		dispatchTodolists(changeTodolistTitleAC(todolistId, title))
 	}
 
 	const changeModeHandler = () => {
