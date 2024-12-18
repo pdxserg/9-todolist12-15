@@ -24,6 +24,7 @@ import {
 } from "./model/todolists-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {RootStateType} from "./store";
+import {changeModeAC, ThemeMode} from "./model/theme-reducer";
 
 export type TaskType = {
 	id: string
@@ -43,35 +44,17 @@ export type TasksStateType = {
 	[key: string]: TaskType[]
 }
 
-export type ThemeMode = 'dark' | 'light'
+
 
 function App() {
 
 	const todolists = useSelector<RootStateType,TodolistType[]>(state => state.todolists)
 	const tasks = useSelector<RootStateType,TasksStateType>(state => state.tasks)
-
+const themeMode = useSelector<RootStateType,ThemeMode>(state => state.themeMode.themeMode)
 	const dispatch = useDispatch()
-	// let todolistID1 = v1()
-	// let todolistID2 = v1()
-	//
-	// let [todolists, dispatchTodolists] = useReducer (todolistsReducer,[
-	// 	{id: todolistID1, title: 'What to learn', filter: 'all'},
-	// 	{id: todolistID2, title: 'What to buy', filter: 'all'},
-	// ])
-	//
-	// let [tasks, dispatchTasks] = useReducer(tasksReducer,{
-	// 	[todolistID1]: [
-	// 		{id: v1(), title: 'HTML&CSS', isDone: true},
-	// 		{id: v1(), title: 'JS', isDone: true},
-	// 		{id: v1(), title: 'ReactJS', isDone: false},
-	// 	],
-	// 	[todolistID2]: [
-	// 		{id: v1(), title: 'Rest API', isDone: true},
-	// 		{id: v1(), title: 'GraphQL', isDone: false},
-	// 	],
-	// })
 
-	const [themeMode, setThemeMode] = useState<ThemeMode>('light')
+
+
 
 	const theme = createTheme({
 		palette: {
@@ -119,8 +102,10 @@ function App() {
 	}
 
 	const changeModeHandler = () => {
-		setThemeMode(themeMode === "light" ? "dark" : 'light')
+		// setThemeMode(themeMode === "light" ? "dark" : 'light')
+	dispatch(changeModeAC())
 	}
+
 
 	return (
 		<ThemeProvider theme={theme}>
@@ -185,3 +170,22 @@ function App() {
 }
 
 export default App;
+// let todolistID1 = v1()
+// let todolistID2 = v1()
+//
+// let [todolists, dispatchTodolists] = useReducer (todolistsReducer,[
+// 	{id: todolistID1, title: 'What to learn', filter: 'all'},
+// 	{id: todolistID2, title: 'What to buy', filter: 'all'},
+// ])
+//
+// let [tasks, dispatchTasks] = useReducer(tasksReducer,{
+// 	[todolistID1]: [
+// 		{id: v1(), title: 'HTML&CSS', isDone: true},
+// 		{id: v1(), title: 'JS', isDone: true},
+// 		{id: v1(), title: 'ReactJS', isDone: false},
+// 	],
+// 	[todolistID2]: [
+// 		{id: v1(), title: 'Rest API', isDone: true},
+// 		{id: v1(), title: 'GraphQL', isDone: false},
+// 	],
+// })
