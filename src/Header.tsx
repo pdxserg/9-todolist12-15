@@ -3,7 +3,7 @@ import * as React from 'react';
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import {MenuButton} from "./MenuButton";
+import {MenuButton} from "./common/MenuButton";
 import Switch from "@mui/material/Switch";
 import AppBar from "@mui/material/AppBar";
 import {changeModeAC, ThemeMode} from "./model/theme-reducer";
