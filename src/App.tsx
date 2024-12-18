@@ -1,30 +1,19 @@
 import './App.css';
 import {Todolist} from "./Todolist";
-import React, {useReducer, useState} from "react";
-import {v1} from "uuid";
+import React from "react";
 import {AddItemForm} from "./AddItemForm";
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import Container from "@mui/material/Container";
 import Grid from '@mui/material/Unstable_Grid2';
 import Paper from '@mui/material/Paper';
-import {MenuButton} from "./MenuButton";
-import {createTheme, ThemeProvider} from '@mui/material/styles';
-import Switch from '@mui/material/Switch';
+import {ThemeProvider} from '@mui/material/styles';
 import CssBaseline from "@mui/material/CssBaseline";
-import {addTaskAC, changeStatusTaskAC, removeTaskAC, tasksReducer, updateTaskAC} from "./model/tasks-reducer";
-import {
-	addTodolistAC,
-	changeTodolistFilter,
-	changeTodolistTitleAC,
-	removeTodolistAC,
-	todolistsReducer
-} from "./model/todolists-reducer";
+import {addTaskAC, changeStatusTaskAC, removeTaskAC, updateTaskAC} from "./model/tasks-reducer";
+import {addTodolistAC, changeTodolistFilter, changeTodolistTitleAC, removeTodolistAC} from "./model/todolists-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {RootStateType} from "./store";
-import {changeModeAC, ThemeMode} from "./model/theme-reducer";
+import {Header} from "./Header";
+import { getTheme } from './common/theme/theme';
+import {ThemeMode} from "./model/theme-reducer";
 
 export type TaskType = {
 	id: string
@@ -45,42 +34,32 @@ export type TasksStateType = {
 }
 
 
-
 function App() {
 
-	const todolists = useSelector<RootStateType,TodolistType[]>(state => state.todolists)
-	const tasks = useSelector<RootStateType,TasksStateType>(state => state.tasks)
-const themeMode = useSelector<RootStateType,ThemeMode>(state => state.themeMode.themeMode)
+	const todolists = useSelector<RootStateType, TodolistType[]>(state => state.todolists)
+	const tasks = useSelector<RootStateType, TasksStateType>(state => state.tasks)
+	const themeMode = useSelector<RootStateType,ThemeMode>(state => state.themeMode.themeMode)
+
+	const theme = getTheme(themeMode)
 	const dispatch = useDispatch()
 
 
-
-
-	const theme = createTheme({
-		palette: {
-			mode: themeMode === 'light' ? 'light' : 'dark',
-			primary: {
-				main: '#087EA4',
-			},
-		},
-	});
-
 	const removeTask = (taskId: string, todolistId: string) => {
 
-	  dispatch(removeTaskAC({taskId, todolistId}))
+		dispatch(removeTaskAC({taskId, todolistId}))
 	}
 
 	const addTask = (title: string, todolistId: string) => {
-		 dispatch(addTaskAC({title, todolistId}))
+		dispatch(addTaskAC({title, todolistId}))
 	}
 
 	const changeTaskStatus = (taskId: string, status: boolean, todolistId: string) => {
-		  dispatch(changeStatusTaskAC({taskId, todolistId, status}))
+		dispatch(changeStatusTaskAC({taskId, todolistId, status}))
 	}
 
 	const changeFilter = (filter: FilterValuesType, todolistId: string) => {
 
-		 dispatch(changeTodolistFilter(todolistId,filter))
+		dispatch(changeTodolistFilter(todolistId, filter))
 	}
 
 	const removeTodolist = (todolistId: string) => {
@@ -94,35 +73,18 @@ const themeMode = useSelector<RootStateType,ThemeMode>(state => state.themeMode.
 	}
 
 	const updateTask = (todolistId: string, taskId: string, title: string) => {
-		   dispatch(updateTaskAC({taskId, todolistId, title}))
+		dispatch(updateTaskAC({taskId, todolistId, title}))
 	}
 
 	const updateTodolist = (todolistId: string, title: string) => {
 		dispatch(changeTodolistTitleAC(todolistId, title))
 	}
 
-	const changeModeHandler = () => {
-		// setThemeMode(themeMode === "light" ? "dark" : 'light')
-	dispatch(changeModeAC())
-	}
-
 
 	return (
 		<ThemeProvider theme={theme}>
 			<CssBaseline/>
-			<AppBar position="static" sx={{mb: '30px'}}>
-				<Toolbar sx={{display: 'flex', justifyContent: 'space-between'}}>
-					<IconButton color="inherit">
-						<MenuIcon/>
-					</IconButton>
-					<div>
-						<MenuButton>Login</MenuButton>
-						<MenuButton>Logout</MenuButton>
-						<MenuButton background={theme.palette.primary.dark}>Faq</MenuButton>
-						<Switch color={'default'} onChange={changeModeHandler}/>
-					</div>
-				</Toolbar>
-			</AppBar>
+			<Header/>
 			<Container fixed>
 				<Grid container sx={{mb: '30px'}}>
 					<AddItemForm addItem={addTodolist}/>

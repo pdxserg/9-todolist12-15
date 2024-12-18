@@ -17,9 +17,6 @@ switch (action.type) {
 			themeMode: state.themeMode === 'light' ? 'dark' : 'light',
 		};
 }
-
-
-
 	default:
 		return state
 
