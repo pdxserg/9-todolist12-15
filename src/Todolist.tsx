@@ -15,6 +15,7 @@ import {FilterValuesType, TodolistType} from "./model/todolists-reducer";
 import {FilterTasksButtons} from "./FilterTasksButtons";
 import {useSelector} from "react-redux";
 import {RootStateType} from "./store";
+import {Tasks} from "./Tasks";
 
 
 type PropsType = {
@@ -64,36 +65,7 @@ export const Todolist = (props: PropsType) => {
 				</IconButton>
 			</div>
 			<AddItemForm addItem={addTaskCallback}/>
-			{
-				tasks.length === 0
-					? <p>Тасок нет</p>
-					: <List>
-						{tasks.map((task) => {
-
-							const removeTaskHandler = () => {
-								removeTask(task.id, todo.id)
-							}
-
-							const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
-								const newStatusValue = e.currentTarget.checked
-								changeTaskStatus(task.id, newStatusValue, todo.id)
-							}
-
-							const changeTaskTitleHandler = (title: string) => {
-								updateTask(todo.id, task.id, title)
-							}
-							return <ListItem key={task.id} sx={getListItemSx(task.isDone)}>
-								<div>
-									<Checkbox checked={task.isDone} onChange={changeTaskStatusHandler}/>
-									<EditableSpan value={task.title} onChange={changeTaskTitleHandler}/>
-								</div>
-								<IconButton onClick={removeTaskHandler}>
-									<DeleteIcon/>
-								</IconButton>
-							</ListItem>
-						})}
-					</List>
-			}
+			<Tasks tasks={tasks} todo={todo}/>
 			<Box sx={filterButtonsContainerSx}>
 				<FilterTasksButtons todo ={todo}/>
 			</Box>

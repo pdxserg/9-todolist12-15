@@ -15,30 +15,13 @@ export const Todolists = () => {
 
 	const dispatch = useDispatch()
 
-
-	const removeTask = (taskId: string, todolistId: string) => {
-
-		dispatch(removeTaskAC({taskId, todolistId}))
-	}
-
-	const addTask = (title: string, todolistId: string) => {
-		dispatch(addTaskAC({title, todolistId}))
-	}
-
-	const changeTaskStatus = (taskId: string, status: boolean, todolistId: string) => {
-		dispatch(changeStatusTaskAC({taskId, todolistId, status}))
-	}
-
 	const removeTodolist = (todolistId: string) => {
-
 		dispatch(removeTodolistAC(todolistId))
 		dispatch(removeTodolistAC(todolistId))
 	}
 
 
-	const updateTask = (todolistId: string, taskId: string, title: string) => {
-		dispatch(updateTaskAC({taskId, todolistId, title}))
-	}
+
 
 	const updateTodolist = (todolistId: string, title: string) => {
 		dispatch(changeTodolistTitleAC(todolistId, title))
