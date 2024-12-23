@@ -20,7 +20,6 @@ type PropsType = {
 	todolistId: string
 	tasks: TaskType[]
 	removeTask: (taskId: string, todolistId: string) => void
-	// changeFilter: (filter: FilterValuesType, todolistId: string) => void
 	addTask: (title: string, todolistId: string) => void
 	changeTaskStatus: (taskId: string, taskStatus: boolean, todolistId: string) => void
 	filter: FilterValuesType
@@ -35,7 +34,6 @@ export const Todolist = (props: PropsType) => {
 		tasks,
 		filter,
 		removeTask,
-		// changeFilter,
 		addTask,
 		changeTaskStatus,
 		todolistId,
