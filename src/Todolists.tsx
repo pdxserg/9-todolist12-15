@@ -6,20 +6,14 @@ import {Todolist} from "./Todolist";
 import {useDispatch, useSelector} from "react-redux";
 import {RootStateType} from "./store";
 import {
-	addTodolistAC,
 	changeTodolistFilter, changeTodolistTitleAC,
 	FilterValuesType,
 	removeTodolistAC,
 	TodolistType
 } from "./model/todolists-reducer";
 import {addTaskAC, changeStatusTaskAC, removeTaskAC, TasksStateType, updateTaskAC} from "./model/tasks-reducer";
-import {ThemeMode} from "./model/theme-reducer";
-import {getTheme} from "./common/theme/theme";
 
-type Props = {
-
-};
-export const Todolists = (props: Props) => {
+export const Todolists = () => {
 	const todolists = useSelector<RootStateType, TodolistType[]>(state => state.todolists)
 	const tasks = useSelector<RootStateType, TasksStateType>(state => state.tasks)
 
