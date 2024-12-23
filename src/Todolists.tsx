@@ -16,24 +16,10 @@ export const Todolists = () => {
 		<div>
 			{todolists.map((tl) => {
 
-				const allTodolistTasks = tasks[tl.id]
-				let tasksForTodolist = allTodolistTasks
-
-				if (tl.filter === 'active') {
-					tasksForTodolist = allTodolistTasks.filter(task => !task.isDone)
-				}
-
-				if (tl.filter === 'completed') {
-					tasksForTodolist = allTodolistTasks.filter(task => task.isDone)
-				}
-
 				return (
 					<Grid key={tl.id}>
 						<Paper sx={{p: '0 20px 20px 20px'}}>
-							<Todolist
-								todo={tl}
-								tasks={tasksForTodolist}
-							/>
+							<Todolist todo={tl}/>
 						</Paper>
 					</Grid>
 				)

@@ -4,7 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Box from "@mui/material/Box";
 import {filterButtonsContainerSx} from "./Todolist.styles";
-import {addTaskAC, TaskType} from "./model/tasks-reducer";
+import {addTaskAC} from "./model/tasks-reducer";
 import {changeTodolistTitleAC, removeTodolistAC, TodolistType} from "./model/todolists-reducer";
 import {FilterTasksButtons} from "./FilterTasksButtons";
 import {useDispatch} from "react-redux";
@@ -12,10 +12,9 @@ import {Tasks} from "./Tasks";
 
 
 type PropsType = {
-	tasks: TaskType[]
 	todo: TodolistType,
 }
-export const Todolist = ({tasks, todo}: PropsType) => {
+export const Todolist = ({todo}: PropsType) => {
 
 	const todolistId = todo.id
 	const dispatch = useDispatch()
@@ -40,7 +39,7 @@ export const Todolist = ({tasks, todo}: PropsType) => {
 				</IconButton>
 			</div>
 			<AddItemForm addItem={addTaskCallback}/>
-			<Tasks tasks={tasks} todo={todo}/>
+			<Tasks todo={todo}/>
 			<Box sx={filterButtonsContainerSx}>
 				<FilterTasksButtons todo={todo}/>
 			</Box>
