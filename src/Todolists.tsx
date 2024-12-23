@@ -17,7 +17,6 @@ export const Todolists = () => {
 
 	const removeTodolist = (todolistId: string) => {
 		dispatch(removeTodolistAC(todolistId))
-		dispatch(removeTodolistAC(todolistId))
 	}
 
 
