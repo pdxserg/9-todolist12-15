@@ -15,19 +15,17 @@ type PropsType = {
 	tasks: TaskType[]
 	todo: TodolistType,
 }
-export const Todolist = (props: PropsType) => {
-	const {tasks, todo} = props
+export const Todolist = ({tasks, todo}: PropsType) => {
+
 	const todolistId = todo.id
 	const dispatch = useDispatch()
 
 	const removeTodolistHandler = () => {
 		dispatch(removeTodolistAC(todolistId))
 	}
-
 	const addTaskCallback = (title: string) => {
 		dispatch(addTaskAC({title, todolistId}))
 	}
-
 	const updateTodolistHandler = (title: string) => {
 		dispatch(changeTodolistTitleAC(todolistId, title))
 	}
