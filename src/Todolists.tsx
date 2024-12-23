@@ -34,11 +34,6 @@ export const Todolists = () => {
 		dispatch(changeStatusTaskAC({taskId, todolistId, status}))
 	}
 
-	// const changeFilter = (filter: FilterValuesType, todolistId: string) => {
-	//
-	// 	dispatch(changeTodolistFilter(todolistId, filter))
-	// }
-
 	const removeTodolist = (todolistId: string) => {
 
 		dispatch(removeTodolistAC(todolistId))
@@ -79,7 +74,6 @@ export const Todolists = () => {
 								title={tl.title}
 								tasks={tasksForTodolist}
 								removeTask={removeTask}
-								// changeFilter={changeFilter}
 								addTask={addTask}
 								changeTaskStatus={changeTaskStatus}
 								filter={tl.filter}
