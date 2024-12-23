@@ -12,6 +12,7 @@ import Box from "@mui/material/Box";
 import {filterButtonsContainerSx, getListItemSx} from "./Todolist.styles";
 import {TaskType} from "./model/tasks-reducer";
 import {FilterValuesType} from "./model/todolists-reducer";
+import {FilterTasksButtons} from "./FilterTasksButtons";
 
 
 type PropsType = {
@@ -43,9 +44,7 @@ export const Todolist = (props: PropsType) => {
 		updateTodolist
 	} = props
 
-	const changeFilterTasksHandler = (filter: FilterValuesType) => {
-		changeFilter(filter, props.todolistId)
-	}
+
 
 	const removeTodolistHandler = () => {
 		removeTodolist(todolistId)
@@ -99,24 +98,25 @@ export const Todolist = (props: PropsType) => {
 					</List>
 			}
 			<Box sx={filterButtonsContainerSx}>
-				<Button
-					variant={filter === 'all' ? 'outlined' : 'text'}
-					color={'inherit'}
-					onClick={() => changeFilterTasksHandler('all')}>
-					All
-				</Button>
-				<Button
-					variant={filter === 'active' ? 'outlined' : 'text'}
-					color={'primary'}
-					onClick={() => changeFilterTasksHandler('active')}>
-					Active
-				</Button>
-				<Button
-					variant={filter === 'completed' ? 'outlined' : 'text'}
-					color={'secondary'}
-					onClick={() => changeFilterTasksHandler('completed')}>
-					Completed
-				</Button>
+				<FilterTasksButtons filter={filter} todolistId={props.todolistId}/>
+				{/*<Button*/}
+				{/*	variant={filter === 'all' ? 'outlined' : 'text'}*/}
+				{/*	color={'inherit'}*/}
+				{/*	onClick={() => changeFilterTasksHandler('all')}>*/}
+				{/*	All*/}
+				{/*</Button>*/}
+				{/*<Button*/}
+				{/*	variant={filter === 'active' ? 'outlined' : 'text'}*/}
+				{/*	color={'primary'}*/}
+				{/*	onClick={() => changeFilterTasksHandler('active')}>*/}
+				{/*	Active*/}
+				{/*</Button>*/}
+				{/*<Button*/}
+				{/*	variant={filter === 'completed' ? 'outlined' : 'text'}*/}
+				{/*	color={'secondary'}*/}
+				{/*	onClick={() => changeFilterTasksHandler('completed')}>*/}
+				{/*	Completed*/}
+				{/*</Button>*/}
 			</Box>
 		</div>
 	)
