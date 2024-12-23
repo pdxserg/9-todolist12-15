@@ -1,11 +1,9 @@
 import {AddItemForm} from "./AddItemForm";
-import {EditableSpan} from "./common/EditableSpan";
-import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
+
 import Box from "@mui/material/Box";
 import {filterButtonsContainerSx} from "./Todolist.styles";
 import {addTaskAC} from "./model/tasks-reducer";
-import {changeTodolistTitleAC, removeTodolistAC, TodolistType} from "./model/todolists-reducer";
+import {TodolistType} from "./model/todolists-reducer";
 import {FilterTasksButtons} from "./FilterTasksButtons";
 import {useDispatch} from "react-redux";
 import {Tasks} from "./Tasks";
@@ -29,9 +27,7 @@ export const Todolist = ({todo}: PropsType) => {
 			<TodolistTitle todo={todo}/>
 			<AddItemForm addItem={addTask}/>
 			<Tasks todo={todo}/>
-			<Box sx={filterButtonsContainerSx}>
-				<FilterTasksButtons todo={todo}/>
-			</Box>
+			<FilterTasksButtons todo={todo}/>
 		</div>
 	)
 }
