@@ -12,48 +12,35 @@ import {useDispatch} from "react-redux";
 import {changeStatusTaskAC, removeTaskAC, TaskType, updateTaskAC} from "./model/tasks-reducer";
 
 type Props = {
-	todo:TodolistType,
-	tasksForTodolist:TaskType[]
+	task:TaskType,
+	todo:TodolistType
 };
-export const Task = ({tasksForTodolist,todo }: Props) => {
+export const Task = ({todo,task }: Props) => {
 
 	const dispatch = useDispatch()
 
-	const removeTask = (taskId: string, todolistId: string) => {
-		dispatch(removeTaskAC({taskId, todolistId}))
+	const removeTask = () => {
+		dispatch(removeTaskAC({taskId:task.id, todolistId: todo.id}))
 	}
-	const changeTaskStatus = (taskId: string, status: boolean, todolistId: string) => {
-		dispatch(changeStatusTaskAC({taskId, todolistId, status}))
+	const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => {
+		const status = e.currentTarget.checked
+		dispatch(changeStatusTaskAC({taskId:task.id, todolistId: todo.id, status}))
 	}
-	const updateTask = (todolistId: string, taskId: string, title: string) => {
-		dispatch(updateTaskAC({taskId, todolistId, title}))
+	const updateTask = ( title: string) => {
+		dispatch(updateTaskAC({taskId:task.id, todolistId: todo.id, title}))
 	}
 	return (
-		<div>
-			{tasksForTodolist.map((task) => {
 
-				const removeTaskHandler = () => {
-					removeTask(task.id, todo.id)
-				}
-
-				const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
-					const newStatusValue = e.currentTarget.checked
-					changeTaskStatus(task.id, newStatusValue, todo.id)
-				}
-
-				const changeTaskTitleHandler = (title: string) => {
-					updateTask(todo.id, task.id, title)
-				}
-				return <ListItem key={task.id} sx={getListItemSx(task.isDone)}>
+				  <ListItem key={task.id} sx={getListItemSx(task.isDone)}>
 					<div>
-						<Checkbox checked={task.isDone} onChange={changeTaskStatusHandler}/>
-						<EditableSpan value={task.title} onChange={changeTaskTitleHandler}/>
+						<Checkbox checked={task.isDone} onChange={changeTaskStatus}/>
+						<EditableSpan value={task.title} onChange={updateTask}/>
 					</div>
-					<IconButton onClick={removeTaskHandler}>
+					<IconButton onClick={removeTask}>
 						<DeleteIcon/>
 					</IconButton>
 				</ListItem>
-			})}
-		</div>
+
+
 	);
 };
