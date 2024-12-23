@@ -1,47 +1,39 @@
-
-import {ChangeEvent} from "react";
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./common/EditableSpan";
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Button from "@mui/material/Button";
-import Checkbox from '@mui/material/Checkbox';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
 import Box from "@mui/material/Box";
-import {filterButtonsContainerSx, getListItemSx} from "./Todolist.styles";
-import {TaskType} from "./model/tasks-reducer";
-import {FilterValuesType, TodolistType} from "./model/todolists-reducer";
+import {filterButtonsContainerSx} from "./Todolist.styles";
+import {addTaskAC, TaskType} from "./model/tasks-reducer";
+import {TodolistType} from "./model/todolists-reducer";
 import {FilterTasksButtons} from "./FilterTasksButtons";
-import {useSelector} from "react-redux";
-import {RootStateType} from "./store";
+import {useDispatch} from "react-redux";
 import {Tasks} from "./Tasks";
 
 
 type PropsType = {
 	tasks: TaskType[]
-	todo:TodolistType,
-
+	todo: TodolistType,
 	removeTodolist: (todolistId: string) => void
- 	updateTodolist: (todolistId: string, title: string) => void
+	updateTodolist: (todolistId: string, title: string) => void
 }
 
 export const Todolist = (props: PropsType) => {
 	const {
 		tasks,
-  		removeTodolist,
- 		updateTodolist,
+		removeTodolist,
+		updateTodolist,
 		todo
 	} = props
-
-
+	const todolistId = todo.id
+	const dispatch = useDispatch()
 
 	const removeTodolistHandler = () => {
 		removeTodolist(todo.id)
 	}
 
 	const addTaskCallback = (title: string) => {
-		addTask(title, todo.id)
+		dispatch(addTaskAC({title, todolistId}))
 	}
 
 	const updateTodolistHandler = (title: string) => {
@@ -59,7 +51,7 @@ export const Todolist = (props: PropsType) => {
 			<AddItemForm addItem={addTaskCallback}/>
 			<Tasks tasks={tasks} todo={todo}/>
 			<Box sx={filterButtonsContainerSx}>
-				<FilterTasksButtons todo ={todo}/>
+				<FilterTasksButtons todo={todo}/>
 			</Box>
 		</div>
 	)
