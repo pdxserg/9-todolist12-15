@@ -20,7 +20,7 @@ type PropsType = {
 	todolistId: string
 	tasks: TaskType[]
 	removeTask: (taskId: string, todolistId: string) => void
-	changeFilter: (filter: FilterValuesType, todolistId: string) => void
+	// changeFilter: (filter: FilterValuesType, todolistId: string) => void
 	addTask: (title: string, todolistId: string) => void
 	changeTaskStatus: (taskId: string, taskStatus: boolean, todolistId: string) => void
 	filter: FilterValuesType
@@ -35,7 +35,7 @@ export const Todolist = (props: PropsType) => {
 		tasks,
 		filter,
 		removeTask,
-		changeFilter,
+		// changeFilter,
 		addTask,
 		changeTaskStatus,
 		todolistId,
@@ -99,24 +99,6 @@ export const Todolist = (props: PropsType) => {
 			}
 			<Box sx={filterButtonsContainerSx}>
 				<FilterTasksButtons filter={filter} todolistId={props.todolistId}/>
-				{/*<Button*/}
-				{/*	variant={filter === 'all' ? 'outlined' : 'text'}*/}
-				{/*	color={'inherit'}*/}
-				{/*	onClick={() => changeFilterTasksHandler('all')}>*/}
-				{/*	All*/}
-				{/*</Button>*/}
-				{/*<Button*/}
-				{/*	variant={filter === 'active' ? 'outlined' : 'text'}*/}
-				{/*	color={'primary'}*/}
-				{/*	onClick={() => changeFilterTasksHandler('active')}>*/}
-				{/*	Active*/}
-				{/*</Button>*/}
-				{/*<Button*/}
-				{/*	variant={filter === 'completed' ? 'outlined' : 'text'}*/}
-				{/*	color={'secondary'}*/}
-				{/*	onClick={() => changeFilterTasksHandler('completed')}>*/}
-				{/*	Completed*/}
-				{/*</Button>*/}
 			</Box>
 		</div>
 	)

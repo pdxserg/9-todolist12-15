@@ -34,10 +34,10 @@ export const Todolists = () => {
 		dispatch(changeStatusTaskAC({taskId, todolistId, status}))
 	}
 
-	const changeFilter = (filter: FilterValuesType, todolistId: string) => {
-
-		dispatch(changeTodolistFilter(todolistId, filter))
-	}
+	// const changeFilter = (filter: FilterValuesType, todolistId: string) => {
+	//
+	// 	dispatch(changeTodolistFilter(todolistId, filter))
+	// }
 
 	const removeTodolist = (todolistId: string) => {
 
@@ -79,7 +79,7 @@ export const Todolists = () => {
 								title={tl.title}
 								tasks={tasksForTodolist}
 								removeTask={removeTask}
-								changeFilter={changeFilter}
+								// changeFilter={changeFilter}
 								addTask={addTask}
 								changeTaskStatus={changeTaskStatus}
 								filter={tl.filter}
