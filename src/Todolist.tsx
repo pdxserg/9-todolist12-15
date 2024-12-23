@@ -18,10 +18,7 @@ import {RootStateType} from "./store";
 
 
 type PropsType = {
-	// title: string
-	// todolistId: string
-	  tasks: TaskType[]
-	// filter: FilterValuesType
+	tasks: TaskType[]
 	todo:TodolistType,
 	removeTask: (taskId: string, todolistId: string) => void
 	addTask: (title: string, todolistId: string) => void
@@ -51,11 +48,11 @@ export const Todolist = (props: PropsType) => {
 	}
 
 	const addTaskCallback = (title: string) => {
-		addTask(title, props.todo.id)
+		addTask(title, todo.id)
 	}
 
 	const updateTodolistHandler = (title: string) => {
-		updateTodolist(props.todo.id, title)
+		updateTodolist(todo.id, title)
 	}
 
 	return (
@@ -98,7 +95,7 @@ export const Todolist = (props: PropsType) => {
 					</List>
 			}
 			<Box sx={filterButtonsContainerSx}>
-				<FilterTasksButtons filter={todo.filter} todolistId={props.todo.id}/>
+				<FilterTasksButtons todo ={todo}/>
 			</Box>
 		</div>
 	)

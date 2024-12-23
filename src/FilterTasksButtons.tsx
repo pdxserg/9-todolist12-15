@@ -6,8 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootStateType} from "./store";
 
 type PropsType={
-	filter: FilterValuesType
-	todolistId: string
+	todo:TodolistType
 }
 export const FilterTasksButtons = (props: PropsType) => {
 	const todolists = useSelector<RootStateType, TodolistType[]>(state => state.todolists)
@@ -15,25 +14,25 @@ export const FilterTasksButtons = (props: PropsType) => {
 	const dispatch = useDispatch()
 
 	const changeFilterTasksHandler = (filter: FilterValuesType) => {
-		dispatch(changeTodolistFilter(props.todolistId, filter))
+		dispatch(changeTodolistFilter(props.todo.id, filter))
 	}
 
 	return (
 		<>
 		<Button
-			variant={props.filter === 'all' ? 'outlined' : 'text'}
+			variant={props.todo.filter === 'all' ? 'outlined' : 'text'}
 			color={'inherit'}
 			onClick={() => changeFilterTasksHandler('all')}>
 			All
 		</Button>
 		<Button
-			variant={props.filter === 'active' ? 'outlined' : 'text'}
+			variant={props.todo.filter === 'active' ? 'outlined' : 'text'}
 			color={'primary'}
 			onClick={() => changeFilterTasksHandler('active')}>
 			Active
 		</Button>
 		<Button
-			variant={props.filter === 'completed' ? 'outlined' : 'text'}
+			variant={props.todo.filter === 'completed' ? 'outlined' : 'text'}
 			color={'secondary'}
 			onClick={() => changeFilterTasksHandler('completed')}>
 			Completed
