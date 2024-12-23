@@ -7,10 +7,8 @@ import {useDispatch} from "react-redux";
 import {addTodolistAC,} from "./model/todolists-reducer";
 import {Todolists} from "./Todolists";
 
-type Props = {
 
-};
-export const Main = (props: Props) => {
+export const Main = () => {
 	const dispatch = useDispatch()
 	const addTodolist = (title: string) => {
 		dispatch(addTodolistAC(title))

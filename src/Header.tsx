@@ -9,13 +9,10 @@ import AppBar from "@mui/material/AppBar";
 import {changeModeAC, ThemeMode} from "./model/theme-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {RootStateType} from "./store";
-import {createTheme} from "@mui/material/styles";
 import { getTheme } from './common/theme/theme';
 
-type Props = {
 
-};
-export const Header = (props: Props) => {
+export const Header = () => {
 	  const themeMode = useSelector<RootStateType,ThemeMode>(state => state.themeMode.themeMode)
 
 	const theme = getTheme(themeMode)
