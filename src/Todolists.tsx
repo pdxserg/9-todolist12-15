@@ -12,18 +12,6 @@ export const Todolists = () => {
 	const todolists = useSelector<RootStateType, TodolistType[]>(state => state.todolists)
 	const tasks = useSelector<RootStateType, TasksStateType>(state => state.tasks)
 
-
-	const dispatch = useDispatch()
-
-	const removeTodolist = (todolistId: string) => {
-		dispatch(removeTodolistAC(todolistId))
-	}
-
-
-	const updateTodolist = (todolistId: string, title: string) => {
-		dispatch(changeTodolistTitleAC(todolistId, title))
-	}
-
 	return (
 		<div>
 			{todolists.map((tl) => {
@@ -45,8 +33,6 @@ export const Todolists = () => {
 							<Todolist
 								todo={tl}
 								tasks={tasksForTodolist}
-								removeTodolist={removeTodolist}
-								updateTodolist={updateTodolist}
 							/>
 						</Paper>
 					</Grid>
