@@ -11,18 +11,22 @@ import ListItem from '@mui/material/ListItem';
 import Box from "@mui/material/Box";
 import {filterButtonsContainerSx, getListItemSx} from "./Todolist.styles";
 import {TaskType} from "./model/tasks-reducer";
-import {FilterValuesType} from "./model/todolists-reducer";
+import {FilterValuesType, TodolistType} from "./model/todolists-reducer";
 import {FilterTasksButtons} from "./FilterTasksButtons";
+import {useSelector} from "react-redux";
+import {RootStateType} from "./store";
 
 
 type PropsType = {
-	title: string
-	todolistId: string
-	tasks: TaskType[]
+	// title: string
+	// todolistId: string
+	  tasks: TaskType[]
+	// filter: FilterValuesType
+	todo:TodolistType,
 	removeTask: (taskId: string, todolistId: string) => void
 	addTask: (title: string, todolistId: string) => void
 	changeTaskStatus: (taskId: string, taskStatus: boolean, todolistId: string) => void
-	filter: FilterValuesType
+
 	removeTodolist: (todolistId: string) => void
 	updateTask: (todolistId: string, taskId: string, title: string) => void
 	updateTodolist: (todolistId: string, title: string) => void
@@ -30,36 +34,34 @@ type PropsType = {
 
 export const Todolist = (props: PropsType) => {
 	const {
-		title,
 		tasks,
-		filter,
 		removeTask,
 		addTask,
 		changeTaskStatus,
-		todolistId,
 		removeTodolist,
 		updateTask,
-		updateTodolist
+		updateTodolist,
+		todo
 	} = props
 
 
 
 	const removeTodolistHandler = () => {
-		removeTodolist(todolistId)
+		removeTodolist(todo.id)
 	}
 
 	const addTaskCallback = (title: string) => {
-		addTask(title, props.todolistId)
+		addTask(title, props.todo.id)
 	}
 
 	const updateTodolistHandler = (title: string) => {
-		updateTodolist(props.todolistId, title)
+		updateTodolist(props.todo.id, title)
 	}
 
 	return (
 		<div>
 			<div className={"todolist-title-container"}>
-				<h3><EditableSpan value={title} onChange={updateTodolistHandler}/></h3>
+				<h3><EditableSpan value={todo.title} onChange={updateTodolistHandler}/></h3>
 				<IconButton onClick={removeTodolistHandler}>
 					<DeleteIcon/>
 				</IconButton>
@@ -72,16 +74,16 @@ export const Todolist = (props: PropsType) => {
 						{tasks.map((task) => {
 
 							const removeTaskHandler = () => {
-								removeTask(task.id, todolistId)
+								removeTask(task.id, todo.id)
 							}
 
 							const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
 								const newStatusValue = e.currentTarget.checked
-								changeTaskStatus(task.id, newStatusValue, todolistId)
+								changeTaskStatus(task.id, newStatusValue, todo.id)
 							}
 
 							const changeTaskTitleHandler = (title: string) => {
-								updateTask(todolistId, task.id, title)
+								updateTask(todo.id, task.id, title)
 							}
 							return <ListItem key={task.id} sx={getListItemSx(task.isDone)}>
 								<div>
@@ -96,7 +98,7 @@ export const Todolist = (props: PropsType) => {
 					</List>
 			}
 			<Box sx={filterButtonsContainerSx}>
-				<FilterTasksButtons filter={filter} todolistId={props.todolistId}/>
+				<FilterTasksButtons filter={todo.filter} todolistId={props.todo.id}/>
 			</Box>
 		</div>
 	)

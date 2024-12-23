@@ -5,12 +5,7 @@ import Paper from "@mui/material/Paper";
 import {Todolist} from "./Todolist";
 import {useDispatch, useSelector} from "react-redux";
 import {RootStateType} from "./store";
-import {
-	changeTodolistFilter, changeTodolistTitleAC,
-	FilterValuesType,
-	removeTodolistAC,
-	TodolistType
-} from "./model/todolists-reducer";
+import {changeTodolistTitleAC, removeTodolistAC, TodolistType} from "./model/todolists-reducer";
 import {addTaskAC, changeStatusTaskAC, removeTaskAC, TasksStateType, updateTaskAC} from "./model/tasks-reducer";
 
 export const Todolists = () => {
@@ -41,7 +36,6 @@ export const Todolists = () => {
 	}
 
 
-
 	const updateTask = (todolistId: string, taskId: string, title: string) => {
 		dispatch(updateTaskAC({taskId, todolistId, title}))
 	}
@@ -69,14 +63,14 @@ export const Todolists = () => {
 					<Grid key={tl.id}>
 						<Paper sx={{p: '0 20px 20px 20px'}}>
 							<Todolist
-
-								todolistId={tl.id}
-								title={tl.title}
-								tasks={tasksForTodolist}
+								todo={tl}
+								// todolistId={tl.id}
+								// title={tl.title}
+								 tasks={tasksForTodolist}
+								// filter={tl.filter}
 								removeTask={removeTask}
 								addTask={addTask}
 								changeTaskStatus={changeTaskStatus}
-								filter={tl.filter}
 								removeTodolist={removeTodolist}
 								updateTask={updateTask}
 								updateTodolist={updateTodolist}

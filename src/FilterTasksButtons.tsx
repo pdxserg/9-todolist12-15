@@ -1,14 +1,17 @@
 // @flow
 import * as React from 'react';
 import Button from "@mui/material/Button";
-import {changeTodolistFilter, FilterValuesType} from "./model/todolists-reducer";
-import {useDispatch} from "react-redux";
+import {changeTodolistFilter, FilterValuesType, TodolistType} from "./model/todolists-reducer";
+import {useDispatch, useSelector} from "react-redux";
+import {RootStateType} from "./store";
 
 type PropsType={
 	filter: FilterValuesType
 	todolistId: string
 }
 export const FilterTasksButtons = (props: PropsType) => {
+	const todolists = useSelector<RootStateType, TodolistType[]>(state => state.todolists)
+	const{filter}=todolists
 	const dispatch = useDispatch()
 
 	const changeFilterTasksHandler = (filter: FilterValuesType) => {
