@@ -1,7 +1,4 @@
 import {AddItemForm} from "./AddItemForm";
-
-import Box from "@mui/material/Box";
-import {filterButtonsContainerSx} from "./Todolist.styles";
 import {addTaskAC} from "./model/tasks-reducer";
 import {TodolistType} from "./model/todolists-reducer";
 import {FilterTasksButtons} from "./FilterTasksButtons";
