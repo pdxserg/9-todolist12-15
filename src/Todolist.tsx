@@ -21,24 +21,16 @@ import {Tasks} from "./Tasks";
 type PropsType = {
 	tasks: TaskType[]
 	todo:TodolistType,
-	removeTask: (taskId: string, todolistId: string) => void
-	addTask: (title: string, todolistId: string) => void
-	changeTaskStatus: (taskId: string, taskStatus: boolean, todolistId: string) => void
 
 	removeTodolist: (todolistId: string) => void
-	updateTask: (todolistId: string, taskId: string, title: string) => void
-	updateTodolist: (todolistId: string, title: string) => void
+ 	updateTodolist: (todolistId: string, title: string) => void
 }
 
 export const Todolist = (props: PropsType) => {
 	const {
 		tasks,
-		removeTask,
-		addTask,
-		changeTaskStatus,
-		removeTodolist,
-		updateTask,
-		updateTodolist,
+  		removeTodolist,
+ 		updateTodolist,
 		todo
 	} = props
 

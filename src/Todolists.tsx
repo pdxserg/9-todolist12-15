@@ -6,7 +6,7 @@ import {Todolist} from "./Todolist";
 import {useDispatch, useSelector} from "react-redux";
 import {RootStateType} from "./store";
 import {changeTodolistTitleAC, removeTodolistAC, TodolistType} from "./model/todolists-reducer";
-import {addTaskAC, changeStatusTaskAC, removeTaskAC, TasksStateType, updateTaskAC} from "./model/tasks-reducer";
+import {TasksStateType} from "./model/tasks-reducer";
 
 export const Todolists = () => {
 	const todolists = useSelector<RootStateType, TodolistType[]>(state => state.todolists)
@@ -18,8 +18,6 @@ export const Todolists = () => {
 	const removeTodolist = (todolistId: string) => {
 		dispatch(removeTodolistAC(todolistId))
 	}
-
-
 
 
 	const updateTodolist = (todolistId: string, title: string) => {
@@ -46,15 +44,8 @@ export const Todolists = () => {
 						<Paper sx={{p: '0 20px 20px 20px'}}>
 							<Todolist
 								todo={tl}
-								// todolistId={tl.id}
-								// title={tl.title}
-								 tasks={tasksForTodolist}
-								// filter={tl.filter}
-								removeTask={removeTask}
-								addTask={addTask}
-								changeTaskStatus={changeTaskStatus}
+								tasks={tasksForTodolist}
 								removeTodolist={removeTodolist}
-								updateTask={updateTask}
 								updateTodolist={updateTodolist}
 							/>
 						</Paper>
