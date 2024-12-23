@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 import Button from "@mui/material/Button";
-import {FilterValuesType} from "./model/todolists-reducer";
+import {changeTodolistFilter, FilterValuesType} from "./model/todolists-reducer";
 import {useDispatch} from "react-redux";
 
 type PropsType={
@@ -12,8 +12,7 @@ export const FilterTasksButtons = (props: PropsType) => {
 	const dispatch = useDispatch()
 
 	const changeFilterTasksHandler = (filter: FilterValuesType) => {
-		dispatch()
-		changeFilter(filter, props.todolistId)
+		dispatch(changeTodolistFilter(props.todolistId, filter))
 	}
 
 	return (
