@@ -20,14 +20,14 @@ export const Todolist = ({todo}: PropsType) => {
 	const todolistId = todo.id
 	const dispatch = useDispatch()
 
-	const addTaskCallback = (title: string) => {
+	const addTask= (title: string) => {
 		dispatch(addTaskAC({title, todolistId}))
 	}
 
 	return (
 		<div>
 			<TodolistTitle todo={todo}/>
-			<AddItemForm addItem={addTaskCallback}/>
+			<AddItemForm addItem={addTask}/>
 			<Tasks todo={todo}/>
 			<Box sx={filterButtonsContainerSx}>
 				<FilterTasksButtons todo={todo}/>
