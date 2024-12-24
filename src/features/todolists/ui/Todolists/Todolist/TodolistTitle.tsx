@@ -1,9 +1,9 @@
 // @flow
 import * as React from 'react';
-import {EditableSpan} from "./common/EditableSpan";
+import {EditableSpan} from "../../../../../common/EditableSpan";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import {changeTodolistTitleAC, removeTodolistAC, TodolistType} from "./model/todolists-reducer";
+import {changeTodolistTitleAC, removeTodolistAC, TodolistType} from "../../../../../model/todolists-reducer";
 import {useDispatch} from "react-redux";
 
 type Props = {

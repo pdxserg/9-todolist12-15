@@ -1,11 +1,11 @@
 // @flow
 import * as React from 'react';
 import Grid from "@mui/material/Unstable_Grid2";
-import {AddItemForm} from "./AddItemForm";
+import {AddItemForm} from "./features/todolists/ui/Todolists/AddItemForm";
 import Container from "@mui/material/Container";
 import {useDispatch} from "react-redux";
 import {addTodolistAC,} from "./model/todolists-reducer";
-import {Todolists} from "./Todolists";
+import {Todolists} from "./features/todolists/ui/Todolists/Todolists";
 
 
 export const Main = () => {

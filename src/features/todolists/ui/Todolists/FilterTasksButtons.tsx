@@ -1,9 +1,9 @@
 // @flow
 import * as React from 'react';
 import Button from "@mui/material/Button";
-import {changeTodolistFilter, FilterValuesType, TodolistType} from "./model/todolists-reducer";
+import {changeTodolistFilter, FilterValuesType, TodolistType} from "../../../../model/todolists-reducer";
 import {useDispatch} from "react-redux";
-import {filterButtonsContainerSx} from "./Todolist.styles";
+import {filterButtonsContainerSx} from "./Todolist/Todolist.styles";
 import Box from "@mui/material/Box";
 
 type PropsType = {

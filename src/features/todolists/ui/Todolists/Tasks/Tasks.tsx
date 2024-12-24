@@ -1,11 +1,11 @@
 // @flow
 import * as React from 'react';
 import List from "@mui/material/List";
-import {TasksStateType,} from "./model/tasks-reducer";
+import {TasksStateType,} from "../../../../../model/tasks-reducer";
 import { useSelector} from 'react-redux';
-import {TodolistType} from "./model/todolists-reducer";
-import {RootStateType} from "./store";
-import {Task} from "./Task";
+import {TodolistType} from "../../../../../model/todolists-reducer";
+import {RootStateType} from "../../../../../store";
+import {Task} from "./Task/Task";
 
 type Props ={
 	todo:TodolistType,
