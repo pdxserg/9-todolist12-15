@@ -6,12 +6,13 @@ import { useSelector} from 'react-redux';
 import {TodolistType} from "../../../model/todolists-reducer";
 import {RootStateType} from "../../../../../app/store";
 import {Task} from "./Task/Task";
+import {useAppSelector} from "../../../../../common/hooks/useAppSelector";
 
 type Props ={
 	todo:TodolistType,
 };
 export const Tasks = ({ todo}: Props) => {
-	const tasks = useSelector<RootStateType, TasksStateType>(state => state.tasks)
+	const tasks = useAppSelector(state => state.tasks)
 
 
 

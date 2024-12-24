@@ -7,10 +7,11 @@ import { useSelector} from "react-redux";
 import {RootStateType} from "../../../../app/store";
 import { TodolistType} from "../../model/todolists-reducer";
 import {TasksStateType} from "../../model/tasks-reducer";
+import {useAppSelector} from "../../../../common/hooks/useAppSelector";
 
 export const Todolists = () => {
-	const todolists = useSelector<RootStateType, TodolistType[]>(state => state.todolists)
-	const tasks = useSelector<RootStateType, TasksStateType>(state => state.tasks)
+	const todolists = useAppSelector(state => state.todolists)
+
 
 	return (
 		<div>
