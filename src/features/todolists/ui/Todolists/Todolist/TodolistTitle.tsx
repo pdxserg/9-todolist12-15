@@ -1,16 +1,18 @@
 // @flow
 import * as React from 'react';
-import {EditableSpan} from "../../../../../common/EditableSpan";
+import {EditableSpan} from "../../../../../common/components/EditableSpan";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import {changeTodolistTitleAC, removeTodolistAC, TodolistType} from "../../../../../model/todolists-reducer";
-import {useDispatch} from "react-redux";
+import {changeTodolistTitleAC, removeTodolistAC, TodolistType} from "../../../model/todolists-reducer";
+import { useAppDispatch } from '../../../../../common/hooks/useAppDispatch';
+
+
 
 type Props = {
 	todo: TodolistType,
 };
 export const TodolistTitle = ({todo}: Props) => {
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 
 
 	const removeTodolistHandler = () => {

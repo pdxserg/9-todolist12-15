@@ -4,9 +4,9 @@ import {ThemeProvider} from '@mui/material/styles';
 import CssBaseline from "@mui/material/CssBaseline";
 import {useSelector} from "react-redux";
 import {RootStateType} from "./store";
-import {Header} from "./Header";
-import {getTheme} from './common/theme/theme';
-import {ThemeMode} from "./model/theme-reducer";
+import {Header} from "../common/components/Header";
+import {getTheme} from '../common/theme/theme';
+import {ThemeMode} from "../features/todolists/model/theme-reducer";
 import {Main} from "./Main";
 
 

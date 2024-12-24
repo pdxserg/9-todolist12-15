@@ -3,20 +3,21 @@ import * as React from 'react';
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import {MenuButton} from "./common/MenuButton";
+import {MenuButton} from "./MenuButton";
 import Switch from "@mui/material/Switch";
 import AppBar from "@mui/material/AppBar";
-import {changeModeAC, ThemeMode} from "./model/theme-reducer";
-import {useDispatch, useSelector} from "react-redux";
-import {RootStateType} from "./store";
-import { getTheme } from './common/theme/theme';
+import {changeModeAC, ThemeMode} from "../../features/todolists/model/theme-reducer";
+import {  useSelector} from "react-redux";
+import {RootStateType} from "../../app/store";
+import { getTheme } from '../theme/theme';
+import { useAppDispatch } from '../hooks/useAppDispatch';
 
 
 export const Header = () => {
 	  const themeMode = useSelector<RootStateType,ThemeMode>(state => state.themeMode.themeMode)
 
 	const theme = getTheme(themeMode)
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 
 	const changeModeHandler = () => {
 		dispatch(changeModeAC())

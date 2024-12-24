@@ -4,12 +4,13 @@ import {ChangeEvent} from "react";
 import ListItem from "@mui/material/ListItem";
 import {getListItemSx} from "../../Todolist/Todolist.styles";
 import Checkbox from "@mui/material/Checkbox";
-import {EditableSpan} from "../../../../../../common/EditableSpan";
+import {EditableSpan} from "../../../../../../common/components/EditableSpan";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import {TodolistType} from "../../../../../../model/todolists-reducer";
-import {useDispatch} from "react-redux";
-import {changeStatusTaskAC, removeTaskAC, TaskType, updateTaskAC} from "../../../../../../model/tasks-reducer";
+import {TodolistType} from "../../../../model/todolists-reducer";
+
+import {changeStatusTaskAC, removeTaskAC, TaskType, updateTaskAC} from "../../../../model/tasks-reducer";
+import {useAppDispatch} from "../../../../../../common/hooks/useAppDispatch";
 
 type Props = {
 	task:TaskType,
@@ -17,7 +18,7 @@ type Props = {
 };
 export const Task = ({todo,task }: Props) => {
 
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 
 	const removeTask = () => {
 		dispatch(removeTaskAC({taskId:task.id, todolistId: todo.id}))

@@ -1,5 +1,5 @@
 import {createTheme} from "@mui/material/styles";
-import {ThemeMode} from "../../model/theme-reducer";
+import {ThemeMode} from "../../features/todolists/model/theme-reducer";
 
 
 
