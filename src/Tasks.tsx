@@ -1,7 +1,6 @@
 // @flow
 import * as React from 'react';
 import List from "@mui/material/List";
-"@mui/icons-material/Delete";
 import {TasksStateType,} from "./model/tasks-reducer";
 import { useSelector} from 'react-redux';
 import {TodolistType} from "./model/todolists-reducer";
@@ -13,6 +12,8 @@ type Props ={
 };
 export const Tasks = ({ todo}: Props) => {
 	const tasks = useSelector<RootStateType, TasksStateType>(state => state.tasks)
+
+
 
 	const allTodolistTasks = tasks[todo.id]
 	let tasksForTodolist = allTodolistTasks
