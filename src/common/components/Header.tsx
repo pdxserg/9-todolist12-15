@@ -6,11 +6,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 import {MenuButton} from "./MenuButton";
 import Switch from "@mui/material/Switch";
 import AppBar from "@mui/material/AppBar";
-import {changeModeAC, ThemeMode} from "../../features/todolists/model/theme-reducer";
-import {  useSelector} from "react-redux";
-import {RootStateType} from "../../app/store";
-import { getTheme } from '../theme/theme';
-import { useAppDispatch } from '../hooks/useAppDispatch';
+import {changeModeAC} from "../../features/todolists/model/theme-reducer";
+import {getTheme} from '../theme/theme';
+import {useAppDispatch} from '../hooks/useAppDispatch';
 import {useAppSelector} from "../hooks/useAppSelector";
 import {selectThemeMode} from "../../app/appSelectors";
 
