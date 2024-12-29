@@ -3,7 +3,7 @@ import React, {ChangeEvent, useEffect, useState} from 'react'
 import {AddItemForm} from "../common/components/AddItemForm";
 import {EditableSpan} from "../common/components/EditableSpan";
 import axios from "axios";
-import {token} from "./token/token";
+import {headersToken, token} from "./token/token";
 
 
 type TodolistsType = TodolistType[]
@@ -20,9 +20,7 @@ export const AppHttpRequests = () => {
 
 	useEffect(() => {
 		axios.get('https://social-network.samuraijs.com/api/1.1/todo-lists', {
-			headers: {
-				Authorization: `Bearer ${token}`
-			}
+			headers: headersToken
 		})
 			.then(res => {
 				console.log(res.data)
@@ -36,12 +34,7 @@ export const AppHttpRequests = () => {
 		axios
 			.post(
 				'https://social-network.samuraijs.com/api/1.1/todo-lists',
-				{title},
-				{
-					headers: {
-						Authorization: `Bearer ${token}`
-					}
-				})
+				{title}, {headers: headersToken})
 			.then(res => {
 				console.log(res.data)
 			})
