@@ -6,7 +6,7 @@ import axios from "axios";
 import {token} from "./token/token";
 
 
-
+type TodolistsType= TodolistType[]
 type TodolistType={
 	id:string,
 	title: string,
@@ -15,7 +15,7 @@ type TodolistType={
 
 }
 export const AppHttpRequests = () => {
-	const [todolists, setTodolists] = useState<any>([])
+	const [todolists, setTodolists] = useState<TodolistsType>([])
 	const [tasks, setTasks] = useState<any>({})
 
 	useEffect(() => {
@@ -26,6 +26,7 @@ export const AppHttpRequests = () => {
 		})
 			.then(res => {
 			console.log(res.data)
+				setTodolists(res.data)
 		})
 
 	}, [])
