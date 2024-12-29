@@ -3,6 +3,7 @@ import React, { ChangeEvent, useEffect, useState } from 'react'
 import {AddItemForm} from "../common/components/AddItemForm";
 import {EditableSpan} from "../common/components/EditableSpan";
 import axios from "axios";
+import {token} from "./token/token";
 
 
 export const AppHttpRequests = () => {
@@ -10,7 +11,11 @@ export const AppHttpRequests = () => {
 	const [tasks, setTasks] = useState<any>({})
 
 	useEffect(() => {
-		axios.get('https://social-network.samuraijs.com/api/1.1/todo-lists')
+		axios.get('https://social-network.samuraijs.com/api/1.1/todo-lists',{
+			headers:{
+				Authorization: `Bearer ${token}`
+			}
+		})
 			.then(res => {
 			console.log(res.data)
 		})
