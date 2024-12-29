@@ -36,12 +36,22 @@ export const AppHttpRequests = () => {
 				'https://social-network.samuraijs.com/api/1.1/todo-lists',
 				{title}, {headers: headersToken})
 			.then(res => {
-				console.log(res.data)
+				console.log(res.data.item)
+
 			})
 	}
 
 	const removeTodolistHandler = (id: string) => {
 		// remove todolist
+		axios
+			.delete<any>(
+				`https://social-network.samuraijs.com/api/1.1/todo-lists/${id}`,
+				{headers: headersToken}
+				)
+			.then(res => {
+				console.log(res.data)
+
+			})
 	}
 
 	const updateTodolistHandler = (id: string, title: string) => {
