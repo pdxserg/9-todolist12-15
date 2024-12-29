@@ -6,6 +6,14 @@ import axios from "axios";
 import {token} from "./token/token";
 
 
+
+type TodolistType={
+	id:string,
+	title: string,
+	addedDate: string,
+	order: number
+
+}
 export const AppHttpRequests = () => {
 	const [todolists, setTodolists] = useState<any>([])
 	const [tasks, setTasks] = useState<any>({})
