@@ -3,14 +3,11 @@ import * as React from 'react';
 import Grid from "@mui/material/Unstable_Grid2";
 import Paper from "@mui/material/Paper";
 import {Todolist} from "./Todolist/Todolist";
-import { useSelector} from "react-redux";
-import {RootStateType} from "../../../../app/store";
-import { TodolistType} from "../../model/todolists-reducer";
-import {TasksStateType} from "../../model/tasks-reducer";
 import {useAppSelector} from "../../../../common/hooks/useAppSelector";
+import {selectTodolists} from "../../model/todolistsSelectors";
 
 export const Todolists = () => {
-	const todolists = useAppSelector(state => state.todolists)
+	const todolists = useAppSelector(selectTodolists)
 
 
 	return (
