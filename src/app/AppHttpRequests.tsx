@@ -1,14 +1,14 @@
 import Checkbox from '@mui/material/Checkbox'
-import React, { ChangeEvent, useEffect, useState } from 'react'
+import React, {ChangeEvent, useEffect, useState} from 'react'
 import {AddItemForm} from "../common/components/AddItemForm";
 import {EditableSpan} from "../common/components/EditableSpan";
 import axios from "axios";
 import {token} from "./token/token";
 
 
-type TodolistsType= TodolistType[]
-type TodolistType={
-	id:string,
+type TodolistsType = TodolistType[]
+type TodolistType = {
+	id: string,
 	title: string,
 	addedDate: string,
 	order: number
@@ -19,20 +19,32 @@ export const AppHttpRequests = () => {
 	const [tasks, setTasks] = useState<any>({})
 
 	useEffect(() => {
-		axios.get('https://social-network.samuraijs.com/api/1.1/todo-lists',{
-			headers:{
+		axios.get('https://social-network.samuraijs.com/api/1.1/todo-lists', {
+			headers: {
 				Authorization: `Bearer ${token}`
 			}
 		})
 			.then(res => {
-			console.log(res.data)
+				console.log(res.data)
 				setTodolists(res.data)
-		})
+			})
 
 	}, [])
 
 	const createTodolistHandler = (title: string) => {
 		// create todolist
+		axios
+			.post(
+				'https://social-network.samuraijs.com/api/1.1/todo-lists',
+				{title},
+				{
+					headers: {
+						Authorization: `Bearer ${token}`
+					}
+				})
+			.then(res => {
+				console.log(res.data)
+			})
 	}
 
 	const removeTodolistHandler = (id: string) => {
@@ -60,8 +72,8 @@ export const AppHttpRequests = () => {
 	}
 
 	return (
-		<div style={{ margin: '20px' }}>
-			<AddItemForm addItem={createTodolistHandler} />
+		<div style={{margin: '20px'}}>
+			<AddItemForm addItem={createTodolistHandler}/>
 
 			{/* Todolists */}
 			{todolists.map((tl: any) => {
@@ -74,7 +86,7 @@ export const AppHttpRequests = () => {
 							/>
 							<button onClick={() => removeTodolistHandler(tl.id)}>x</button>
 						</div>
-						<AddItemForm addItem={title => createTaskHandler(title, tl.id)} />
+						<AddItemForm addItem={title => createTaskHandler(title, tl.id)}/>
 
 						{/* Tasks */}
 						{!!tasks[tl.id] &&
