@@ -7,12 +7,13 @@ import {Header} from "../common/components/Header";
 import {getTheme} from '../common/theme/theme';
  import {Main} from "./Main";
 import {useAppSelector} from "../common/hooks/useAppSelector";
+import {selectThemeMode} from "./appSelectors";
 
 
 
 
 function App() {
-	const themeMode = useAppSelector(state => state.themeMode.themeMode)
+	const themeMode = useAppSelector(selectThemeMode)
 
 	const theme = getTheme(themeMode)
 

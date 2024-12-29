@@ -11,10 +11,13 @@ import {  useSelector} from "react-redux";
 import {RootStateType} from "../../app/store";
 import { getTheme } from '../theme/theme';
 import { useAppDispatch } from '../hooks/useAppDispatch';
+import {useAppSelector} from "../hooks/useAppSelector";
+import {selectThemeMode} from "../../app/appSelectors";
 
 
 export const Header = () => {
-	  const themeMode = useSelector<RootStateType,ThemeMode>(state => state.themeMode.themeMode)
+	const themeMode = useAppSelector(selectThemeMode)
+
 
 	const theme = getTheme(themeMode)
 	const dispatch = useAppDispatch()
