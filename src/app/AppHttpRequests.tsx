@@ -21,6 +21,12 @@ type PostType={
 	messages: [],
 	fieldsErrors: [],
 }
+type DeleteTodoType={
+	data: {}
+	fieldsErrors: []
+	messages: []
+	resultCode: number
+}
 export const AppHttpRequests = () => {
 	const [todolists, setTodolists] = useState<TodolistsType>([])
 	const [tasks, setTasks] = useState<any>({})
@@ -33,6 +39,7 @@ export const AppHttpRequests = () => {
 				console.log(res.data)
 				setTodolists(res.data)
 			})
+		
 
 	}, [])
 
@@ -54,7 +61,7 @@ export const AppHttpRequests = () => {
 	const removeTodolistHandler = (id: string) => {
 		// remove todolist
 		axios
-			.delete<any>(
+			.delete<DeleteTodoType>(
 				`https://social-network.samuraijs.com/api/1.1/todo-lists/${id}`,
 				{headers: headersToken}
 				)
