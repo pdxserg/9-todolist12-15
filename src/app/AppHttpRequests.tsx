@@ -12,14 +12,21 @@ type TodolistType = {
 	title: string,
 	addedDate: string,
 	order: number
-
+}
+type PostType={
+	data:{
+		item:TodolistsType
+	},
+	resultCode: number,
+	messages: [],
+	fieldsErrors: [],
 }
 export const AppHttpRequests = () => {
 	const [todolists, setTodolists] = useState<TodolistsType>([])
 	const [tasks, setTasks] = useState<any>({})
 
 	useEffect(() => {
-		axios.get('https://social-network.samuraijs.com/api/1.1/todo-lists', {
+		axios.get<TodolistsType>('https://social-network.samuraijs.com/api/1.1/todo-lists', {
 			headers: headersToken
 		})
 			.then(res => {
@@ -32,11 +39,14 @@ export const AppHttpRequests = () => {
 	const createTodolistHandler = (title: string) => {
 		// create todolist
 		axios
-			.post(
+			.post<PostType>(
 				'https://social-network.samuraijs.com/api/1.1/todo-lists',
 				{title}, {headers: headersToken})
 			.then(res => {
-				console.log(res.data.item)
+				console.log(res.data.data.item)
+				const newTod = res.data.data.item
+				// @ts-ignore
+				setTodolists([newTod, ...todolists])
 
 			})
 	}
