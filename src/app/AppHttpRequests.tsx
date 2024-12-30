@@ -60,7 +60,7 @@ export const AppHttpRequests = () => {
 				)
 			.then(res => {
 				console.log(res.data)
-
+				setTodolists(todolists.filter((t)=>t.id!==id))
 			})
 	}
 
