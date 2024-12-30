@@ -66,6 +66,16 @@ export const AppHttpRequests = () => {
 
 	const updateTodolistHandler = (id: string, title: string) => {
 		// update todolist title
+		axios
+			.put<any>(
+				`https://social-network.samuraijs.com/api/1.1/todo-lists/${id}`,
+				{title},
+				{headers: headersToken}
+			)
+			.then(res => {
+				console.log(res.data)
+				setTodolists(todolists.map((t)=>t.id===id? {...t, title}:t))
+			})
 	}
 
 	const createTaskHandler = (title: string, todolistId: string) => {
