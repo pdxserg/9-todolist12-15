@@ -27,6 +27,25 @@ type DeleteTodoType={
 	messages: []
 	resultCode: number
 }
+export type GetTasksResponse = {
+	error: string | null
+	totalCount: number
+	items: DomainTask[]
+}
+export type DomainTask = {
+	description:  string
+	title: string
+	completed: boolean
+	status: number
+	priority: number
+	startDate: string
+	deadline:  string
+	id:  string
+	todoListId: string
+	order: number
+	addedDate: string
+}
+
 export const AppHttpRequests = () => {
 	const [todolists, setTodolists] = useState<TodolistsType>([])
 	const [tasks, setTasks] = useState<any>({})
@@ -40,11 +59,12 @@ export const AppHttpRequests = () => {
 				const todolists = res.data
 				setTodolists(todolists)
 					todolists.forEach((tl)=> {
-						axios.get<any>(`https://social-network.samuraijs.com/api/1.1/todo-lists/${tl.id}/tasks`, {
+						axios.get<GetTasksResponse>(`https://social-network.samuraijs.com/api/1.1/todo-lists/${tl.id}/tasks`, {
 							headers: headersToken
 						})
 							.then(res => {
-								console.log(res.data)
+								console.log(res.data.items)
+								setTasks({ ...tasks, [tl.id]: res.data.items })
 							})
 					})
 			})
