@@ -37,9 +37,18 @@ export const AppHttpRequests = () => {
 		})
 			.then(res => {
 				console.log(res.data)
-				setTodolists(res.data)
+				const todolists = res.data
+				setTodolists(todolists)
+					todolists.forEach((tl)=> {
+						axios.get<any>(`https://social-network.samuraijs.com/api/1.1/todo-lists/${tl.id}/tasks`, {
+							headers: headersToken
+						})
+							.then(res => {
+								console.log(res.data)
+							})
+					})
 			})
-		
+
 
 	}, [])
 
