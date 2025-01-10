@@ -129,7 +129,9 @@ export const AppHttpRequests = () => {
 				`https://social-network.samuraijs.com/api/1.1/todo-lists/${todolistId}/tasks`,
 				{title}, {headers: headersToken})
 			.then(res => {
-				console.log(res.data.data.item.title)
+				console.log(res.data.data.item)
+				const newTask = res.data.data.item
+				setTasks({...tasks,[todolistId]:[newTask, ...tasks[todolistId]]})
 
 			})
 
@@ -138,7 +140,7 @@ export const AppHttpRequests = () => {
 	const removeTaskHandler = (taskId: string, todolistId: string) => {
 		// remove task
 		axios
-			.delete<any>(
+			.delete<DeleteType>(
 				`https://social-network.samuraijs.com/api/1.1/todo-lists/${todolistId}/tasks/${taskId}`,
 				 {headers: headersToken})
 			.then(res => {
