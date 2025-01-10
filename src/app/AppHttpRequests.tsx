@@ -116,6 +116,15 @@ export const AppHttpRequests = () => {
 
 	const createTaskHandler = (title: string, todolistId: string) => {
 		// create task
+		axios
+			.post<PostType>(
+				`https://social-network.samuraijs.com/api/1.1/todo-lists/${todolistId}/tasks`,
+				{title}, {headers: headersToken})
+			.then(res => {
+				console.log(res.data)
+
+			})
+
 	}
 
 	const removeTaskHandler = (taskId: string, todolistId: string) => {
