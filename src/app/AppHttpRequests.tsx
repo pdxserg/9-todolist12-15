@@ -33,13 +33,13 @@ export type GetTasksResponse = {
 	items: DomainTask[]
 }
 export type DomainTask = {
-	description:  string
+	description:  string | null
 	title: string
 	completed: boolean
 	status: number
 	priority: number
-	startDate: string
-	deadline:  string
+	startDate: string| null
+	deadline:  string| null
 	id:  string
 	todoListId: string
 	order: number
@@ -63,7 +63,7 @@ export const AppHttpRequests = () => {
 							headers: headersToken
 						})
 							.then(res => {
-								console.log(res.data.items)
+								console.log(res.data)
 								setTasks({ ...tasks, [tl.id]: res.data.items })
 							})
 					})
@@ -117,7 +117,7 @@ export const AppHttpRequests = () => {
 	const createTaskHandler = (title: string, todolistId: string) => {
 		// create task
 		axios
-			.post<PostType>(
+			.post<any>(
 				`https://social-network.samuraijs.com/api/1.1/todo-lists/${todolistId}/tasks`,
 				{title}, {headers: headersToken})
 			.then(res => {
