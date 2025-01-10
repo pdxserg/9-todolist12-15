@@ -45,6 +45,14 @@ export type DomainTask = {
 	order: number
 	addedDate: string
 }
+type PostTaskType={
+	data:{
+		item:TodolistsType
+	},
+	resultCode: number,
+	messages: [],
+	fieldsErrors: [],
+}
 
 export const AppHttpRequests = () => {
 	const [todolists, setTodolists] = useState<TodolistsType>([])
@@ -121,7 +129,7 @@ export const AppHttpRequests = () => {
 				`https://social-network.samuraijs.com/api/1.1/todo-lists/${todolistId}/tasks`,
 				{title}, {headers: headersToken})
 			.then(res => {
-				console.log(res.data)
+				console.log(res.data.data)
 
 			})
 
