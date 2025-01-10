@@ -21,7 +21,7 @@ type PostType={
 	messages: [],
 	fieldsErrors: [],
 }
-type DeleteTodoType={
+type DeleteType={
 	data: {}
 	fieldsErrors: []
 	messages: []
@@ -47,7 +47,7 @@ export type DomainTask = {
 }
 type PostTaskType={
 	data:{
-		item:TodolistsType
+		item:DomainTask
 	},
 	resultCode: number,
 	messages: [],
@@ -98,7 +98,7 @@ export const AppHttpRequests = () => {
 	const removeTodolistHandler = (id: string) => {
 		// remove todolist
 		axios
-			.delete<DeleteTodoType>(
+			.delete<DeleteType>(
 				`https://social-network.samuraijs.com/api/1.1/todo-lists/${id}`,
 				{headers: headersToken}
 				)
@@ -125,11 +125,11 @@ export const AppHttpRequests = () => {
 	const createTaskHandler = (title: string, todolistId: string) => {
 		// create task
 		axios
-			.post<any>(
+			.post<PostTaskType>(
 				`https://social-network.samuraijs.com/api/1.1/todo-lists/${todolistId}/tasks`,
 				{title}, {headers: headersToken})
 			.then(res => {
-				console.log(res.data.data)
+				console.log(res.data.data.item.title)
 
 			})
 
@@ -137,6 +137,14 @@ export const AppHttpRequests = () => {
 
 	const removeTaskHandler = (taskId: string, todolistId: string) => {
 		// remove task
+		axios
+			.delete<any>(
+				`https://social-network.samuraijs.com/api/1.1/todo-lists/${todolistId}/tasks/${taskId}`,
+				 {headers: headersToken})
+			.then(res => {
+				console.log(res.data)
+
+			})
 	}
 
 	const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>, task: any) => {
