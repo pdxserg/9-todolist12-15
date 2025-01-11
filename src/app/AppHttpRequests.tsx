@@ -3,7 +3,7 @@ import React, {ChangeEvent, useEffect, useState} from 'react'
 import {AddItemForm} from "../common/components/AddItemForm";
 import {EditableSpan} from "../common/components/EditableSpan";
 import axios from "axios";
-import {headersToken, token} from "./token/token";
+import {headersToken} from "./token/token";
 
 
 type TodolistsType = TodolistType[]
@@ -13,15 +13,15 @@ type TodolistType = {
 	addedDate: string,
 	order: number
 }
-type PostType={
-	data:{
-		item:TodolistsType
+type PostType = {
+	data: {
+		item: TodolistsType
 	},
 	resultCode: number,
 	messages: [],
 	fieldsErrors: [],
 }
-type DeleteType={
+type DeleteType = {
 	data: {}
 	fieldsErrors: []
 	messages: []
@@ -33,25 +33,34 @@ export type GetTasksResponse = {
 	items: DomainTask[]
 }
 export type DomainTask = {
-	description:  string | null
+	description: string | null
 	title: string
 	completed: boolean
 	status: number
 	priority: number
-	startDate: string| null
-	deadline:  string| null
-	id:  string
+	startDate: string | null
+	deadline: string | null
+	id: string
 	todoListId: string
 	order: number
 	addedDate: string
 }
-type PostTaskType={
-	data:{
-		item:DomainTask
+type PostTaskType = {
+	data: {
+		item: DomainTask
 	},
 	resultCode: number,
 	messages: [],
 	fieldsErrors: [],
+}
+type UpdateTaskModel={
+	title:string
+	description: string | null
+	completed: boolean
+	status: number
+	priority: number
+	startDate: string | null
+	deadline: string | null
 }
 
 export const AppHttpRequests = () => {
@@ -66,15 +75,15 @@ export const AppHttpRequests = () => {
 				console.log(res.data)
 				const todolists = res.data
 				setTodolists(todolists)
-					todolists.forEach((tl)=> {
-						axios.get<GetTasksResponse>(`https://social-network.samuraijs.com/api/1.1/todo-lists/${tl.id}/tasks`, {
-							headers: headersToken
-						})
-							.then(res => {
-								console.log(res.data)
-								setTasks({ ...tasks, [tl.id]: res.data.items })
-							})
+				todolists.forEach((tl) => {
+					axios.get<GetTasksResponse>(`https://social-network.samuraijs.com/api/1.1/todo-lists/${tl.id}/tasks`, {
+						headers: headersToken
 					})
+						.then(res => {
+							console.log(res.data)
+							setTasks({...tasks, [tl.id]: res.data.items})
+						})
+				})
 			})
 
 
@@ -101,10 +110,10 @@ export const AppHttpRequests = () => {
 			.delete<DeleteType>(
 				`https://social-network.samuraijs.com/api/1.1/todo-lists/${id}`,
 				{headers: headersToken}
-				)
+			)
 			.then(res => {
 				console.log(res.data)
-				setTodolists(todolists.filter((t)=>t.id!==id))
+				setTodolists(todolists.filter((t) => t.id !== id))
 			})
 	}
 
@@ -118,7 +127,7 @@ export const AppHttpRequests = () => {
 			)
 			.then(res => {
 				console.log(res.data)
-				setTodolists(todolists.map((t)=>t.id===id? {...t, title}:t))
+				setTodolists(todolists.map((t) => t.id === id ? {...t, title} : t))
 			})
 	}
 
@@ -131,7 +140,7 @@ export const AppHttpRequests = () => {
 			.then(res => {
 				console.log(res.data.data.item)
 				const newTask = res.data.data.item
-				setTasks({...tasks,[todolistId]:[newTask, ...tasks[todolistId]]})
+				setTasks({...tasks, [todolistId]: [newTask, ...tasks[todolistId]]})
 
 			})
 
@@ -142,21 +151,42 @@ export const AppHttpRequests = () => {
 		axios
 			.delete<DeleteType>(
 				`https://social-network.samuraijs.com/api/1.1/todo-lists/${todolistId}/tasks/${taskId}`,
-				 {headers: headersToken})
+				{headers: headersToken})
 			.then(res => {
 				console.log(res.data)
 				// @ts-ignore
-				setTasks({...tasks,[todolistId]:tasks[todolistId].filter((t)=>t.id !== taskId)})
+				setTasks({...tasks, [todolistId]: tasks[todolistId].filter((t) => t.id !== taskId)})
 
 			})
 	}
 
-	const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>, task: any) => {
+	const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>, task: DomainTask) => {
+		let status = e.currentTarget.checked?2:0
+		const model:UpdateTaskModel ={
+			title:task.title,
+			description: task.description,
+			completed: task.completed,
+			status: task.status,
+			priority: task.priority,
+			startDate: task.startDate,
+			deadline: task.deadline
+
+		}
 		// update task status
+		axios
+			.put<PostTaskType>(
+				`https://social-network.samuraijs.com/api/1.1/todo-lists/${todolistId}/tasks/${taskId}`,
+				{headers: headersToken}
+			)
+			.then(res => {
+				console.log(res.data)
+				// setTodolists(todolists.map((t) => t.id === id ? {...t, title} : t))
+			})
 	}
 
 	const changeTaskTitleHandler = (title: string, task: any) => {
 		// update task title
+
 	}
 
 	return (
