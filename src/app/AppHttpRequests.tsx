@@ -145,6 +145,8 @@ export const AppHttpRequests = () => {
 				 {headers: headersToken})
 			.then(res => {
 				console.log(res.data)
+				// @ts-ignore
+				setTasks({...tasks,[todolistId]:tasks[todolistId].filter((t)=>t.id !== taskId)})
 
 			})
 	}
