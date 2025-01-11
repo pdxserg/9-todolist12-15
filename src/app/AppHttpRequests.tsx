@@ -140,7 +140,7 @@ export const AppHttpRequests = () => {
 			.then(res => {
 				console.log(res.data.data.item)
 				const newTask = res.data.data.item
-				setTasks({...tasks, [todolistId]: [newTask, ...tasks[todolistId]]})
+				 setTasks({...tasks, [todolistId]: [newTask, ...tasks[todolistId]]})
 
 			})
 
@@ -166,7 +166,7 @@ export const AppHttpRequests = () => {
 			title:task.title,
 			description: task.description,
 			completed: task.completed,
-			status: task.status,
+			status,
 			priority: task.priority,
 			startDate: task.startDate,
 			deadline: task.deadline
@@ -176,10 +176,14 @@ export const AppHttpRequests = () => {
 		axios
 			.put<PostTaskType>(
 				`https://social-network.samuraijs.com/api/1.1/todo-lists/${task.todoListId}/tasks/${task.id}`,
+				model,
 				{headers: headersToken}
 			)
 			.then(res => {
 				console.log(res.data)
+				 let nemTasks=tasks[task.todoListId].map((t:any)=>t.id===task.id
+					 ?{...t, ...model}:t)
+				setTasks({...tasks, [task.todoListId]:nemTasks})
 				// setTodolists(todolists.map((t) => t.id === id ? {...t, title} : t))
 			})
 	}
@@ -208,11 +212,11 @@ export const AppHttpRequests = () => {
 
 						{/* Tasks */}
 						{!!tasks[tl.id] &&
-							tasks[tl.id].map((task: any) => {
+							tasks[tl.id].map((task: DomainTask) => {
 								return (
 									<div key={task.id}>
 										<Checkbox
-											checked={task.isDone}
+											checked={task.status===2?true:false}
 											onChange={e => changeTaskStatusHandler(e, task)}
 										/>
 										<EditableSpan
