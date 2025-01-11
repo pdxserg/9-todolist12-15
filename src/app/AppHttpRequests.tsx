@@ -175,7 +175,7 @@ export const AppHttpRequests = () => {
 		// update task status
 		axios
 			.put<PostTaskType>(
-				`https://social-network.samuraijs.com/api/1.1/todo-lists/${todolistId}/tasks/${taskId}`,
+				`https://social-network.samuraijs.com/api/1.1/todo-lists/${task.todoListId}/tasks/${task.id}`,
 				{headers: headersToken}
 			)
 			.then(res => {
