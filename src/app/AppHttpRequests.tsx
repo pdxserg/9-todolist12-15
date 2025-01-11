@@ -139,8 +139,9 @@ export const AppHttpRequests = () => {
 				{title}, {headers: headersToken})
 			.then(res => {
 				console.log(res.data.data.item)
-				const newTask = res.data.data.item
-				 setTasks({...tasks, [todolistId]: [newTask, ...tasks[todolistId]]})
+				const newTask:DomainTask = res.data.data.item
+				const currentTasks = tasks[todolistId] || []
+				 setTasks({...tasks, [todolistId]: [newTask, ...currentTasks]})
 
 			})
 
