@@ -190,6 +190,30 @@ export const AppHttpRequests = () => {
 
 	const changeTaskTitleHandler = (title: string, task: any) => {
 		// update task title
+		const model:UpdateTaskModel ={
+			title,
+			description: task.description,
+			completed: task.completed,
+			status:task.status,
+			priority: task.priority,
+			startDate: task.startDate,
+			deadline: task.deadline
+
+		}
+		// update task status
+		axios
+			.put<PostTaskType>(
+				`https://social-network.samuraijs.com/api/1.1/todo-lists/${task.todoListId}/tasks/${task.id}`,
+				model,
+				{headers: headersToken}
+			)
+			.then(res => {
+				console.log(res.data)
+				let nemTasks=tasks[task.todoListId].map((t:any)=>t.id===task.id
+					?{...t, ...model}:t)
+				setTasks({...tasks, [task.todoListId]:nemTasks})
+				// setTodolists(todolists.map((t) => t.id === id ? {...t, title} : t))
+			})
 
 	}
 
