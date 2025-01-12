@@ -4,6 +4,8 @@ import {AddItemForm} from "../common/components/AddItemForm";
 import {EditableSpan} from "../common/components/EditableSpan";
 import axios from "axios";
 import {headersToken} from "./token/token";
+import {Respond, TodolistsType} from "../features/todolists/api/todolistsApi.types";
+import {DomainTask, GetTasksResponse, UpdateTaskModel} from "../features/todolists/api/tasksApi.types";
 
 
 
