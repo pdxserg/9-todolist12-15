@@ -8,7 +8,11 @@ export type TodolistType = {
 
 export type Respond<T={}> = {
 	data: T
-	fieldsErrors: []
+	fieldsErrors: FieldError[]
 	messages: []
 	resultCode: number
+}
+export type FieldError = {
+	error: string
+	field: string
 }
