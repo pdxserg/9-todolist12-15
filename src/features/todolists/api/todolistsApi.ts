@@ -22,10 +22,11 @@ export const todolistsApi={
 			)
 	},
 	updateTodolist:(arg:{id: string, title: string})=>{
+		 const {id,title}=arg
 		return axios
 			.put<any>(
-				`https://social-network.samuraijs.com/api/1.1/todo-lists/${arg.id}`,
-				{title: arg.title},
+				`https://social-network.samuraijs.com/api/1.1/todo-lists/${id}`,
+				{title},
 				{headers: headersToken}
 			)
 	}
