@@ -139,11 +139,10 @@ export const AppHttpRequests = () => {
 	const createTaskHandler = (title: string, todolistId: string) => {
 		// create task
 		axios
-			.post<PostTaskType>(
+			.post<Respond<{item: DomainTask}>>(
 				`https://social-network.samuraijs.com/api/1.1/todo-lists/${todolistId}/tasks`,
 				{title}, {headers: headersToken})
 			.then(res => {
-				console.log(res.data.data.item)
 				const newTask:DomainTask = res.data.data.item
 				const currentTasks = tasks[todolistId] || []
 				 setTasks({...tasks, [todolistId]: [newTask, ...currentTasks]})
