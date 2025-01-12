@@ -6,6 +6,7 @@ import axios from "axios";
 import {headersToken} from "./token/token";
 import {Respond, TodolistsType} from "../features/todolists/api/todolistsApi.types";
 import {DomainTask, GetTasksResponse, UpdateTaskModel} from "../features/todolists/api/tasksApi.types";
+import {todolistsApi} from "../features/todolists/api/todolistsApi";
 
 
 
@@ -16,9 +17,7 @@ export const AppHttpRequests = () => {
 	const [tasks, setTasks] = useState<any>({})
 
 	useEffect(() => {
-		axios.get<TodolistsType>('https://social-network.samuraijs.com/api/1.1/todo-lists', {
-			headers: headersToken
-		})
+todolistsApi.getTodolists()
 			.then(res => {
 				const todolists = res.data
 				setTodolists(todolists)
@@ -43,12 +42,8 @@ export const AppHttpRequests = () => {
 
 	const createTodolistHandler = (title: string) => {
 		// create todolist
-		axios
-			.post<Respond<{item: TodolistsType}>>(
-				'https://social-network.samuraijs.com/api/1.1/todo-lists',
-				{title}, {headers: headersToken})
+		todolistsApi.createTodolists(title)
 			.then(res => {
-				console.log(res.data.data.item)
 				const newTod = res.data.data.item
 				// @ts-ignore
 				setTodolists([newTod, ...todolists])
@@ -58,11 +53,7 @@ export const AppHttpRequests = () => {
 
 	const removeTodolistHandler = (id: string) => {
 		// remove todolist
-		axios
-			.delete<Respond>(
-				`https://social-network.samuraijs.com/api/1.1/todo-lists/${id}`,
-				{headers: headersToken}
-			)
+		todolistsApi.deleteTodolist(id)
 			.then(res => {
 				console.log(res.data)
 				setTodolists(todolists.filter((t) => t.id !== id))
@@ -71,12 +62,7 @@ export const AppHttpRequests = () => {
 
 	const updateTodolistHandler = (id: string, title: string) => {
 		// update todolist title
-		axios
-			.put<any>(
-				`https://social-network.samuraijs.com/api/1.1/todo-lists/${id}`,
-				{title},
-				{headers: headersToken}
-			)
+		todolistsApi.updateTodolist({id,title})
 			.then(res => {
 				console.log(res.data)
 				setTodolists(todolists.map((t) => t.id === id ? {...t, title} : t))
