@@ -6,63 +6,8 @@ import axios from "axios";
 import {headersToken} from "./token/token";
 
 
-type TodolistsType = TodolistType[]
-type TodolistType = {
-	id: string,
-	title: string,
-	addedDate: string,
-	order: number
-}
-type PostTaskType = {
-	data: {
-		item: DomainTask
-	},
-	resultCode: number,
-	messages: [],
-	fieldsErrors: [],
-}
-type PostType = {
-	data: {
-		item: TodolistsType
-	},
-	resultCode: number,
-	messages: [],
-	fieldsErrors: [],
-}
-type Respond<T={}> = {
-	data: T
-	fieldsErrors: []
-	messages: []
-	resultCode: number
-}
-export type GetTasksResponse = {
-	error: string | null
-	totalCount: number
-	items: DomainTask[]
-}
-export type DomainTask = {
-	description: string | null
-	title: string
-	completed: boolean
-	status: number
-	priority: number
-	startDate: string | null
-	deadline: string | null
-	id: string
-	todoListId: string
-	order: number
-	addedDate: string
-}
 
-type UpdateTaskModel={
-	title:string
-	description: string | null
-	completed: boolean
-	status: number
-	priority: number
-	startDate: string | null
-	deadline: string | null
-}
+
 
 export const AppHttpRequests = () => {
 	const [todolists, setTodolists] = useState<TodolistsType>([])
@@ -179,7 +124,7 @@ export const AppHttpRequests = () => {
 		}
 		// update task status
 		axios
-			.put<PostTaskType>(
+			.put<Respond<{item:DomainTask}>>(
 				`https://social-network.samuraijs.com/api/1.1/todo-lists/${task.todoListId}/tasks/${task.id}`,
 				model,
 				{headers: headersToken}
@@ -208,7 +153,7 @@ export const AppHttpRequests = () => {
 		}
 		// update task status
 		axios
-			.put<PostTaskType>(
+			.put<Respond<{item:DomainTask}>>(
 				`https://social-network.samuraijs.com/api/1.1/todo-lists/${task.todoListId}/tasks/${task.id}`,
 				model,
 				{headers: headersToken}
