@@ -13,6 +13,14 @@ type TodolistType = {
 	addedDate: string,
 	order: number
 }
+type PostTaskType = {
+	data: {
+		item: DomainTask
+	},
+	resultCode: number,
+	messages: [],
+	fieldsErrors: [],
+}
 type PostType = {
 	data: {
 		item: TodolistsType
@@ -21,8 +29,8 @@ type PostType = {
 	messages: [],
 	fieldsErrors: [],
 }
-type DeleteType = {
-	data: {}
+type Respond<T={}> = {
+	data: T
 	fieldsErrors: []
 	messages: []
 	resultCode: number
@@ -45,14 +53,7 @@ export type DomainTask = {
 	order: number
 	addedDate: string
 }
-type PostTaskType = {
-	data: {
-		item: DomainTask
-	},
-	resultCode: number,
-	messages: [],
-	fieldsErrors: [],
-}
+
 type UpdateTaskModel={
 	title:string
 	description: string | null
@@ -72,7 +73,6 @@ export const AppHttpRequests = () => {
 			headers: headersToken
 		})
 			.then(res => {
-				console.log(res.data)
 				const todolists = res.data
 				setTodolists(todolists)
 				todolists.forEach((tl) => {
@@ -80,9 +80,14 @@ export const AppHttpRequests = () => {
 						headers: headersToken
 					})
 						.then(res => {
-							console.log(res.data)
-							setTasks({...tasks, [tl.id]: res.data.items})
+							// setTasks({...tasks, [tl.id]: res.data.items})
+							setTasks((prevTasks:any) => ({
+								...prevTasks,
+								[tl.id]: res.data.items,
+							}));
+
 						})
+
 				})
 			})
 
@@ -92,7 +97,7 @@ export const AppHttpRequests = () => {
 	const createTodolistHandler = (title: string) => {
 		// create todolist
 		axios
-			.post<PostType>(
+			.post<Respond<{item: TodolistsType}>>(
 				'https://social-network.samuraijs.com/api/1.1/todo-lists',
 				{title}, {headers: headersToken})
 			.then(res => {
@@ -107,7 +112,7 @@ export const AppHttpRequests = () => {
 	const removeTodolistHandler = (id: string) => {
 		// remove todolist
 		axios
-			.delete<DeleteType>(
+			.delete<Respond>(
 				`https://social-network.samuraijs.com/api/1.1/todo-lists/${id}`,
 				{headers: headersToken}
 			)
@@ -181,9 +186,10 @@ export const AppHttpRequests = () => {
 				{headers: headersToken}
 			)
 			.then(res => {
-				console.log(res.data)
+				console.log(res.data.data.item)
+				const newTask:DomainTask = res.data.data.item
 				 let nemTasks=tasks[task.todoListId].map((t:any)=>t.id===task.id
-					 ?{...t, ...model}:t)
+					 ?newTask:t)
 				setTasks({...tasks, [task.todoListId]:nemTasks})
 				// setTodolists(todolists.map((t) => t.id === id ? {...t, title} : t))
 			})
