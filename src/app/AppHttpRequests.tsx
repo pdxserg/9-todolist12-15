@@ -7,6 +7,7 @@ import {headersToken} from "./token/token";
 import {Respond, TodolistsType} from "../features/todolists/api/todolistsApi.types";
 import {DomainTask, GetTasksResponse, UpdateTaskModel} from "../features/todolists/api/tasksApi.types";
 import {todolistsApi} from "../features/todolists/api/todolistsApi";
+import {tasksApi} from "../features/todolists/api/tasksApi";
 
 
 
@@ -71,10 +72,7 @@ todolistsApi.getTodolists()
 
 	const createTaskHandler = (title: string, todolistId: string) => {
 		// create task
-		axios
-			.post<Respond<{item: DomainTask}>>(
-				`https://social-network.samuraijs.com/api/1.1/todo-lists/${todolistId}/tasks`,
-				{title}, {headers: headersToken})
+		tasksApi.createTask({title,todolistId})
 			.then(res => {
 				const newTask:DomainTask = res.data.data.item
 				const currentTasks = tasks[todolistId] || []
