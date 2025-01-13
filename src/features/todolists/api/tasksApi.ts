@@ -1,17 +1,18 @@
 import {Respond, TodolistsType} from "./todolistsApi.types";
 import {instance} from "../../../common/instance/instance";
-import {DomainTask} from "./tasksApi.types";
+import {DomainTask, GetTasksResponse} from "./tasksApi.types";
 
 export const tasksApi={
-	 getTasks: ()=>{
-		 return instance.get<TodolistsType>('/todo-lists')
+	 getTasks: (taskId:string)=>{
+		 return instance.get<GetTasksResponse>(`/todo-lists/${taskId}/tasks`)
 	},
 	createTask: (arg:{title: string,todolistId:string})=>{
 		 const{title,todolistId}=arg
 		return instance.post<Respond<{item: DomainTask}>>(`/todo-lists/${todolistId}/tasks`, {title})
 	},
 	deleteTask:(arg:{todolistId:string,taskId:string})=>{
-	return 	instance.delete<Respond>(`/todo-lists/${todolistId}/tasks/${taskId}`
+		const{taskId,todolistId}=arg
+		return 	instance.delete<Respond>(`/todo-lists/${todolistId}/tasks/${taskId}`)
 	},
 	updateTask:(arg:{id: string, title: string})=>{
 		 const {id,title}=arg

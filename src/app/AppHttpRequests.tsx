@@ -23,9 +23,7 @@ todolistsApi.getTodolists()
 				const todolists = res.data
 				setTodolists(todolists)
 				todolists.forEach((tl) => {
-					axios.get<GetTasksResponse>(`https://social-network.samuraijs.com/api/1.1/todo-lists/${tl.id}/tasks`, {
-						headers: headersToken
-					})
+					tasksApi.getTasks(tl.id)
 						.then(res => {
 							// setTasks({...tasks, [tl.id]: res.data.items})
 							setTasks((prevTasks:any) => ({
@@ -84,10 +82,7 @@ todolistsApi.getTodolists()
 
 	const removeTaskHandler = (taskId: string, todolistId: string) => {
 		// remove task
-		axios
-			.delete<Respond>(
-				`https://social-network.samuraijs.com/api/1.1/todo-lists/${todolistId}/tasks/${taskId}`,
-				{headers: headersToken})
+		tasksApi.deleteTask({taskId, todolistId})
 			.then(res => {
 				console.log(res.data)
 				// @ts-ignore
