@@ -1,7 +1,7 @@
-import {Respond, TodolistsType} from "./todolistsApi.types";
+import {Respond} from "./todolistsApi.types";
 import {instance} from "../../../common/instance/instance";
 import {DomainTask, GetTasksResponse, UpdateTaskModel} from "./tasksApi.types";
-import axios from "axios";
+
 
 export const tasksApi={
 	 getTasks: (taskId:string)=>{
@@ -26,7 +26,7 @@ export const tasksApi={
 			startDate: task.startDate,
 			deadline: task.deadline
 		}
-		return instance.put<any>(`/todo-lists/${task.todoListId}/tasks/${task.id}`,
+		return instance.put<Respond<{item: DomainTask}>>(`/todo-lists/${task.todoListId}/tasks/${task.id}`,
 		model,)
 	}
 

@@ -5,7 +5,7 @@ import {EditableSpan} from "../common/components/EditableSpan";
 import axios from "axios";
 import {headersToken} from "./token/token";
 import {Respond, TodolistsType} from "../features/todolists/api/todolistsApi.types";
-import {DomainTask, GetTasksResponse, UpdateTaskModel} from "../features/todolists/api/tasksApi.types";
+import {DomainTask,  UpdateTaskModel} from "../features/todolists/api/tasksApi.types";
 import {todolistsApi} from "../features/todolists/api/todolistsApi";
 import {tasksApi} from "../features/todolists/api/tasksApi";
 
@@ -127,8 +127,6 @@ todolistsApi.getTodolists()
 				const task = res.data.data.item
 				let nemTasks=tasks[task.todoListId].map((t:any)=>t.id===task.id
 					?task:t)
-				// 	let nemTasks=tasks[task.todoListId].map((t:any)=>t.id===task.id
-				// 	?{...t, ...model}:t)
 				  setTasks({...tasks, [task.todoListId]:nemTasks})
 			})
 
