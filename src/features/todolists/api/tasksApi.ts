@@ -1,6 +1,7 @@
 import {Respond, TodolistsType} from "./todolistsApi.types";
 import {instance} from "../../../common/instance/instance";
-import {DomainTask, GetTasksResponse} from "./tasksApi.types";
+import {DomainTask, GetTasksResponse, UpdateTaskModel} from "./tasksApi.types";
+import axios from "axios";
 
 export const tasksApi={
 	 getTasks: (taskId:string)=>{
@@ -14,9 +15,19 @@ export const tasksApi={
 		const{taskId,todolistId}=arg
 		return 	instance.delete<Respond>(`/todo-lists/${todolistId}/tasks/${taskId}`)
 	},
-	updateTask:(arg:{id: string, title: string})=>{
-		 const {id,title}=arg
-		return instance.put<Respond>(`/todo-lists/${id}`, {title})
+	updateTask:(arg:{task:DomainTask, title: string})=>{
+		 const {task,title}=arg
+		const model:UpdateTaskModel ={
+			title,
+			description: task.description,
+			completed: task.completed,
+			status:task.status,
+			priority: task.priority,
+			startDate: task.startDate,
+			deadline: task.deadline
+		}
+		return instance.put<any>(`/todo-lists/${task.todoListId}/tasks/${task.id}`,
+		model,)
 	}
 
 }

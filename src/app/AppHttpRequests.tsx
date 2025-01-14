@@ -122,29 +122,14 @@ todolistsApi.getTodolists()
 
 	const changeTaskTitleHandler = (title: string, task: any) => {
 		// update task title
-		const model:UpdateTaskModel ={
-			title,
-			description: task.description,
-			completed: task.completed,
-			status:task.status,
-			priority: task.priority,
-			startDate: task.startDate,
-			deadline: task.deadline
-
-		}
-		// update task status
-		axios
-			.put<Respond<{item:DomainTask}>>(
-				`https://social-network.samuraijs.com/api/1.1/todo-lists/${task.todoListId}/tasks/${task.id}`,
-				model,
-				{headers: headersToken}
-			)
+		tasksApi.updateTask({title, task})
 			.then(res => {
-				console.log(res.data)
+				const task = res.data.data.item
 				let nemTasks=tasks[task.todoListId].map((t:any)=>t.id===task.id
-					?{...t, ...model}:t)
-				setTasks({...tasks, [task.todoListId]:nemTasks})
-				// setTodolists(todolists.map((t) => t.id === id ? {...t, title} : t))
+					?task:t)
+				// 	let nemTasks=tasks[task.todoListId].map((t:any)=>t.id===task.id
+				// 	?{...t, ...model}:t)
+				  setTasks({...tasks, [task.todoListId]:nemTasks})
 			})
 
 	}
