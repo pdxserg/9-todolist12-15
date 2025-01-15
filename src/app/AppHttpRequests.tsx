@@ -93,7 +93,6 @@ export const AppHttpRequests = () => {
         const newTask: DomainTask = res.data.data.item
         let nemTasks = tasks[task.todoListId].map((t: any) => (t.id === task.id ? newTask : t))
         setTasks({ ...tasks, [task.todoListId]: nemTasks })
-        // setTodolists(todolists.map((t) => t.id === id ? {...t, title} : t))
       })
   }
 
