@@ -1,3 +1,3 @@
-import {RootStateType} from "../../../app/store";
+import { RootStateType } from "../../../app/store"
 
-export const selectTasks=(state: RootStateType) =>state.tasks
+export const selectTasks = (state: RootStateType) => state.tasks

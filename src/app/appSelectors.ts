@@ -1,3 +1,3 @@
-import {RootStateType} from "./store";
+import { RootStateType } from "./store"
 
 export const selectThemeMode = (state: RootStateType) => state.themeMode.themeMode
