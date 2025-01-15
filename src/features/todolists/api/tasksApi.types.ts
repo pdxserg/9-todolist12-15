@@ -1,4 +1,4 @@
-import { FieldError } from "./todolistsApi.types"
+import { TaskPriority, TaskStatus } from "common/enums/enums"
 
 export type GetTasksResponse = {
   error: string | null
@@ -9,8 +9,8 @@ export type DomainTask = {
   description: string | null
   title: string
   completed: boolean
-  status: number
-  priority: number
+  status: TaskStatus
+  priority: TaskPriority
   startDate: string | null
   deadline: string | null
   id: string
@@ -23,8 +23,8 @@ export type UpdateTaskModel = {
   title: string
   description: string | null
   completed: boolean
-  status: number
-  priority: number
+  status: TaskStatus
+  priority: TaskPriority
   startDate: string | null
   deadline: string | null
 }
