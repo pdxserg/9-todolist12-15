@@ -4,13 +4,14 @@ import {ChangeEvent} from "react";
 import ListItem from "@mui/material/ListItem";
 import {getListItemSx} from "../../Todolist/Todolist.styles";
 import Checkbox from "@mui/material/Checkbox";
-import {EditableSpan} from "../../../../../../common/components/EditableSpan";
+
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {TodolistType} from "../../../../model/todolists-reducer";
 
 import {changeStatusTaskAC, removeTaskAC, TaskType, updateTaskAC} from "../../../../model/tasks-reducer";
-import {useAppDispatch} from "../../../../../../common/hooks/useAppDispatch";
+import {useAppDispatch} from "common/hooks/useAppDispatch";
+import {EditableSpan} from "common/components";
 
 type Props = {
 	task:TaskType,

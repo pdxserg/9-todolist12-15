@@ -3,7 +3,7 @@ import * as React from 'react';
 import List from "@mui/material/List";
 import {TodolistType} from "../../../model/todolists-reducer";
 import {Task} from "./Task/Task";
-import {useAppSelector} from "../../../../../common/hooks/useAppSelector";
+import {useAppSelector} from "common/hooks/useAppSelector";
 import {selectTasks} from "../../../model/tasksSelectors";
 
 type Props ={
