@@ -1,5 +1,7 @@
-import { Respond, TodolistsType } from "./todolistsApi.types"
-import { instance } from "../../../common/instance/instance"
+import { TodolistsType } from "./todolistsApi.types"
+
+import { Respond } from "../../../common/types/types"
+import { instance } from "../../../common/instance"
 
 export const todolistsApi = {
   getTodolists: () => {

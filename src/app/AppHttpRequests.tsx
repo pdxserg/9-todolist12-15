@@ -1,13 +1,15 @@
 import Checkbox from "@mui/material/Checkbox"
 import React, { ChangeEvent, useEffect, useState } from "react"
-import { AddItemForm } from "../common/components/AddItemForm"
-import { EditableSpan } from "../common/components/EditableSpan"
+
 import axios from "axios"
-import { headersToken } from "./token/token"
-import { Respond, TodolistsType } from "../features/todolists/api/todolistsApi.types"
+import { TodolistsType } from "../features/todolists/api/todolistsApi.types"
 import { DomainTask, UpdateTaskModel } from "../features/todolists/api/tasksApi.types"
 import { todolistsApi } from "../features/todolists/api/todolistsApi"
 import { tasksApi } from "../features/todolists/api/tasksApi"
+
+import { AddItemForm, EditableSpan } from "../common/components"
+import { TaskStatus } from "../common/enums/enums"
+import { Respond } from "../common/types/types"
 
 export const AppHttpRequests = () => {
   const [todolists, setTodolists] = useState<TodolistsType>([])
@@ -73,7 +75,7 @@ export const AppHttpRequests = () => {
   }
 
   const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>, task: DomainTask) => {
-    let status = e.currentTarget.checked ? 2 : 0
+    let status = e.currentTarget.checked ? TaskStatus.Completed : TaskStatus.New
     const model: UpdateTaskModel = {
       title: task.title,
       description: task.description,
@@ -87,7 +89,7 @@ export const AppHttpRequests = () => {
     axios
       .put<
         Respond<{ item: DomainTask }>
-      >(`https://social-network.samuraijs.com/api/1.1/todo-lists/${task.todoListId}/tasks/${task.id}`, model, { headers: headersToken })
+      >(`https://social-network.samuraijs.com/api/1.1/todo-lists/${task.todoListId}/tasks/${task.id}`, model)
       .then((res) => {
         console.log(res.data.data.item)
         const newTask: DomainTask = res.data.data.item
