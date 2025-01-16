@@ -1,14 +1,16 @@
 import { AddTodolistActionType, RemoveTodolistActionType } from "./todolists-reducer"
 import { v1 } from "uuid"
+import { ApiTaskType } from "../api/tasksApi.types"
+import { TaskPriority, TaskStatus } from "../../../common/enums/enums"
 
-export type TaskType = {
+export type TaskDomainType = {
   id: string
   title: string
   isDone: boolean
 }
 
 export type TasksStateType = {
-  [key: string]: TaskType[]
+  [key: string]: ApiTaskType[]
 }
 
 const initState: TasksStateType = {}
@@ -26,12 +28,22 @@ export const tasksReducer = (state = initState, action: ActionsType): TasksState
       const newTask = {
         id: action.taskId,
         title: action.payload.title,
-        isDone: false,
+
+        description: "",
+        completed: false,
+        status: TaskStatus.New,
+        priority: TaskPriority.Low,
+        startDate: "",
+        deadline: "",
+        todoListId: action.payload.todolistId,
+        order: 0,
+        addedDate: "",
       }
       const newTodolistTasks = {
         ...state,
         [action.payload.todolistId]: [newTask, ...state[action.payload.todolistId]],
       }
+
       return newTodolistTasks
     }
     case "CHANGE_STATUS_TASK": {
@@ -41,7 +53,7 @@ export const tasksReducer = (state = initState, action: ActionsType): TasksState
           t.id == action.payload.taskId
             ? {
                 ...t,
-                isDone: action.payload.status,
+                status: action.payload.status,
               }
             : t,
         ),
@@ -90,7 +102,7 @@ export const addTaskAC = (payload: { title: string; todolistId: string }) => {
     taskId: v1(),
   } as const
 }
-export const changeStatusTaskAC = (payload: { taskId: string; todolistId: string; status: boolean }) => {
+export const changeStatusTaskAC = (payload: { taskId: string; todolistId: string; status: TaskStatus }) => {
   return {
     type: "CHANGE_STATUS_TASK",
     payload,

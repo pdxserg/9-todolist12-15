@@ -3,7 +3,7 @@ import React, { ChangeEvent, useEffect, useState } from "react"
 
 import axios from "axios"
 import { TodolistsType } from "../features/todolists/api/todolistsApi.types"
-import { DomainTask, UpdateTaskModel } from "../features/todolists/api/tasksApi.types"
+import { ApiTaskType, UpdateTaskModel } from "../features/todolists/api/tasksApi.types"
 import { todolistsApi } from "../features/todolists/api/todolistsApi"
 import { tasksApi } from "../features/todolists/api/tasksApi"
 
@@ -59,7 +59,7 @@ export const AppHttpRequests = () => {
   const createTaskHandler = (title: string, todolistId: string) => {
     // create task
     tasksApi.createTask({ title, todolistId }).then((res) => {
-      const newTask: DomainTask = res.data.data.item
+      const newTask: ApiTaskType = res.data.data.item
       const currentTasks = tasks[todolistId] || []
       setTasks({ ...tasks, [todolistId]: [newTask, ...currentTasks] })
     })
@@ -74,7 +74,7 @@ export const AppHttpRequests = () => {
     })
   }
 
-  const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>, task: DomainTask) => {
+  const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>, task: ApiTaskType) => {
     let status = e.currentTarget.checked ? TaskStatus.Completed : TaskStatus.New
     const model: UpdateTaskModel = {
       title: task.title,
@@ -88,11 +88,11 @@ export const AppHttpRequests = () => {
     // update task status
     axios
       .put<
-        Respond<{ item: DomainTask }>
+        Respond<{ item: ApiTaskType }>
       >(`https://social-network.samuraijs.com/api/1.1/todo-lists/${task.todoListId}/tasks/${task.id}`, model)
       .then((res) => {
         console.log(res.data.data.item)
-        const newTask: DomainTask = res.data.data.item
+        const newTask: ApiTaskType = res.data.data.item
         let nemTasks = tasks[task.todoListId].map((t: any) => (t.id === task.id ? newTask : t))
         setTasks({ ...tasks, [task.todoListId]: nemTasks })
       })
@@ -123,7 +123,7 @@ export const AppHttpRequests = () => {
 
             {/* Tasks */}
             {!!tasks[tl.id] &&
-              tasks[tl.id].map((task: DomainTask) => {
+              tasks[tl.id].map((task: ApiTaskType) => {
                 return (
                   <div key={task.id}>
                     <Checkbox

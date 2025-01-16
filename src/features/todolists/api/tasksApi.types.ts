@@ -3,9 +3,9 @@ import { TaskPriority, TaskStatus } from "common/enums/enums"
 export type GetTasksResponse = {
   error: string | null
   totalCount: number
-  items: DomainTask[]
+  items: ApiTaskType[]
 }
-export type DomainTask = {
+export type ApiTaskType = {
   description: string | null
   title: string
   completed: boolean

@@ -16,11 +16,11 @@ export const Tasks = ({ todo }: Props) => {
   let tasksForTodolist = allTodolistTasks
 
   if (todo.filter === "active") {
-    tasksForTodolist = allTodolistTasks.filter((task) => !task.isDone)
+    tasksForTodolist = allTodolistTasks.filter((task) => (task.status !== 2 ? true : false))
   }
 
   if (todo.filter === "completed") {
-    tasksForTodolist = allTodolistTasks.filter((task) => task.isDone)
+    tasksForTodolist = allTodolistTasks.filter((task) => (task.status === 2 ? true : false))
   }
   return (
     <>
