@@ -1,13 +1,13 @@
 // @flow
 import * as React from "react"
 import List from "@mui/material/List"
-import { TodolistType } from "../../../model/todolists-reducer"
 import { Task } from "./Task/Task"
 import { useAppSelector } from "common/hooks/useAppSelector"
 import { selectTasks } from "../../../model/tasksSelectors"
+import { TodolistDomainType } from "../../../model/todolists-reducer"
 
 type Props = {
-  todo: TodolistType
+  todo: TodolistDomainType
 }
 export const Tasks = ({ todo }: Props) => {
   const tasks = useAppSelector(selectTasks)

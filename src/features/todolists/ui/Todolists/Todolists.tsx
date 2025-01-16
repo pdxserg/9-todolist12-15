@@ -18,9 +18,7 @@ export const Todolists = () => {
   useEffect(() => {
     todolistsApi.getTodolists().then((res) => {
       const todolists: TodolistsType = res.data
-      console.log(res.data)
-      // @ts-ignore
-      dispatch(installTodolistAC({ todolists }))
+      dispatch(installTodolistAC(todolists))
     })
   }, [])
 

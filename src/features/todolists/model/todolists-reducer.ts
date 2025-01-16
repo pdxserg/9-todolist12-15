@@ -22,6 +22,7 @@ export const todolistsReducer = (state = initialState, action: ActionsType): Tod
         addedDate: "",
         order: 0,
       }
+      console.log(newTodolist)
       return [newTodolist, ...state]
     }
 
@@ -33,8 +34,10 @@ export const todolistsReducer = (state = initialState, action: ActionsType): Tod
       return state.map((tl) => (tl.id === action.payload.id ? { ...tl, filter: action.payload.filter } : tl))
     }
     case "INSTALL-TODOLIST": {
-      return state
-      // return action.payload.todolists
+      // return state
+      const todos: TodolistDomainType[] = action.payload.todolists.map((el) => ({ ...el, filter: "all" }))
+      console.log(todos)
+      return todos
     }
     default:
       return state

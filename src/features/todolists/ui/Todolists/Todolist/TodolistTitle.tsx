@@ -3,11 +3,11 @@ import * as React from "react"
 import { EditableSpan } from "common/components"
 import IconButton from "@mui/material/IconButton"
 import DeleteIcon from "@mui/icons-material/Delete"
-import { changeTodolistTitleAC, removeTodolistAC, TodolistType } from "../../../model/todolists-reducer"
+import { changeTodolistTitleAC, removeTodolistAC, TodolistDomainType } from "../../../model/todolists-reducer"
 import { useAppDispatch } from "common/hooks"
 
 type Props = {
-  todo: TodolistType
+  todo: TodolistDomainType
 }
 export const TodolistTitle = ({ todo }: Props) => {
   const dispatch = useAppDispatch()

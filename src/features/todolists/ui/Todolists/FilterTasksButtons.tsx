@@ -1,14 +1,14 @@
 // @flow
 import * as React from "react"
 import Button from "@mui/material/Button"
-import { changeTodolistFilter, FilterValuesType, TodolistType } from "../../model/todolists-reducer"
+import { changeTodolistFilter, FilterValuesType, TodolistDomainType } from "../../model/todolists-reducer"
 
 import { filterButtonsContainerSx } from "./Todolist/Todolist.styles"
 import Box from "@mui/material/Box"
 import { useAppDispatch } from "../../../../common/hooks/useAppDispatch"
 
 type PropsType = {
-  todo: TodolistType
+  todo: TodolistDomainType
 }
 export const FilterTasksButtons = ({ todo }: PropsType) => {
   const dispatch = useAppDispatch()
