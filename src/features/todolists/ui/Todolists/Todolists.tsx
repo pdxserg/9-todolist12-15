@@ -8,7 +8,7 @@ import Grid from "@mui/material/Unstable_Grid2"
 import { Paper } from "@mui/material"
 import { Todolist } from "./Todolist/Todolist"
 import { addTaskAC } from "../../model/tasks-reducer"
-import { installTodolistAC } from "../../model/todolists-reducer"
+import { fetchTodolistsThunk } from "../../model/todolists-reducer"
 import { TodolistsType } from "../../api/todolistsApi.types"
 
 export const Todolists = () => {
@@ -16,10 +16,7 @@ export const Todolists = () => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    todolistsApi.getTodolists().then((res) => {
-      const todolists: TodolistsType = res.data
-      dispatch(installTodolistAC(todolists))
-    })
+    dispatch(fetchTodolistsThunk)
   }, [])
 
   return (
