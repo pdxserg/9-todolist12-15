@@ -94,13 +94,11 @@ export const fetchTasksThunk = (todolistId: string, dispatch: AppDispatch) => {
     dispatch(setTasksAC({ tasks, todolistId }))
   })
 }
-export const fetchTasksTC = (todolistId: string) => {
-  return (dispatch: AppDispatch) => {
-    tasksApi.getTasks(todolistId).then((res) => {
-      const tasks = res.data.items
-      dispatch(setTasksAC({ tasks, todolistId }))
-    })
-  }
+export const fetchTasksTC = (todolistId: string) => (dispatch: AppDispatch) => {
+  tasksApi.getTasks(todolistId).then((res) => {
+    const tasks = res.data.items
+    dispatch(setTasksAC({ tasks, todolistId }))
+  })
 }
 
 // Action creators

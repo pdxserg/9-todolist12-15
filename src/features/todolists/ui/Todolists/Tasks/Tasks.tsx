@@ -8,6 +8,7 @@ import { TodolistDomainType } from "../../../model/todolists-reducer"
 import { useEffect } from "react"
 import { fetchTasksTC } from "../../../model/tasks-reducer"
 import { useAppDispatch } from "../../../../../common/hooks"
+import { TaskStatus } from "../../../../../common/enums/enums"
 
 type Props = {
   todo: TodolistDomainType
@@ -23,11 +24,11 @@ export const Tasks = ({ todo }: Props) => {
   let tasksForTodolist = allTodolistTasks
 
   if (todo.filter === "active") {
-    tasksForTodolist = allTodolistTasks.filter((task) => (task.status !== 2 ? true : false))
+    tasksForTodolist = allTodolistTasks.filter((task) => task.status === TaskStatus.New)
   }
 
   if (todo.filter === "completed") {
-    tasksForTodolist = allTodolistTasks.filter((task) => (task.status === 2 ? true : false))
+    tasksForTodolist = allTodolistTasks.filter((task) => task.status === TaskStatus.Completed)
   }
   return (
     <>
