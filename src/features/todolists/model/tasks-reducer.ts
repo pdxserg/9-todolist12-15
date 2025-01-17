@@ -96,9 +96,15 @@ export const fetchTasksTC = (todolistId: string) => (dispatch: AppDispatch) => {
   })
 }
 
-export const deleteTaskTC = (todolistId: string, taskId: string) => (dispatch: AppDispatch) => {
-  tasksApi.deleteTask({ todolistId, taskId }).then(() => {
-    dispatch(removeTaskAC({ todolistId, taskId }))
+export const deleteTaskTC = (arg: { todolistId: string; taskId: string }) => (dispatch: AppDispatch) => {
+  tasksApi.deleteTask(arg).then(() => {
+    dispatch(removeTaskAC(arg))
+  })
+}
+
+export const addTaskTC = (arg: { title: string; todolistId: string }) => (dispatch: AppDispatch) => {
+  tasksApi.createTask(arg).then(() => {
+    dispatch(addTaskAC(arg))
   })
 }
 // Action creators

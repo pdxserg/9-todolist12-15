@@ -1,5 +1,5 @@
 import { AddItemForm } from "../../../../../common/components/AddItemForm"
-import { addTaskAC } from "../../../model/tasks-reducer"
+import { addTaskAC, addTaskTC } from "../../../model/tasks-reducer"
 import { FilterTasksButtons } from "../FilterTasksButtons"
 
 import { Tasks } from "../Tasks/Tasks"
@@ -15,7 +15,7 @@ export const Todolist = ({ todo }: PropsType) => {
   const dispatch = useAppDispatch()
 
   const addTask = (title: string) => {
-    dispatch(addTaskAC({ title, todolistId }))
+    dispatch(addTaskTC({ title, todolistId }))
   }
 
   return (

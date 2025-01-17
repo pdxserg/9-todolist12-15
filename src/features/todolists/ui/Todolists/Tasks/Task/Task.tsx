@@ -21,7 +21,7 @@ export const Task = ({ todo, task }: Props) => {
   const dispatch = useAppDispatch()
 
   const removeTask = () => {
-    dispatch(deleteTaskTC(todo.id, task.id))
+    dispatch(deleteTaskTC({ taskId: task.id, todolistId: todo.id }))
   }
   const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => {
     // const status = e.currentTarget.checked
