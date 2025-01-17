@@ -22,23 +22,9 @@ export const tasksReducer = (state = initState, action: ActionsType): TasksState
       return newTodolistTasks
     }
     case "ADD_TASK": {
-      const newTask = {
-        id: action.taskId,
-        title: action.payload.title,
-
-        description: "",
-        completed: false,
-        status: TaskStatus.New,
-        priority: TaskPriority.Low,
-        startDate: "",
-        deadline: "",
-        todoListId: action.payload.todolistId,
-        order: 0,
-        addedDate: "",
-      }
       const newTodolistTasks = {
         ...state,
-        [action.payload.todolistId]: [newTask, ...state[action.payload.todolistId]],
+        [action.payload.task.todoListId]: [action.payload.task, ...state[action.payload.task.todoListId]],
       }
 
       return newTodolistTasks
@@ -95,18 +81,21 @@ export const fetchTasksTC = (todolistId: string) => (dispatch: AppDispatch) => {
     dispatch(setTasksAC({ tasks, todolistId }))
   })
 }
-
 export const deleteTaskTC = (arg: { todolistId: string; taskId: string }) => (dispatch: AppDispatch) => {
   tasksApi.deleteTask(arg).then(() => {
     dispatch(removeTaskAC(arg))
   })
 }
-
 export const addTaskTC = (arg: { title: string; todolistId: string }) => (dispatch: AppDispatch) => {
-  tasksApi.createTask(arg).then(() => {
-    dispatch(addTaskAC(arg))
+  tasksApi.createTask(arg).then((res) => {
+    dispatch(addTaskAC({ task: res.data.data.item }))
   })
 }
+// export const updateTaskTC = (arg: { title: string; todolistId: string }) => (dispatch: AppDispatch) => {
+//   tasksApi.updateTask(arg).then(() => {
+//     dispatch(addTaskAC(arg))
+//   })
+// }
 // Action creators
 export const setTasksAC = (payload: { tasks: ApiTaskType[]; todolistId: string }) => {
   return {
@@ -120,11 +109,10 @@ export const removeTaskAC = (payload: { taskId: string; todolistId: string }) =>
     payload,
   } as const
 }
-export const addTaskAC = (payload: { title: string; todolistId: string }) => {
+export const addTaskAC = (payload: { task: ApiTaskType }) => {
   return {
     type: "ADD_TASK",
     payload,
-    taskId: v1(),
   } as const
 }
 export const changeStatusTaskAC = (payload: { taskId: string; todolistId: string; status: TaskStatus }) => {
