@@ -100,11 +100,11 @@ export const AppHttpRequests = () => {
 
   const changeTaskTitleHandler = (title: string, task: any) => {
     // update task title
-    tasksApi.updateTask({ title, task }).then((res) => {
-      const task = res.data.data.item
-      let nemTasks = tasks[task.todoListId].map((t: any) => (t.id === task.id ? task : t))
-      setTasks({ ...tasks, [task.todoListId]: nemTasks })
-    })
+    // tasksApi.updateTask({ title, task }).then((res) => {
+    //   const task = res.data.data.item
+    //   let nemTasks = tasks[task.todoListId].map((t: any) => (t.id === task.id ? task : t))
+    //   setTasks({ ...tasks, [task.todoListId]: nemTasks })
+    // })
   }
 
   return (
