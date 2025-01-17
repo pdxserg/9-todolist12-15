@@ -7,7 +7,7 @@ import { todolistsApi } from "../../api/todolistsApi"
 import Grid from "@mui/material/Unstable_Grid2"
 import { Paper } from "@mui/material"
 import { Todolist } from "./Todolist/Todolist"
-import { addTaskAC } from "../../model/tasks-reducer"
+import { addTaskAC, fetchTasksThunk, setTasksAC } from "../../model/tasks-reducer"
 import { fetchTodolistsThunk } from "../../model/todolists-reducer"
 import { TodolistsType } from "../../api/todolistsApi.types"
 

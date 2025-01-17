@@ -1,13 +1,10 @@
-import { AddTodolistActionType, RemoveTodolistActionType } from "./todolists-reducer"
+import { AddTodolistActionType, RemoveTodolistActionType, setTodolistAC } from "./todolists-reducer"
 import { v1 } from "uuid"
 import { ApiTaskType } from "../api/tasksApi.types"
 import { TaskPriority, TaskStatus } from "../../../common/enums/enums"
-
-export type TaskDomainType = {
-  id: string
-  title: string
-  isDone: boolean
-}
+import { AppDispatch } from "../../../app/store"
+import { todolistsApi } from "../api/todolistsApi"
+import { tasksApi } from "../api/tasksApi"
 
 export type TasksStateType = {
   [key: string]: ApiTaskType[]
@@ -82,13 +79,37 @@ export const tasksReducer = (state = initState, action: ActionsType): TasksState
       }
       return newTodolistTasks
     }
+    case "SET_TASKS": {
+      return { ...state, [action.payload.todolistId]: action.payload.tasks }
+    }
 
     default:
       return state
   }
 }
+// thunk
+export const fetchTasksThunk = (todolistId: string, dispatch: AppDispatch) => {
+  tasksApi.getTasks(todolistId).then((res) => {
+    const tasks = res.data.items
+    dispatch(setTasksAC({ tasks, todolistId }))
+  })
+}
+export const fetchTasksTC = (todolistId: string) => {
+  return (dispatch: AppDispatch) => {
+    tasksApi.getTasks(todolistId).then((res) => {
+      const tasks = res.data.items
+      dispatch(setTasksAC({ tasks, todolistId }))
+    })
+  }
+}
 
 // Action creators
+export const setTasksAC = (payload: { tasks: ApiTaskType[]; todolistId: string }) => {
+  return {
+    type: "SET_TASKS",
+    payload,
+  } as const
+}
 export const removeTaskAC = (payload: { taskId: string; todolistId: string }) => {
   return {
     type: "REMOVE_TASK",
@@ -119,6 +140,7 @@ export type RemoveTaskACType = ReturnType<typeof removeTaskAC>
 export type AddTaskACType = ReturnType<typeof addTaskAC>
 export type ChangeStatusTaskACType = ReturnType<typeof changeStatusTaskAC>
 export type UpdateTaskACType = ReturnType<typeof updateTaskAC>
+export type SetTasksAC = ReturnType<typeof setTasksAC>
 type ActionsType =
   | RemoveTaskACType
   | AddTaskACType
@@ -126,3 +148,4 @@ type ActionsType =
   | RemoveTodolistActionType
   | AddTodolistActionType
   | UpdateTaskACType
+  | SetTasksAC

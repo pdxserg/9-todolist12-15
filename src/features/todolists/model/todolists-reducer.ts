@@ -1,7 +1,7 @@
 import { v1 } from "uuid"
 import { TodolistsType, TodolistType } from "../api/todolistsApi.types"
 import { Dispatch } from "redux"
-import { RootStateType } from "../../../app/store"
+import { AppDispatch, RootStateType } from "../../../app/store"
 import { todolistsApi } from "../api/todolistsApi"
 
 export type FilterValuesType = "all" | "active" | "completed"
@@ -68,7 +68,7 @@ export const changeTodolistFilter = (id: string, filter: FilterValuesType) => {
   return { type: "CHANGE-TODOLIST-FILTER", payload: { id, filter } } as const
 }
 //thunk
-export const fetchTodolistsThunk = (dispatch: Dispatch, getState: () => RootStateType) => {
+export const fetchTodolistsThunk = (dispatch: AppDispatch) => {
   todolistsApi.getTodolists().then((res) => {
     dispatch(setTodolistAC(res.data))
   })

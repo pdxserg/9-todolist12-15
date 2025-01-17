@@ -3,8 +3,8 @@ import { ApiTaskType, GetTasksResponse, UpdateTaskModel } from "./tasksApi.types
 import { Respond } from "common/types/types"
 
 export const tasksApi = {
-  getTasks: (taskId: string) => {
-    return instance.get<GetTasksResponse>(`/todo-lists/${taskId}/tasks`)
+  getTasks: (todolistId: string) => {
+    return instance.get<GetTasksResponse>(`/todo-lists/${todolistId}/tasks`)
   },
   createTask: (arg: { title: string; todolistId: string }) => {
     const { title, todolistId } = arg
