@@ -68,7 +68,7 @@ export const changeTodolistFilter = (id: string, filter: FilterValuesType) => {
   return { type: "CHANGE-TODOLIST-FILTER", payload: { id, filter } } as const
 }
 //thunk
-export const fetchTodolistsThunk = (dispatch: AppDispatch) => {
+export const fetchTodolistsTC = () => (dispatch: AppDispatch) => {
   todolistsApi.getTodolists().then((res) => {
     dispatch(setTodolistAC(res.data))
   })

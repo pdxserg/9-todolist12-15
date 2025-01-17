@@ -4,11 +4,9 @@ import { ChangeEvent } from "react"
 import ListItem from "@mui/material/ListItem"
 import { getListItemSx } from "../../Todolist/Todolist.styles"
 import Checkbox from "@mui/material/Checkbox"
-
 import IconButton from "@mui/material/IconButton"
 import DeleteIcon from "@mui/icons-material/Delete"
-
-import { changeStatusTaskAC, removeTaskAC, updateTaskAC } from "../../../../model/tasks-reducer"
+import { changeStatusTaskAC, deleteTaskTC, updateTaskAC } from "../../../../model/tasks-reducer"
 import { useAppDispatch } from "common/hooks/useAppDispatch"
 import { EditableSpan } from "common/components"
 import { TodolistDomainType } from "../../../../model/todolists-reducer"
@@ -23,7 +21,7 @@ export const Task = ({ todo, task }: Props) => {
   const dispatch = useAppDispatch()
 
   const removeTask = () => {
-    dispatch(removeTaskAC({ taskId: task.id, todolistId: todo.id }))
+    dispatch(deleteTaskTC(todo.id, task.id))
   }
   const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => {
     // const status = e.currentTarget.checked

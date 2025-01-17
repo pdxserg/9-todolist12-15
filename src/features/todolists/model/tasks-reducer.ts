@@ -88,12 +88,7 @@ export const tasksReducer = (state = initState, action: ActionsType): TasksState
   }
 }
 // thunk
-export const fetchTasksThunk = (todolistId: string, dispatch: AppDispatch) => {
-  tasksApi.getTasks(todolistId).then((res) => {
-    const tasks = res.data.items
-    dispatch(setTasksAC({ tasks, todolistId }))
-  })
-}
+
 export const fetchTasksTC = (todolistId: string) => (dispatch: AppDispatch) => {
   tasksApi.getTasks(todolistId).then((res) => {
     const tasks = res.data.items
@@ -101,6 +96,11 @@ export const fetchTasksTC = (todolistId: string) => (dispatch: AppDispatch) => {
   })
 }
 
+export const deleteTaskTC = (todolistId: string, taskId: string) => (dispatch: AppDispatch) => {
+  tasksApi.deleteTask({ todolistId, taskId }).then(() => {
+    dispatch(removeTaskAC({ todolistId, taskId }))
+  })
+}
 // Action creators
 export const setTasksAC = (payload: { tasks: ApiTaskType[]; todolistId: string }) => {
   return {
