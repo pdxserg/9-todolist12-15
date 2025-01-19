@@ -1,7 +1,5 @@
-import { v1 } from "uuid"
 import { TodolistsType, TodolistType } from "../api/todolistsApi.types"
-import { Dispatch } from "redux"
-import { AppDispatch, RootStateType } from "../../../app/store"
+import { AppDispatch } from "../../../app/store"
 import { todolistsApi } from "../api/todolistsApi"
 
 export type FilterValuesType = "all" | "active" | "completed"
