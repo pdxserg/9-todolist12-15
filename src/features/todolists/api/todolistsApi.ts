@@ -1,4 +1,4 @@
-import { TodolistsType } from "./todolistsApi.types"
+import { TodolistsType, TodolistType } from "./todolistsApi.types"
 
 import { Respond } from "../../../common/types/types"
 import { instance } from "../../../common/instance"
@@ -8,7 +8,7 @@ export const todolistsApi = {
     return instance.get<TodolistsType>("/todo-lists")
   },
   createTodolists: (title: string) => {
-    return instance.post<Respond<{ item: TodolistsType }>>("/todo-lists", { title })
+    return instance.post<Respond<{ item: TodolistType }>>("/todo-lists", { title })
   },
   deleteTodolist: (id: string) => {
     return instance.delete<Respond>(`/todo-lists/${id}`)
