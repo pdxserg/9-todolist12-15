@@ -17,17 +17,6 @@ export const todolistsReducer = (state = initialState, action: ActionsType): Tod
       return state.filter((tl) => tl.id !== action.payload.id)
     }
 
-    // case "ADD-TODOLIST": {
-    //   const newTodolist: TodolistDomainType = {
-    //     id: action.payload.todoId,
-    //     title: action.payload.title,
-    //     filter: "all",
-    //     addedDate: "",
-    //     order: 0,
-    //   }
-    //   console.log(newTodolist)
-    //   return [newTodolist, ...state]
-    // }
     case "ADD-TODOLIST": {
       const newTodolist: TodolistDomainType = { ...action.payload.todolist, filter: "all" }
       console.log(newTodolist)
@@ -84,6 +73,21 @@ export const addTodolistTC = (title: string) => (dispatch: AppDispatch) => {
     dispatch(addTodolistAC(todolist))
   })
 }
+export const deleteTodolistTC = (todolistId: string) => (dispatch: AppDispatch) => {
+  todolistsApi.deleteTodolist(todolistId).then(() => {
+    dispatch(removeTodolistAC(todolistId))
+  })
+}
+export const changeTodolistTitleTC = (id: string, title: string) => (dispatch: AppDispatch) => {
+  todolistsApi.updateTodolist({ id, title }).then(() => {
+    dispatch(changeTodolistTitleAC(id, title))
+  })
+}
+// export const changeTodolistFilterTC = (id: string, title: string) => (dispatch: AppDispatch) => {
+//   todolistsApi.updateTodolist({ id, title }).then(() => {
+//     dispatch(changeTodolistFilter(id))
+//   })
+// }
 
 // Actions types
 export type RemoveTodolistActionType = ReturnType<typeof removeTodolistAC>

@@ -3,7 +3,7 @@ import * as React from "react"
 import { EditableSpan } from "common/components"
 import IconButton from "@mui/material/IconButton"
 import DeleteIcon from "@mui/icons-material/Delete"
-import { changeTodolistTitleAC, removeTodolistAC, TodolistDomainType } from "../../../model/todolists-reducer"
+import { changeTodolistTitleTC, deleteTodolistTC, TodolistDomainType } from "../../../model/todolists-reducer"
 import { useAppDispatch } from "common/hooks"
 
 type Props = {
@@ -13,11 +13,11 @@ export const TodolistTitle = ({ todo }: Props) => {
   const dispatch = useAppDispatch()
 
   const removeTodolistHandler = () => {
-    dispatch(removeTodolistAC(todo.id))
+    dispatch(deleteTodolistTC(todo.id))
   }
 
   const updateTodolistHandler = (title: string) => {
-    dispatch(changeTodolistTitleAC(todo.id, title))
+    dispatch(changeTodolistTitleTC(todo.id, title))
   }
   return (
     <div className={"todolist-title-container"}>
