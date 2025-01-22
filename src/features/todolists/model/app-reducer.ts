@@ -6,6 +6,7 @@ type InitialStateType = typeof initialState
 const initialState = {
   themeMode: "light" as ThemeMode,
   status: "idle" as RequestStatus,
+  errorSnackbar: true,
 }
 
 export const AppReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
@@ -18,6 +19,8 @@ export const AppReducer = (state: InitialStateType = initialState, action: Actio
     }
     case "SET_STATUS":
       return { ...state, status: action.payload.status }
+    case "SET_ERROR_SNACKBAR":
+      return { ...state, errorSnackbar: action.payload.errorSnackbar }
 
     default:
       return state
@@ -30,6 +33,12 @@ export const setAppStatusAC = (status: RequestStatus) => {
     payload: { status },
   } as const
 }
+export const setErrorSnackbarAC = (errorSnackbar: boolean) => {
+  return {
+    type: "SET_ERROR_SNACKBAR",
+    payload: { errorSnackbar },
+  } as const
+}
 
 export const changeModeAC = () => {
   return {
@@ -38,4 +47,7 @@ export const changeModeAC = () => {
   } as const
 }
 
-type ActionsType = ReturnType<typeof changeModeAC> | ReturnType<typeof setAppStatusAC>
+type ActionsType =
+  | ReturnType<typeof changeModeAC>
+  | ReturnType<typeof setAppStatusAC>
+  | ReturnType<typeof setErrorSnackbarAC>
