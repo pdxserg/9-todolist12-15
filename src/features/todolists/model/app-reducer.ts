@@ -18,8 +18,6 @@ export const AppReducer = (state: InitialStateType = initialState, action: Actio
     }
     case "SET_STATUS":
       return { ...state, status: action.payload.status }
-    case "CHANGE_STATUS":
-      return { ...state, status: action.payload.status }
 
     default:
       return state
@@ -32,12 +30,6 @@ export const setAppStatusAC = (status: RequestStatus) => {
     payload: { status },
   } as const
 }
-export const changeAppStatusAC = (status: RequestStatus) => {
-  return {
-    type: "CHANGE_STATUS",
-    payload: { status },
-  } as const
-}
 
 export const changeModeAC = () => {
   return {
@@ -46,7 +38,4 @@ export const changeModeAC = () => {
   } as const
 }
 
-type ActionsType =
-  | ReturnType<typeof changeModeAC>
-  | ReturnType<typeof setAppStatusAC>
-  | ReturnType<typeof changeAppStatusAC>
+type ActionsType = ReturnType<typeof changeModeAC> | ReturnType<typeof setAppStatusAC>

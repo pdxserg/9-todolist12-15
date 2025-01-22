@@ -1,6 +1,7 @@
 import { TodolistsType, TodolistType } from "../api/todolistsApi.types"
 import { AppDispatch } from "../../../app/store"
 import { todolistsApi } from "../api/todolistsApi"
+import { setAppStatusAC } from "./app-reducer"
 
 export type FilterValuesType = "all" | "active" | "completed"
 export type TodolistDomainType = TodolistType & {
@@ -61,18 +62,24 @@ export const changeTodolistFilter = (id: string, filter: FilterValuesType) => {
 }
 //thunk
 export const fetchTodolistsTC = () => (dispatch: AppDispatch) => {
+  dispatch(setAppStatusAC("loading"))
   todolistsApi.getTodolists().then((res) => {
+    dispatch(setAppStatusAC("succeeded"))
     dispatch(setTodolistAC(res.data))
   })
 }
 export const addTodolistTC = (title: string) => (dispatch: AppDispatch) => {
+  dispatch(setAppStatusAC("loading"))
   todolistsApi.createTodolists(title).then((res) => {
+    dispatch(setAppStatusAC("succeeded"))
     const todolist = res.data.data.item
     dispatch(addTodolistAC(todolist))
   })
 }
 export const deleteTodolistTC = (todolistId: string) => (dispatch: AppDispatch) => {
+  dispatch(setAppStatusAC("loading"))
   todolistsApi.deleteTodolist(todolistId).then(() => {
+    dispatch(setAppStatusAC("succeeded"))
     dispatch(removeTodolistAC(todolistId))
   })
 }
@@ -81,11 +88,6 @@ export const changeTodolistTitleTC = (id: string, title: string) => (dispatch: A
     dispatch(changeTodolistTitleAC(id, title))
   })
 }
-// export const changeTodolistFilterTC = (id: string, title: string) => (dispatch: AppDispatch) => {
-//   todolistsApi.updateTodolist({ id, title }).then(() => {
-//     dispatch(changeTodolistFilter(id))
-//   })
-// }
 
 // Actions types
 export type RemoveTodolistActionType = ReturnType<typeof removeTodolistAC>
