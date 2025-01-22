@@ -2,7 +2,8 @@ import { AddTodolistActionType, RemoveTodolistActionType } from "./todolists-red
 import { ApiTaskType, UpdateTaskDomainModel } from "../api/tasksApi.types"
 import { AppDispatch, RootStateType } from "../../../app/store"
 import { tasksApi } from "../api/tasksApi"
-import { setAppStatusAC, setErrorSnackbarAC } from "./app-reducer"
+import { setAppStatusAC, setAppErrorAC } from "./app-reducer"
+import { Respond } from "../../../common/types/types"
 
 export type TasksStateType = {
   [key: string]: ApiTaskType[]
@@ -83,9 +84,10 @@ export const addTaskTC = (arg: { title: string; todolistId: string }) => (dispat
       dispatch(setAppStatusAC("succeeded"))
       dispatch(addTaskAC({ task: res.data.data.item }))
     })
-    .catch((e) => {
-      console.log(e)
-      dispatch(setErrorSnackbarAC(true))
+    .catch((res) => {
+      const errorSnackbar = true
+      const error = "HEY"
+      dispatch(setAppErrorAC(error))
     })
 }
 export const updateTaskTC =
