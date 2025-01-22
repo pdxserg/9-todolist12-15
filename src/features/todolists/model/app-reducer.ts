@@ -1,12 +1,14 @@
 // @flow
 
 export type ThemeMode = "dark" | "light"
+export type RequestStatus = "idle" | "loading" | "succeeded" | "failed"
 type InitialStateType = typeof initialState
 const initialState = {
   themeMode: "light" as ThemeMode,
+  status: "idle" as RequestStatus,
 }
 
-export const themeReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export const AppReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
   switch (action.type) {
     case "CHANGE_MODE": {
       return {

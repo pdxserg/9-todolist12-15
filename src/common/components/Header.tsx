@@ -6,14 +6,16 @@ import MenuIcon from "@mui/icons-material/Menu"
 import { MenuButton } from "./MenuButton"
 import Switch from "@mui/material/Switch"
 import AppBar from "@mui/material/AppBar"
-import { changeModeAC } from "../../features/todolists/model/theme-reducer"
+import { changeModeAC } from "../../features/todolists/model/app-reducer"
 import { getTheme } from "../theme/theme"
 import { useAppDispatch } from "../hooks/useAppDispatch"
 import { useAppSelector } from "../hooks/useAppSelector"
 import { selectThemeMode } from "../../app/appSelectors"
+import { LinearProgress } from "@mui/material"
 
 export const Header = () => {
   const themeMode = useAppSelector(selectThemeMode)
+  const status = useAppSelector((state) => state.app.status)
 
   const theme = getTheme(themeMode)
   const dispatch = useAppDispatch()
@@ -34,6 +36,7 @@ export const Header = () => {
           <Switch color={"default"} onChange={changeModeHandler} />
         </div>
       </Toolbar>
+      {status === "loading" && <LinearProgress color="secondary" />}
     </AppBar>
   )
 }
