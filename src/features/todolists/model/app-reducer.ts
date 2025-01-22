@@ -16,16 +16,37 @@ export const AppReducer = (state: InitialStateType = initialState, action: Actio
         themeMode: state.themeMode === "light" ? "dark" : "light",
       }
     }
+    case "SET_STATUS":
+      return { ...state, status: action.payload.status }
+    case "CHANGE_STATUS":
+      return { ...state, status: action.payload.status }
+
     default:
       return state
   }
 }
+
+export const setAppStatusAC = (status: RequestStatus) => {
+  return {
+    type: "SET_STATUS",
+    payload: { status },
+  } as const
+}
+export const changeAppStatusAC = (status: RequestStatus) => {
+  return {
+    type: "CHANGE_STATUS",
+    payload: { status },
+  } as const
+}
+
 export const changeModeAC = () => {
   return {
     type: "CHANGE_MODE",
     payload: {},
   } as const
 }
-type ChangeModeACType = ReturnType<typeof changeModeAC>
 
-type ActionsType = ChangeModeACType
+type ActionsType =
+  | ReturnType<typeof changeModeAC>
+  | ReturnType<typeof setAppStatusAC>
+  | ReturnType<typeof changeAppStatusAC>
