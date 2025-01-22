@@ -37,7 +37,7 @@ export const Tasks = ({ todo }: Props) => {
       ) : (
         <List>
           {tasksForTodolist?.map((task) => {
-            return <Task task={task} todo={todo} />
+            return <Task key={task.id} task={task} todo={todo} />
           })}
         </List>
       )}
