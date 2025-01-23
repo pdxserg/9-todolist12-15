@@ -81,14 +81,15 @@ export const addTaskTC = (arg: { title: string; todolistId: string }) => (dispat
   tasksApi
     .createTask(arg)
     .then((res) => {
-      dispatch(setAppStatusAC("succeeded"))
-      dispatch(addTaskAC({ task: res.data.data.item }))
+      if (res.data.resultCode === 0) {
+        dispatch(setAppStatusAC("succeeded"))
+        dispatch(addTaskAC({ task: res.data.data.item }))
+      } else {
+        dispatch(setAppStatusAC("failed"))
+        dispatch(setAppErrorAC(res.data.messages[0]))
+      }
     })
-    .catch((res) => {
-      const errorSnackbar = true
-      const error = "HEY"
-      dispatch(setAppErrorAC(error))
-    })
+    .catch((res) => {})
 }
 export const updateTaskTC =
   (arg: { taskId: string; todoListId: string; updates: UpdateTaskDomainModel }) =>

@@ -1,7 +1,7 @@
 export type Respond<T = {}> = {
   data: T
   fieldsErrors: FieldError[]
-  messages: []
+  messages: string[]
   resultCode: number
 }
 export type FieldError = {

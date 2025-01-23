@@ -6,7 +6,7 @@ type InitialStateType = typeof initialState
 const initialState = {
   themeMode: "light" as ThemeMode,
   status: "idle" as RequestStatus,
-  error: "null" as string | null,
+  error: null as string | null,
 }
 
 export const AppReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
