@@ -24,7 +24,7 @@ export const TodolistTitle = ({ todo }: Props) => {
       <h3>
         <EditableSpan value={todo.title} onChange={updateTodolistHandler} />
       </h3>
-      <IconButton onClick={removeTodolistHandler}>
+      <IconButton onClick={removeTodolistHandler} disabled={todo.entityStatus === "loading"}>
         <DeleteIcon />
       </IconButton>
     </div>

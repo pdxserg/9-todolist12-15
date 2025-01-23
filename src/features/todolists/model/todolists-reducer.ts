@@ -40,12 +40,19 @@ export const todolistsReducer = (state = initialState, action: ActionsType): Tod
       console.log(todos)
       return todos
     }
+    case "CHANGE-TODOLIST-ENSTATUS": {
+      return state.map((tl) => (tl.id === action.payload.id ? { ...tl, entityStatus: action.payload.status } : tl))
+    }
+
     default:
       return state
   }
 }
 
 // Action creators
+export const changeTodolistEntityStatusAC = (id: string, status: RequestStatus) => {
+  return { type: "CHANGE-TODOLIST-ENSTATUS", payload: { id, status } } as const
+}
 
 export const removeTodolistAC = (todolistId: string) => {
   return { type: "REMOVE-TODOLIST", payload: { id: todolistId } } as const
@@ -82,6 +89,7 @@ export const addTodolistTC = (title: string) => (dispatch: AppDispatch) => {
   })
 }
 export const deleteTodolistTC = (todolistId: string) => (dispatch: AppDispatch) => {
+  dispatch(changeTodolistEntityStatusAC(todolistId, "loading"))
   dispatch(setAppStatusAC("loading"))
   todolistsApi.deleteTodolist(todolistId).then(() => {
     dispatch(setAppStatusAC("succeeded"))
@@ -100,6 +108,7 @@ export type AddTodolistActionType = ReturnType<typeof addTodolistAC>
 export type ChangeTodolistTitleActionType = ReturnType<typeof changeTodolistTitleAC>
 export type ChangeTodolistFilterActionType = ReturnType<typeof changeTodolistFilter>
 export type SetTodolistsActionType = ReturnType<typeof setTodolistAC>
+export type ChangeTodolistEntityStatusAC = ReturnType<typeof changeTodolistEntityStatusAC>
 
 type ActionsType =
   | RemoveTodolistActionType
@@ -107,3 +116,4 @@ type ActionsType =
   | ChangeTodolistTitleActionType
   | ChangeTodolistFilterActionType
   | SetTodolistsActionType
+  | ChangeTodolistEntityStatusAC
