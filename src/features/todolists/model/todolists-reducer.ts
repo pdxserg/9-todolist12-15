@@ -1,11 +1,12 @@
 import { TodolistsType, TodolistType } from "../api/todolistsApi.types"
 import { AppDispatch } from "../../../app/store"
 import { todolistsApi } from "../api/todolistsApi"
-import { setAppStatusAC } from "./app-reducer"
+import { RequestStatus, setAppStatusAC } from "./app-reducer"
 
 export type FilterValuesType = "all" | "active" | "completed"
 export type TodolistDomainType = TodolistType & {
   filter: FilterValuesType
+  entityStatus: RequestStatus
 }
 
 const initialState: TodolistDomainType[] = []
@@ -17,7 +18,7 @@ export const todolistsReducer = (state = initialState, action: ActionsType): Tod
     }
 
     case "ADD-TODOLIST": {
-      const newTodolist: TodolistDomainType = { ...action.payload.todolist, filter: "all" }
+      const newTodolist: TodolistDomainType = { ...action.payload.todolist, filter: "all", entityStatus: "idle" }
       console.log(newTodolist)
       return [newTodolist, ...state]
     }
@@ -31,7 +32,11 @@ export const todolistsReducer = (state = initialState, action: ActionsType): Tod
     }
     case "SET-TODOLIST": {
       // return state
-      const todos: TodolistDomainType[] = action.payload.todolists.map((el) => ({ ...el, filter: "all" }))
+      const todos: TodolistDomainType[] = action.payload.todolists.map((el) => ({
+        ...el,
+        filter: "all",
+        entityStatus: "idle",
+      }))
       console.log(todos)
       return todos
     }
