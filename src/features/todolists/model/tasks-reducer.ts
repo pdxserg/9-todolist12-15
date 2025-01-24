@@ -4,6 +4,8 @@ import { AppDispatch, RootStateType } from "../../../app/store"
 import { tasksApi } from "../api/tasksApi"
 import { setAppStatusAC, setAppErrorAC } from "./app-reducer"
 import { Respond } from "../../../common/types/types"
+import { handleServerAppError } from "../../../common/utils/handleServerAppError"
+import { handleServerNetworkError } from "../../../common/utils/handleServerNetworkError"
 
 export type TasksStateType = {
   [key: string]: ApiTaskType[]
@@ -89,7 +91,9 @@ export const addTaskTC = (arg: { title: string; todolistId: string }) => (dispat
         dispatch(setAppErrorAC(res.data.messages[0]))
       }
     })
-    .catch((res) => {})
+    .catch((err) => {
+      handleServerNetworkError(err, dispatch)
+    })
 }
 export const updateTaskTC =
   (arg: { taskId: string; todoListId: string; updates: UpdateTaskDomainModel }) =>
