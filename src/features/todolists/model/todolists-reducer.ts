@@ -78,10 +78,15 @@ export const changeTodolistFilter = (id: string, filter: FilterValuesType) => {
 //thunk
 export const fetchTodolistsTC = () => (dispatch: AppDispatch) => {
   dispatch(setAppStatusAC("loading"))
-  todolistsApi.getTodolists().then((res) => {
-    dispatch(setAppStatusAC("succeeded"))
-    dispatch(setTodolistAC(res.data))
-  })
+  todolistsApi
+    .getTodolists()
+    .then((res) => {
+      dispatch(setAppStatusAC("succeeded"))
+      dispatch(setTodolistAC(res.data))
+    })
+    .catch((err) => {
+      handleServerNetworkError(err, dispatch)
+    })
 }
 export const addTodolistTC = (title: string) => (dispatch: AppDispatch) => {
   dispatch(setAppStatusAC("loading"))
