@@ -65,18 +65,37 @@ export const tasksReducer = (state = initState, action: ActionsType): TasksState
 
 export const fetchTasksTC = (todolistId: string) => (dispatch: AppDispatch) => {
   dispatch(setAppStatusAC("loading"))
-  tasksApi.getTasks(todolistId).then((res) => {
-    dispatch(setAppStatusAC("succeeded"))
-    const tasks = res.data.items
-    dispatch(setTasksAC({ tasks, todolistId }))
-  })
+  tasksApi
+    .getTasks(todolistId)
+    .then((res) => {
+      if (res.data.error === null) {
+        dispatch(setAppStatusAC("succeeded"))
+        const tasks = res.data.items
+        dispatch(setTasksAC({ tasks, todolistId }))
+      } else {
+        dispatch(setAppStatusAC("failed"))
+        dispatch(setAppErrorAC(res.data.error))
+      }
+    })
+    .catch((err) => {
+      handleServerNetworkError(err, dispatch)
+    })
 }
 export const deleteTaskTC = (arg: { todolistId: string; taskId: string }) => (dispatch: AppDispatch) => {
   dispatch(setAppStatusAC("loading"))
-  tasksApi.deleteTask(arg).then(() => {
-    dispatch(setAppStatusAC("succeeded"))
-    dispatch(removeTaskAC(arg))
-  })
+  tasksApi
+    .deleteTask(arg)
+    .then((res) => {
+      if (res.data.resultCode === 0) {
+        dispatch(setAppStatusAC("succeeded"))
+        dispatch(removeTaskAC(arg))
+      } else {
+        handleServerAppError(res.data, dispatch)
+      }
+    })
+    .catch((err) => {
+      handleServerNetworkError(err, dispatch)
+    })
 }
 export const addTaskTC = (arg: { title: string; todolistId: string }) => (dispatch: AppDispatch) => {
   dispatch(setAppStatusAC("loading"))
@@ -87,8 +106,7 @@ export const addTaskTC = (arg: { title: string; todolistId: string }) => (dispat
         dispatch(setAppStatusAC("succeeded"))
         dispatch(addTaskAC({ task: res.data.data.item }))
       } else {
-        dispatch(setAppStatusAC("failed"))
-        dispatch(setAppErrorAC(res.data.messages[0]))
+        handleServerAppError(res.data, dispatch)
       }
     })
     .catch((err) => {
@@ -105,10 +123,19 @@ export const updateTaskTC =
     const tasksForCurentTodolist = allTask[todoListId]
     const task = tasksForCurentTodolist.find((e) => e.id === taskId)!
 
-    tasksApi.updateTask({ task, updates }).then((res) => {
-      dispatch(setAppStatusAC("succeeded"))
-      dispatch(updateTaskAC({ updates, todoListId: task.todoListId, taskId: task.id }))
-    })
+    tasksApi
+      .updateTask({ task, updates })
+      .then((res) => {
+        if (res.data.resultCode === 0) {
+          dispatch(setAppStatusAC("succeeded"))
+          dispatch(updateTaskAC({ updates, todoListId: task.todoListId, taskId: task.id }))
+        } else {
+          handleServerAppError(res.data, dispatch)
+        }
+      })
+      .catch((err) => {
+        handleServerNetworkError(err, dispatch)
+      })
   }
 
 // Action creators
