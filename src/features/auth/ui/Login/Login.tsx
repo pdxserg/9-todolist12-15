@@ -11,7 +11,7 @@ import { selectThemeMode } from "../../../../app/appSelectors"
 import { getTheme } from "../../../../common/theme/theme"
 import { Controller, SubmitHandler, useForm } from "react-hook-form"
 
-type Inputs = {
+export type Inputs = {
   email: string
   password: string
   rememberMe: boolean
