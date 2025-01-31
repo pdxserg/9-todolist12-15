@@ -6,10 +6,11 @@ import FormGroup from "@mui/material/FormGroup"
 import FormLabel from "@mui/material/FormLabel"
 import Grid from "@mui/material/Grid"
 import TextField from "@mui/material/TextField"
-import { useAppSelector } from "common/hooks"
+import { useAppDispatch, useAppSelector } from "common/hooks"
 import { selectThemeMode } from "../../../../app/appSelectors"
 import { getTheme } from "../../../../common/theme/theme"
 import { Controller, SubmitHandler, useForm } from "react-hook-form"
+import { loginTC } from "../../model/auth-reducer"
 
 export type Inputs = {
   email: string
@@ -19,6 +20,7 @@ export type Inputs = {
 export const Login = () => {
   const themeMode = useAppSelector(selectThemeMode)
   const theme = getTheme(themeMode)
+  const dispatch = useAppDispatch()
 
   const {
     register,
@@ -29,6 +31,7 @@ export const Login = () => {
   } = useForm<Inputs>({ defaultValues: { email: "", password: "", rememberMe: false } })
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     console.log(data)
+    dispatch(loginTC(data))
     reset()
   }
   return (
@@ -76,12 +79,8 @@ export const Login = () => {
                 {...register("password", {
                   required: "Password is required",
                   minLength: {
-                    value: 6,
-                    message: "Password must be at least 6 characters long",
-                  },
-                  pattern: {
-                    value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
-                    message: "Password must contain at least one letter and one number",
+                    value: 2,
+                    message: "Password must be at least 2 characters long",
                   },
                 })}
               />

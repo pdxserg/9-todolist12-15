@@ -4,6 +4,6 @@ import { Respond } from "../../../common/types/types"
 
 export const authApi = {
   login: (args: Inputs) => {
-    return instance.post<Respond<{ userId: string }>>("/auth/login", args)
+    return instance.post<Respond<{ userId: number; token: string }>>("/auth/login", args)
   },
 }

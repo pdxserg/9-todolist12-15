@@ -1,6 +1,11 @@
 import { Inputs } from "../ui/Login/Login"
 import { Dispatch } from "redux"
 import { setAppStatusAC } from "../../todolists/model/app-reducer"
+import { todolistsApi } from "../../todolists/api/todolistsApi"
+import { handleServerAppError } from "../../../common/utils/handleServerAppError"
+import { handleServerNetworkError } from "../../../common/utils/handleServerNetworkError"
+
+import { authApi } from "../api/authApi"
 
 type InitialStateType = typeof initialState
 
@@ -27,4 +32,17 @@ type ActionsType = ReturnType<typeof setIsLoggedInAC>
 // thunks
 export const loginTC = (data: Inputs) => (dispatch: Dispatch) => {
   dispatch(setAppStatusAC("loading"))
+  authApi
+    .login(data)
+    .then((res) => {
+      if (res.data.resultCode === 0) {
+        dispatch(setAppStatusAC("succeeded"))
+        dispatch(setIsLoggedInAC(true))
+      } else {
+        handleServerAppError(res.data, dispatch)
+      }
+    })
+    .catch((err) => {
+      handleServerNetworkError(err, dispatch)
+    })
 }
