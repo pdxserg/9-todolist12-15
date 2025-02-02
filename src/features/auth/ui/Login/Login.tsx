@@ -41,7 +41,6 @@ export const Login = () => {
     formState: { errors },
   } = useForm<Inputs>({ defaultValues: { email: "", password: "", rememberMe: false } })
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data)
     dispatch(loginTC(data))
     reset()
   }

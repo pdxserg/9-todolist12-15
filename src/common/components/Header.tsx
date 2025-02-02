@@ -26,6 +26,9 @@ export const Header = () => {
   const changeModeHandler = () => {
     dispatch(changeModeAC())
   }
+  const logoutHandler = () => {
+    console.log("logoutHandler")
+  }
   return (
     <AppBar position="static" sx={{ mb: "30px" }}>
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -34,7 +37,7 @@ export const Header = () => {
         </IconButton>
         <div>
           {/*<MenuButton>Login</MenuButton>*/}
-          {!isLoggedIn && <MenuButton>Logout</MenuButton>}
+          {isLoggedIn && <MenuButton onClick={logoutHandler}>Logout</MenuButton>}
           <MenuButton background={theme.palette.primary.dark}>Faq</MenuButton>
           <Switch color={"default"} onChange={changeModeHandler} />
         </div>

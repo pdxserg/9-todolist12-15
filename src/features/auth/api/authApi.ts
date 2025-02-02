@@ -6,4 +6,7 @@ export const authApi = {
   login: (args: Inputs) => {
     return instance.post<Respond<{ userId: number; token: string }>>("/auth/login", args)
   },
+  logOut: () => {
+    return instance.delete<Respond>("/auth/login")
+  },
 }
