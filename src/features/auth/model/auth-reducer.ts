@@ -11,12 +11,16 @@ type InitialStateType = typeof initialState
 
 const initialState = {
   isLoggedIn: false,
+  isInitialized: false,
 }
 
 export const authReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
   switch (action.type) {
     case "SET_IS_LOGGED_IN":
       return { ...state, isLoggedIn: action.payload.isLoggedIn }
+
+    case "IS_INITIALISED":
+      return { ...state, isLoggedIn: action.payload.isInitialized }
     default:
       return state
   }
@@ -25,9 +29,12 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
 const setIsLoggedInAC = (isLoggedIn: boolean) => {
   return { type: "SET_IS_LOGGED_IN", payload: { isLoggedIn } } as const
 }
+const initializeAppAC = (isInitialized: boolean) => {
+  return { type: "IS_INITIALISED", payload: { isInitialized } } as const
+}
 
 // Actions types
-type ActionsType = ReturnType<typeof setIsLoggedInAC>
+type ActionsType = ReturnType<typeof setIsLoggedInAC> | ReturnType<typeof initializeAppAC>
 
 // thunks
 export const loginTC = (data: Inputs) => (dispatch: Dispatch) => {
@@ -72,6 +79,7 @@ export const initializeAppTC = () => (dispatch: Dispatch) => {
       if (res.data.resultCode === 0) {
         dispatch(setAppStatusAC("succeeded"))
         dispatch(setIsLoggedInAC(true))
+        dispatch(initializeAppAC(true))
         // localStorage.removeItem("sn-token")
       } else {
         handleServerAppError(res.data, dispatch)
