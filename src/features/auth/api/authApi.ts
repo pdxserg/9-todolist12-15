@@ -9,4 +9,7 @@ export const authApi = {
   logOut: () => {
     return instance.delete<Respond>("/auth/login")
   },
+  me: () => {
+    return instance.get<Respond<{ id: number; email: string; login: string }>>("/auth/me")
+  },
 }

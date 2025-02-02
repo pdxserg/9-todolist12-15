@@ -13,6 +13,7 @@ import { useAppSelector } from "../hooks/useAppSelector"
 import { selectThemeMode } from "../../app/appSelectors"
 import { LinearProgress } from "@mui/material"
 import { RootStateType } from "../../app/store"
+import { logOutTC } from "../../features/auth/model/auth-reducer"
 
 export const Header = () => {
   const themeMode = useAppSelector(selectThemeMode)
@@ -27,7 +28,7 @@ export const Header = () => {
     dispatch(changeModeAC())
   }
   const logoutHandler = () => {
-    console.log("logoutHandler")
+    dispatch(logOutTC())
   }
   return (
     <AppBar position="static" sx={{ mb: "30px" }}>

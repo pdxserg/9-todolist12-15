@@ -64,3 +64,20 @@ export const logOutTC = () => (dispatch: Dispatch) => {
       handleServerNetworkError(err, dispatch)
     })
 }
+export const initializeAppTC = () => (dispatch: Dispatch) => {
+  dispatch(setAppStatusAC("loading"))
+  authApi
+    .me()
+    .then((res) => {
+      if (res.data.resultCode === 0) {
+        dispatch(setAppStatusAC("succeeded"))
+        dispatch(setIsLoggedInAC(true))
+        // localStorage.removeItem("sn-token")
+      } else {
+        handleServerAppError(res.data, dispatch)
+      }
+    })
+    .catch((err) => {
+      handleServerNetworkError(err, dispatch)
+    })
+}
