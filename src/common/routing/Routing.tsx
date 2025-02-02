@@ -9,20 +9,13 @@ import { useAppSelector } from "../hooks"
 import { RootStateType } from "../../app/store"
 import { useEffect } from "react"
 
-const Path = {
+export const Path = {
   Main: "/",
   Login: "/login",
   NotFound: "/*",
 } as const
 
 export const Routing = () => {
-  const isLoggedIn = useAppSelector((state: RootStateType) => state.auth?.isLoggedIn)
-  const navigate = useNavigate()
-  useEffect(() => {
-    if (isLoggedIn) {
-      navigate(Path.Main)
-    }
-  }, [isLoggedIn])
   return (
     <Routes>
       <Route path={Path.Main} element={<Main />} />

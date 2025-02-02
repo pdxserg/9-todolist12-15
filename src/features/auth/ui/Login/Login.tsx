@@ -11,6 +11,10 @@ import { selectThemeMode } from "../../../../app/appSelectors"
 import { getTheme } from "../../../../common/theme/theme"
 import { Controller, SubmitHandler, useForm } from "react-hook-form"
 import { loginTC } from "../../model/auth-reducer"
+import { RootStateType } from "../../../../app/store"
+import { useNavigate } from "react-router"
+import { useEffect } from "react"
+import { Path } from "../../../../common/routing/Routing"
 
 export type Inputs = {
   email: string
@@ -21,6 +25,13 @@ export const Login = () => {
   const themeMode = useAppSelector(selectThemeMode)
   const theme = getTheme(themeMode)
   const dispatch = useAppDispatch()
+  const isLoggedIn = useAppSelector((state: RootStateType) => state.auth?.isLoggedIn)
+  const navigate = useNavigate()
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate(Path.Main)
+    }
+  }, [isLoggedIn])
 
   const {
     register,

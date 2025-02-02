@@ -12,10 +12,13 @@ import { useAppDispatch } from "../hooks/useAppDispatch"
 import { useAppSelector } from "../hooks/useAppSelector"
 import { selectThemeMode } from "../../app/appSelectors"
 import { LinearProgress } from "@mui/material"
+import { RootStateType } from "../../app/store"
 
 export const Header = () => {
   const themeMode = useAppSelector(selectThemeMode)
   const status = useAppSelector((state) => state.app.status)
+  const isLoggedIn = useAppSelector((state: RootStateType) => state.auth.isLoggedIn)
+  console.log(isLoggedIn)
 
   const theme = getTheme(themeMode)
   const dispatch = useAppDispatch()
@@ -30,8 +33,8 @@ export const Header = () => {
           <MenuIcon />
         </IconButton>
         <div>
-          <MenuButton>Login</MenuButton>
-          <MenuButton>Logout</MenuButton>
+          {/*<MenuButton>Login</MenuButton>*/}
+          {!isLoggedIn && <MenuButton>Logout</MenuButton>}
           <MenuButton background={theme.palette.primary.dark}>Faq</MenuButton>
           <Switch color={"default"} onChange={changeModeHandler} />
         </div>
