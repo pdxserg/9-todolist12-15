@@ -30,6 +30,7 @@ const setIsLoggedInAC = (isLoggedIn: boolean) => {
   return { type: "SET_IS_LOGGED_IN", payload: { isLoggedIn } } as const
 }
 const initializeAppAC = (isInitialized: boolean) => {
+  debugger
   return { type: "IS_INITIALISED", payload: { isInitialized } } as const
 }
 
@@ -72,6 +73,7 @@ export const logOutTC = () => (dispatch: Dispatch) => {
     })
 }
 export const initializeAppTC = () => (dispatch: Dispatch) => {
+  debugger
   dispatch(setAppStatusAC("loading"))
   authApi
     .me()
@@ -79,7 +81,7 @@ export const initializeAppTC = () => (dispatch: Dispatch) => {
       if (res.data.resultCode === 0) {
         dispatch(setAppStatusAC("succeeded"))
         dispatch(setIsLoggedInAC(true))
-        dispatch(initializeAppAC(true))
+
         // localStorage.removeItem("sn-token")
       } else {
         handleServerAppError(res.data, dispatch)
@@ -87,5 +89,9 @@ export const initializeAppTC = () => (dispatch: Dispatch) => {
     })
     .catch((err) => {
       handleServerNetworkError(err, dispatch)
+    })
+    .finally(() => {
+      debugger
+      dispatch(initializeAppAC(true))
     })
 }

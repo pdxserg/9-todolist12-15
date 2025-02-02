@@ -8,22 +8,28 @@ import { getTheme } from "../common/theme/theme"
 import { useAppSelector } from "../common/hooks/useAppSelector"
 import { selectThemeMode } from "./appSelectors"
 import { ErrorSnackbar } from "../common/components/ErrorSnackbar"
-import { Path, Routing } from "../common/routing/Routing"
+import { Routing } from "../common/routing/Routing"
 import { RootStateType } from "./store"
-import { useNavigate } from "react-router"
 import { useAppDispatch } from "../common/hooks"
 import { initializeAppTC } from "../features/auth/model/auth-reducer"
+import { CircularProgress } from "@mui/material"
 
 function App() {
+  debugger
   const themeMode = useAppSelector(selectThemeMode)
   const theme = getTheme(themeMode)
   const isInitialized = useAppSelector((state: RootStateType) => state.auth.isInitialized)
   const dispatch = useAppDispatch()
+
   useEffect(() => {
-    if (!isInitialized) {
-      dispatch(initializeAppTC())
-    }
+    debugger
+    dispatch(initializeAppTC())
   }, [])
+
+  if (!isInitialized) {
+    debugger
+    return <CircularProgress size={150} thickness={3} />
+  }
 
   return (
     <ThemeProvider theme={theme}>
