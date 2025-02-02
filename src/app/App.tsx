@@ -15,19 +15,17 @@ import { initializeAppTC } from "../features/auth/model/auth-reducer"
 import { CircularProgress } from "@mui/material"
 
 function App() {
-  debugger
   const themeMode = useAppSelector(selectThemeMode)
   const theme = getTheme(themeMode)
   const isInitialized = useAppSelector((state: RootStateType) => state.auth.isInitialized)
+  console.log(isInitialized)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    debugger
     dispatch(initializeAppTC())
   }, [])
 
   if (!isInitialized) {
-    debugger
     return <CircularProgress size={150} thickness={3} />
   }
 

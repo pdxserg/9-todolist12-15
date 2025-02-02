@@ -20,7 +20,7 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
       return { ...state, isLoggedIn: action.payload.isLoggedIn }
 
     case "IS_INITIALISED":
-      return { ...state, isLoggedIn: action.payload.isInitialized }
+      return { ...state, isInitialized: action.payload.isInitialized }
     default:
       return state
   }
@@ -30,7 +30,6 @@ const setIsLoggedInAC = (isLoggedIn: boolean) => {
   return { type: "SET_IS_LOGGED_IN", payload: { isLoggedIn } } as const
 }
 const initializeAppAC = (isInitialized: boolean) => {
-  debugger
   return { type: "IS_INITIALISED", payload: { isInitialized } } as const
 }
 
@@ -91,7 +90,6 @@ export const initializeAppTC = () => (dispatch: Dispatch) => {
       handleServerNetworkError(err, dispatch)
     })
     .finally(() => {
-      debugger
       dispatch(initializeAppAC(true))
     })
 }

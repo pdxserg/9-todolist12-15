@@ -19,7 +19,6 @@ export const Header = () => {
   const themeMode = useAppSelector(selectThemeMode)
   const status = useAppSelector((state) => state.app.status)
   const isLoggedIn = useAppSelector((state: RootStateType) => state.auth.isLoggedIn)
-  console.log(isLoggedIn)
 
   const theme = getTheme(themeMode)
   const dispatch = useAppDispatch()

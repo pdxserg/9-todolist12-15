@@ -22,7 +22,6 @@ export const todolistsReducer = (state = initialState, action: ActionsType): Tod
 
     case "ADD-TODOLIST": {
       const newTodolist: TodolistDomainType = { ...action.payload.todolist, filter: "all", entityStatus: "idle" }
-      console.log(newTodolist)
       return [newTodolist, ...state]
     }
 
@@ -40,7 +39,6 @@ export const todolistsReducer = (state = initialState, action: ActionsType): Tod
         filter: "all",
         entityStatus: "idle",
       }))
-      console.log(todos)
       return todos
     }
     case "CHANGE-TODOLIST-ENSTATUS": {
