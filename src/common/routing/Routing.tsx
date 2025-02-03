@@ -3,7 +3,7 @@
 import App from "../../app/App"
 import { Route, Routes, useNavigate } from "react-router"
 import { Login } from "../../features/auth/ui/Login/Login"
-import { Page404 } from "../components/Page404"
+import { Page404 } from "../components/page404/Page404"
 import { Main } from "../../app/Main"
 import { useAppSelector } from "../hooks"
 import { RootStateType } from "../../app/store"
