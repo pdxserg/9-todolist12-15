@@ -1,11 +1,12 @@
 import { Inputs } from "../ui/Login/Login"
 import { Dispatch } from "redux"
 import { setAppStatusAC } from "../../todolists/model/app-reducer"
-import { todolistsApi } from "../../todolists/api/todolistsApi"
+
 import { handleServerAppError } from "../../../common/utils/handleServerAppError"
 import { handleServerNetworkError } from "../../../common/utils/handleServerNetworkError"
 
 import { authApi } from "../api/authApi"
+import { resetStore } from "../../todolists/model/todolists-reducer"
 
 type InitialStateType = typeof initialState
 
@@ -46,6 +47,7 @@ export const loginTC = (data: Inputs) => (dispatch: Dispatch) => {
         dispatch(setAppStatusAC("succeeded"))
         dispatch(setIsLoggedInAC(true))
         localStorage.setItem("sn-token", res.data.data.token)
+        dispatch(resetStore())
       } else {
         handleServerAppError(res.data, dispatch)
       }
@@ -63,6 +65,7 @@ export const logOutTC = () => (dispatch: Dispatch) => {
         dispatch(setAppStatusAC("succeeded"))
         dispatch(setIsLoggedInAC(false))
         localStorage.removeItem("sn-token")
+        dispatch({ type: "LOGOUT" })
       } else {
         handleServerAppError(res.data, dispatch)
       }

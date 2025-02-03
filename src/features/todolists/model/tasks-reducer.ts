@@ -1,4 +1,4 @@
-import { AddTodolistActionType, RemoveTodolistActionType } from "./todolists-reducer"
+import { AddTodolistActionType, RemoveTodolistActionType, ResetStore } from "./todolists-reducer"
 import { ApiTaskType, UpdateTaskDomainModel } from "../api/tasksApi.types"
 import { AppDispatch, RootStateType } from "../../../app/store"
 import { tasksApi } from "../api/tasksApi"
@@ -55,6 +55,10 @@ export const tasksReducer = (state = initState, action: ActionsType): TasksState
     }
     case "SET_TASKS": {
       return { ...state, [action.payload.todolistId]: action.payload.tasks }
+    }
+    case "LOGOUT": {
+      debugger
+      return initState
     }
 
     default:
@@ -175,3 +179,4 @@ type ActionsType =
   | AddTodolistActionType
   | UpdateTaskACType
   | SetTasksAC
+  | ResetStore

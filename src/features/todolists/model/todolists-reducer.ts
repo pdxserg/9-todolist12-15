@@ -44,6 +44,10 @@ export const todolistsReducer = (state = initialState, action: ActionsType): Tod
     case "CHANGE-TODOLIST-ENSTATUS": {
       return state.map((tl) => (tl.id === action.payload.id ? { ...tl, entityStatus: action.payload.status } : tl))
     }
+    case "LOGOUT": {
+      debugger
+      return initialState
+    }
 
     default:
       return state
@@ -57,6 +61,10 @@ export const changeTodolistEntityStatusAC = (id: string, status: RequestStatus) 
 
 export const removeTodolistAC = (todolistId: string) => {
   return { type: "REMOVE-TODOLIST", payload: { id: todolistId } } as const
+}
+export const resetStore = () => {
+  debugger
+  return { type: "LOGOUT" } as const
 }
 export const setTodolistAC = (todolists: TodolistsType) => {
   return { type: "SET-TODOLIST", payload: { todolists } } as const
@@ -142,6 +150,7 @@ export type ChangeTodolistTitleActionType = ReturnType<typeof changeTodolistTitl
 export type ChangeTodolistFilterActionType = ReturnType<typeof changeTodolistFilter>
 export type SetTodolistsActionType = ReturnType<typeof setTodolistAC>
 export type ChangeTodolistEntityStatusAC = ReturnType<typeof changeTodolistEntityStatusAC>
+export type ResetStore = ReturnType<typeof resetStore>
 
 type ActionsType =
   | RemoveTodolistActionType
@@ -150,3 +159,4 @@ type ActionsType =
   | ChangeTodolistFilterActionType
   | SetTodolistsActionType
   | ChangeTodolistEntityStatusAC
+  | ResetStore
