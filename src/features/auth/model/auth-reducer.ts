@@ -72,7 +72,6 @@ export const logOutTC = () => (dispatch: Dispatch) => {
     })
 }
 export const initializeAppTC = () => (dispatch: Dispatch) => {
-  debugger
   dispatch(setAppStatusAC("loading"))
   authApi
     .me()

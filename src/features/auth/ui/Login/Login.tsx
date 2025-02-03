@@ -89,8 +89,8 @@ export const Login = () => {
                 {...register("password", {
                   required: "Password is required",
                   minLength: {
-                    value: 2,
-                    message: "Password must be at least 2 characters long",
+                    value: 4,
+                    message: "Password must be at least 4 characters long",
                   },
                 })}
               />
