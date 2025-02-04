@@ -1,7 +1,7 @@
 import { TodolistsType, TodolistType } from "../api/todolistsApi.types"
 import { AppDispatch } from "../../../app/store"
 import { todolistsApi } from "../api/todolistsApi"
-import { RequestStatus, setAppStatusAC } from "./appSlice"
+import { RequestStatus, setAppStatus } from "./appSlice"
 import { handleServerAppError } from "../../../common/utils/handleServerAppError"
 import { handleServerNetworkError } from "../../../common/utils/handleServerNetworkError"
 import { addTaskAC } from "./tasks-reducer"
@@ -81,11 +81,11 @@ export const changeTodolistFilter = (id: string, filter: FilterValuesType) => {
 }
 //thunk
 export const fetchTodolistsTC = () => (dispatch: AppDispatch) => {
-  dispatch(setAppStatusAC("loading"))
+  dispatch(setAppStatus({ status: "loading" }))
   todolistsApi
     .getTodolists()
     .then((res) => {
-      dispatch(setAppStatusAC("succeeded"))
+      dispatch(setAppStatus({ status: "succeeded" }))
       dispatch(setTodolistAC(res.data))
     })
     .catch((err) => {
@@ -93,12 +93,12 @@ export const fetchTodolistsTC = () => (dispatch: AppDispatch) => {
     })
 }
 export const addTodolistTC = (title: string) => (dispatch: AppDispatch) => {
-  dispatch(setAppStatusAC("loading"))
+  dispatch(setAppStatus({ status: "loading" }))
   todolistsApi
     .createTodolists(title)
     .then((res) => {
       if (res.data.resultCode === 0) {
-        dispatch(setAppStatusAC("succeeded"))
+        dispatch(setAppStatus({ status: "succeeded" }))
         dispatch(addTodolistAC(res.data.data.item))
       } else {
         handleServerAppError(res.data, dispatch)
@@ -110,12 +110,12 @@ export const addTodolistTC = (title: string) => (dispatch: AppDispatch) => {
 }
 export const deleteTodolistTC = (todolistId: string) => (dispatch: AppDispatch) => {
   dispatch(changeTodolistEntityStatusAC(todolistId, "loading"))
-  dispatch(setAppStatusAC("loading"))
+  dispatch(setAppStatus({ status: "loading" }))
   todolistsApi
     .deleteTodolist(todolistId)
     .then((res) => {
       if (res.data.resultCode === 0) {
-        dispatch(setAppStatusAC("succeeded"))
+        dispatch(setAppStatus({ status: "succeeded" }))
         dispatch(removeTodolistAC(todolistId))
       } else {
         handleServerAppError(res.data, dispatch)
@@ -130,7 +130,7 @@ export const changeTodolistTitleTC = (id: string, title: string) => (dispatch: A
     .updateTodolist({ id, title })
     .then((res) => {
       if (res.data.resultCode === 0) {
-        dispatch(setAppStatusAC("succeeded"))
+        dispatch(setAppStatus({ status: "succeeded" }))
         dispatch(changeTodolistTitleAC(id, title))
       } else {
         handleServerAppError(res.data, dispatch)

@@ -25,50 +25,10 @@ export const appSlice = createSlice({
     setAppError: create.reducer<{ error: null | string }>((state, action) => {
       state.error = action.payload.error
     }),
-    setAppError: create.reducer<{ error: null | string }>((state, action) => {
-      state.error = action.payload.error
+    changeMode: create.reducer((state, action) => {
+      state.themeMode = state.themeMode === "light" ? "dark" : "light"
     }),
   }),
 })
-export const AppReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
-  switch (action.type) {
-    case "CHANGE_MODE": {
-      return {
-        ...state,
-        themeMode: state.themeMode === "light" ? "dark" : "light",
-      }
-    }
-    case "SET_STATUS":
-      return { ...state, status: action.payload.status }
-    case "SET_ERROR_SNACKBAR":
-      return { ...state, error: action.payload.error }
-
-    default:
-      return state
-  }
-}
-
-export const setAppStatusAC = (status: RequestStatus) => {
-  return {
-    type: "SET_STATUS",
-    payload: { status },
-  } as const
-}
-export const setAppErrorAC = (error: null | string) => {
-  return {
-    type: "SET_ERROR_SNACKBAR",
-    payload: { error },
-  } as const
-}
-
-export const changeModeAC = () => {
-  return {
-    type: "CHANGE_MODE",
-    payload: {},
-  } as const
-}
-
-type ActionsType =
-  | ReturnType<typeof changeModeAC>
-  | ReturnType<typeof setAppStatusAC>
-  | ReturnType<typeof setAppErrorAC>
+export const appReducer = appSlice.reducer
+export const { setAppError, changeMode, setAppStatus } = appSlice.actions

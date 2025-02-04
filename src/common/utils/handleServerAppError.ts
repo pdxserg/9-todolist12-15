@@ -1,8 +1,8 @@
-import { setAppErrorAC, setAppStatusAC } from "../../features/todolists/model/appSlice"
+import { setAppErrorAC, setAppStatus } from "../../features/todolists/model/appSlice"
 import { Dispatch } from "redux"
 import { Respond } from "../types/types"
 
 export const handleServerAppError = <T>(data: Respond<T>, dispatch: Dispatch) => {
-  dispatch(setAppStatusAC("failed"))
+  dispatch(setAppStatus("failed"))
   dispatch(setAppErrorAC(data.messages[0]))
 }
