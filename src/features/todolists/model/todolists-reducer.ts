@@ -1,7 +1,7 @@
 import { TodolistsType, TodolistType } from "../api/todolistsApi.types"
 import { AppDispatch } from "../../../app/store"
 import { todolistsApi } from "../api/todolistsApi"
-import { RequestStatus, setAppStatusAC } from "./app-reducer"
+import { RequestStatus, setAppStatusAC } from "./appSlice"
 import { handleServerAppError } from "../../../common/utils/handleServerAppError"
 import { handleServerNetworkError } from "../../../common/utils/handleServerNetworkError"
 import { addTaskAC } from "./tasks-reducer"

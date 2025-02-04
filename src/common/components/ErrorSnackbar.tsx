@@ -3,7 +3,7 @@ import Alert from "@mui/material/Alert"
 import Snackbar from "@mui/material/Snackbar"
 import { useAppDispatch, useAppSelector } from "../hooks"
 import { selectErrorSnackbar } from "../../app/appSelectors"
-import { setAppErrorAC } from "../../features/todolists/model/app-reducer"
+import { setAppErrorAC } from "../../features/todolists/model/appSlice"
 
 export const ErrorSnackbar = () => {
   // const [open, setOpen] = useState(true)

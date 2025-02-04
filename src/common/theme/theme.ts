@@ -1,5 +1,5 @@
 import { createTheme } from "@mui/material/styles"
-import { ThemeMode } from "../../features/todolists/model/app-reducer"
+import { ThemeMode } from "../../features/todolists/model/appSlice"
 
 export const getTheme = (themeMode: ThemeMode) => {
   return createTheme({

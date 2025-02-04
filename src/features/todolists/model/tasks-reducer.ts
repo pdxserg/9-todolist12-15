@@ -2,7 +2,7 @@ import { AddTodolistActionType, RemoveTodolistActionType, ResetStore } from "./t
 import { ApiTaskType, UpdateTaskDomainModel } from "../api/tasksApi.types"
 import { AppDispatch, RootStateType } from "../../../app/store"
 import { tasksApi } from "../api/tasksApi"
-import { setAppStatusAC, setAppErrorAC } from "./app-reducer"
+import { setAppStatusAC, setAppErrorAC } from "./appSlice"
 import { Respond } from "../../../common/types/types"
 import { handleServerAppError } from "../../../common/utils/handleServerAppError"
 import { handleServerNetworkError } from "../../../common/utils/handleServerNetworkError"

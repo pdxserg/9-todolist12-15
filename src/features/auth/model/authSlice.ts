@@ -1,6 +1,6 @@
 import { Inputs } from "../ui/Login/Login"
 import { Dispatch } from "redux"
-import { setAppStatusAC } from "../../todolists/model/app-reducer"
+import { setAppStatusAC } from "../../todolists/model/appSlice"
 
 import { handleServerAppError } from "../../../common/utils/handleServerAppError"
 import { handleServerNetworkError } from "../../../common/utils/handleServerNetworkError"
