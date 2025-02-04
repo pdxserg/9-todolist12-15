@@ -5,6 +5,7 @@ import { RequestStatus, setAppStatus } from "./appSlice"
 import { handleServerAppError } from "../../../common/utils/handleServerAppError"
 import { handleServerNetworkError } from "../../../common/utils/handleServerNetworkError"
 import { addTaskAC } from "./tasks-reducer"
+import { createSlice } from "@reduxjs/toolkit"
 
 export type FilterValuesType = "all" | "active" | "completed"
 export type TodolistDomainType = TodolistType & {
@@ -13,8 +14,29 @@ export type TodolistDomainType = TodolistType & {
 }
 
 const initialState: TodolistDomainType[] = []
+export const todolistsSlice = createSlice({
+  name: "todolists",
+  initialState: [] as TodolistDomainType[],
+  reducers: (create) => ({
+    removeTodolist: create.reducer<{ todolistId: string }>((state, action) => {
+      state.filter((tl) => tl.id !== action.payload.todolistId)
+    }),
+    addTodolist: create.reducer<{ todolist: TodolistType }>((state, action) => {
+      const newTodolist: TodolistDomainType = { ...action.payload.todolist, filter: "all", entityStatus: "idle" }
+      state = produce(state, (draft) => {
+        draft.push(newTodolist)
+      })
+    }),
+    // const addedTodosArray = produce(todosArray, draft => {
+    //   draft.push({id: "id3", done: false, body: "Buy bananas"})
+    // })
+  }),
+})
 
-export const todolistsReducer = (state = initialState, action: ActionsType): TodolistDomainType[] => {
+export const todolistsReducer = todolistsSlice.reducer
+export const {} = todolistsSlice.actions
+
+export const _todolistsReducer = (state = initialState, action: ActionsType): TodolistDomainType[] => {
   switch (action.type) {
     case "REMOVE-TODOLIST": {
       return state.filter((tl) => tl.id !== action.payload.id)
@@ -47,7 +69,6 @@ export const todolistsReducer = (state = initialState, action: ActionsType): Tod
     case "LOGOUT": {
       return initialState
     }
-
     default:
       return state
   }
@@ -116,7 +137,7 @@ export const deleteTodolistTC = (todolistId: string) => (dispatch: AppDispatch) 
     .then((res) => {
       if (res.data.resultCode === 0) {
         dispatch(setAppStatus({ status: "succeeded" }))
-        dispatch(removeTodolistAC(todolistId))
+        dispatch(removeTodolist({ todolistId: string }))
       } else {
         handleServerAppError(res.data, dispatch)
       }

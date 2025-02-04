@@ -1,7 +1,7 @@
 // @flow
 import * as React from "react"
 import Button from "@mui/material/Button"
-import { changeTodolistFilter, FilterValuesType, TodolistDomainType } from "../../model/todolists-reducer"
+import { changeTodolistFilter, FilterValuesType, TodolistDomainType } from "../../model/todolistsSlice"
 
 import { filterButtonsContainerSx } from "./Todolist/Todolist.styles"
 import Box from "@mui/material/Box"

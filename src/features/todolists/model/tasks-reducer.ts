@@ -1,4 +1,4 @@
-import { AddTodolistActionType, RemoveTodolistActionType, ResetStore } from "./todolists-reducer"
+import { AddTodolistActionType, RemoveTodolistActionType, ResetStore } from "./todolistsSlice"
 import { ApiTaskType, UpdateTaskDomainModel } from "../api/tasksApi.types"
 import { AppDispatch, RootStateType } from "../../../app/store"
 import { tasksApi } from "../api/tasksApi"

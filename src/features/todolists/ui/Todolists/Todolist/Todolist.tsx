@@ -5,7 +5,7 @@ import { FilterTasksButtons } from "../FilterTasksButtons"
 import { Tasks } from "../Tasks/Tasks"
 import { TodolistTitle } from "./TodolistTitle"
 import { useAppDispatch } from "../../../../../common/hooks/useAppDispatch"
-import { TodolistDomainType } from "../../../model/todolists-reducer"
+import { TodolistDomainType } from "../../../model/todolistsSlice"
 
 type PropsType = {
   todo: TodolistDomainType

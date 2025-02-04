@@ -4,7 +4,7 @@ import Grid from "@mui/material/Unstable_Grid2"
 import { AddItemForm } from "../common/components/AddItemForm"
 import Container from "@mui/material/Container"
 
-import { addTodolistAC, addTodolistTC } from "../features/todolists/model/todolists-reducer"
+import { addTodolistAC, addTodolistTC } from "../features/todolists/model/todolistsSlice"
 import { Todolists } from "../features/todolists/ui/Todolists/Todolists"
 import { useAppDispatch } from "../common/hooks/useAppDispatch"
 import { useAppSelector } from "../common/hooks"

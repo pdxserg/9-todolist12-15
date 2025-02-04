@@ -9,7 +9,7 @@ import DeleteIcon from "@mui/icons-material/Delete"
 import { deleteTaskTC, updateTaskTC } from "../../../../model/tasks-reducer"
 import { useAppDispatch } from "common/hooks/useAppDispatch"
 import { EditableSpan } from "common/components"
-import { TodolistDomainType } from "../../../../model/todolists-reducer"
+import { TodolistDomainType } from "../../../../model/todolistsSlice"
 import { ApiTaskType } from "../../../../api/tasksApi.types"
 import { TaskStatus } from "../../../../../../common/enums/enums"
 

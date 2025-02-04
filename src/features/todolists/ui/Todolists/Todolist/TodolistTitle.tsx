@@ -3,7 +3,7 @@ import * as React from "react"
 import { EditableSpan } from "common/components"
 import IconButton from "@mui/material/IconButton"
 import DeleteIcon from "@mui/icons-material/Delete"
-import { changeTodolistTitleTC, deleteTodolistTC, TodolistDomainType } from "../../../model/todolists-reducer"
+import { changeTodolistTitleTC, deleteTodolistTC, TodolistDomainType } from "../../../model/todolistsSlice"
 import { useAppDispatch } from "common/hooks"
 
 type Props = {
