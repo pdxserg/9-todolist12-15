@@ -13,7 +13,7 @@ import { useAppSelector } from "../hooks/useAppSelector"
 import { selectThemeMode } from "../../app/appSelectors"
 import { LinearProgress } from "@mui/material"
 import { RootStateType } from "../../app/store"
-import { logOutTC } from "../../features/auth/model/auth-reducer"
+import { logOutTC } from "../../features/auth/model/authSlice"
 
 export const Header = () => {
   const themeMode = useAppSelector(selectThemeMode)

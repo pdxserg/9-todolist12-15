@@ -57,7 +57,6 @@ export const tasksReducer = (state = initState, action: ActionsType): TasksState
       return { ...state, [action.payload.todolistId]: action.payload.tasks }
     }
     case "LOGOUT": {
-      debugger
       return initState
     }
 

@@ -11,7 +11,7 @@ import { ErrorSnackbar } from "../common/components/ErrorSnackbar"
 import { Routing } from "../common/routing/Routing"
 import { RootStateType } from "./store"
 import { useAppDispatch } from "../common/hooks"
-import { initializeAppTC } from "../features/auth/model/auth-reducer"
+import { initializeAppTC } from "../features/auth/model/authSlice"
 import { CircularProgress } from "@mui/material"
 
 function App() {
