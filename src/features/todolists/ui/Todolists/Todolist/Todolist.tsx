@@ -1,5 +1,5 @@
 import { AddItemForm } from "../../../../../common/components/AddItemForm"
-import { addTaskTC } from "../../../model/tasks-reducer"
+import { addTaskTC } from "../../../model/tasksSlice"
 import { FilterTasksButtons } from "../FilterTasksButtons"
 
 import { Tasks } from "../Tasks/Tasks"

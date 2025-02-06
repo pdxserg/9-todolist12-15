@@ -6,7 +6,7 @@ import { useAppSelector } from "common/hooks/useAppSelector"
 import { selectTasks } from "../../../model/tasksSelectors"
 import { TodolistDomainType } from "../../../model/todolistsSlice"
 import { useEffect } from "react"
-import { fetchTasksTC } from "../../../model/tasks-reducer"
+import { fetchTasksTC } from "../../../model/tasksSlice"
 import { useAppDispatch } from "../../../../../common/hooks"
 import { TaskStatus } from "../../../../../common/enums/enums"
 
