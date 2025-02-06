@@ -32,10 +32,27 @@ export const tasksSlice = createSlice({
       }
       return newTodolistTasks
     }),
+    updateTask: create.reducer<{ taskId: string; todoListId: string; updates: UpdateTaskDomainModel }>(
+      (state, action) => {
+        const newTodolistTasks = {
+          ...state,
+          [action.payload.todoListId]: state[action.payload.todoListId].map((t) =>
+            t.id === action.payload.taskId
+              ? {
+                  ...t,
+                  ...action.payload.updates,
+                  // title: action.payload.title,
+                }
+              : t,
+          ),
+        }
+        return newTodolistTasks
+      },
+    ),
   }),
 })
 export const tasksReducer = tasksSlice.reducer
-export const { addTask, setTasks, removeTask } = tasksSlice.actions
+export const { addTask, setTasks, removeTask, updateTask } = tasksSlice.actions
 
 const initState: TasksStateType = {}
 export const _tasksReducer = (state = initState, action: any): TasksStateType => {
@@ -48,21 +65,6 @@ export const _tasksReducer = (state = initState, action: any): TasksStateType =>
     case "todolists/addTodolist": {
       return { ...state, [action.payload.todolist.id]: [] }
     }
-    case "UPDATE_TASK": {
-      const newTodolistTasks = {
-        ...state,
-        [action.payload.todoListId]: state[action.payload.todoListId].map((t) =>
-          t.id === action.payload.taskId
-            ? {
-                ...t,
-                ...action.payload.updates,
-                // title: action.payload.title,
-              }
-            : t,
-        ),
-      }
-      return newTodolistTasks
-    }
 
     case "LOGOUT": {
       return initState
@@ -73,18 +75,12 @@ export const _tasksReducer = (state = initState, action: any): TasksStateType =>
   }
 }
 
-export const updateTaskAC = (payload: { taskId: string; todoListId: string; updates: UpdateTaskDomainModel }) => {
-  return {
-    type: "UPDATE_TASK",
-    payload,
-  } as const
-}
 // Actions types
 export type removeTaskType = ReturnType<typeof removeTask>
 export type addTaskType = ReturnType<typeof addTask>
-export type UpdateTaskACType = ReturnType<typeof updateTaskAC>
+
 export type setTasks = ReturnType<typeof setTasks>
-type ActionsType = removeTaskType | addTaskType | UpdateTaskACType | setTasks
+type ActionsType = removeTaskType | addTaskType | setTasks
 
 // thunk
 
@@ -154,7 +150,7 @@ export const updateTaskTC =
       .then((res) => {
         if (res.data.resultCode === 0) {
           dispatch(setAppStatus({ status: "succeeded" }))
-          dispatch(updateTaskAC({ updates, todoListId: task.todoListId, taskId: task.id }))
+          dispatch(updateTask({ updates, todoListId: task.todoListId, taskId: task.id }))
         } else {
           handleServerAppError(res.data, dispatch)
         }
