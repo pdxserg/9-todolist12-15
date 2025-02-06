@@ -20,7 +20,7 @@ export const tasksSlice = createSlice({
         ...state,
         [action.payload.task.todoListId]: [action.payload.task, ...state[action.payload.task.todoListId]],
       }
-      return newTodolistTasks
+      state[action.payload.task.todoListId].unshift(action.payload.task)
     }),
     setTasks: create.reducer<{ tasks: ApiTaskType[]; todolistId: string }>((state, action) => {
       return { ...state, [action.payload.todolistId]: action.payload.tasks }
