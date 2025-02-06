@@ -58,6 +58,15 @@ export const todolistsSlice = createSlice({
         state[index].title = action.payload.title
       }
     }),
+    changeTodolistFilter: create.reducer<{ todolistId: string; filter: FilterValuesType }>((state, action) => {
+      const index = state.findIndex((tl) => tl.id === action.payload.todolistId)
+      if (index !== -1) {
+        state[index].filter = action.payload.filter
+      }
+    }),
+    resetStore: create.reducer((state) => {
+      return []
+    }),
   }),
 })
 
