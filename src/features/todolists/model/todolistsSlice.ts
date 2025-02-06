@@ -71,8 +71,15 @@ export const todolistsSlice = createSlice({
 })
 
 export const todolistsReducer = todolistsSlice.reducer
-export const { removeTodolist, addTodolist, setTodolist, changeTodolistEntityStatus, changeTodolistTitle } =
-  todolistsSlice.actions
+export const {
+  removeTodolist,
+  addTodolist,
+  setTodolist,
+  changeTodolistEntityStatus,
+  changeTodolistTitle,
+  changeTodolistFilter,
+  resetStore,
+} = todolistsSlice.actions
 
 //thunk
 export const fetchTodolistsTC = () => (dispatch: AppDispatch) => {

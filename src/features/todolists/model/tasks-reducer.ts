@@ -1,9 +1,7 @@
-import { AddTodolistActionType, RemoveTodolistActionType, ResetStore } from "./todolistsSlice"
 import { ApiTaskType, UpdateTaskDomainModel } from "../api/tasksApi.types"
 import { AppDispatch, RootStateType } from "../../../app/store"
 import { tasksApi } from "../api/tasksApi"
 import { setAppStatus, setAppError } from "./appSlice"
-import { Respond } from "../../../common/types/types"
 import { handleServerAppError } from "../../../common/utils/handleServerAppError"
 import { handleServerNetworkError } from "../../../common/utils/handleServerNetworkError"
 
@@ -30,14 +28,14 @@ export const tasksReducer = (state = initState, action: ActionsType): TasksState
 
       return newTodolistTasks
     }
-    case "todolists/removeTodolist": {
-      let copyState = { ...state }
-      delete copyState[action.payload.todolistId]
-      return copyState
-    }
-    case "todolists/addTodolist": {
-      return { ...state, [action.payload.todolist.id]: [] }
-    }
+    // case "todolists/removeTodolist": {
+    //   let copyState = { ...state }
+    //   delete copyState[action.payload.todolistId]
+    //   return copyState
+    // }
+    // case "todolists/addTodolist": {
+    //   return { ...state, [action.payload.todolist.id]: [] }
+    // }
     case "UPDATE_TASK": {
       const newTodolistTasks = {
         ...state,
@@ -56,9 +54,9 @@ export const tasksReducer = (state = initState, action: ActionsType): TasksState
     case "SET_TASKS": {
       return { ...state, [action.payload.todolistId]: action.payload.tasks }
     }
-    case "LOGOUT": {
-      return initState
-    }
+    // case "LOGOUT": {
+    //   return initState
+    // }
 
     default:
       return state
@@ -172,11 +170,4 @@ export type RemoveTaskACType = ReturnType<typeof removeTaskAC>
 export type AddTaskACType = ReturnType<typeof addTaskAC>
 export type UpdateTaskACType = ReturnType<typeof updateTaskAC>
 export type SetTasksAC = ReturnType<typeof setTasksAC>
-type ActionsType =
-  | RemoveTaskACType
-  | AddTaskACType
-  | RemoveTodolistActionType
-  | AddTodolistActionType
-  | UpdateTaskACType
-  | SetTasksAC
-  | ResetStore
+type ActionsType = RemoveTaskACType | AddTaskACType | UpdateTaskACType | SetTasksAC
