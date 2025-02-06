@@ -13,8 +13,8 @@ export const todolistsApi = {
   deleteTodolist: (id: string) => {
     return instance.delete<Respond>(`/todo-lists/${id}`)
   },
-  updateTodolist: (arg: { id: string; title: string }) => {
-    const { id, title } = arg
-    return instance.put<Respond>(`/todo-lists/${id}`, { title })
+  updateTodolist: (arg: { todolistId: string; title: string }) => {
+    const { todolistId, title } = arg
+    return instance.put<Respond>(`/todo-lists/${todolistId}`, { title })
   },
 }
