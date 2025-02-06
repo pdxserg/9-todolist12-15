@@ -24,11 +24,11 @@ export const Tasks = ({ todo }: Props) => {
   let tasksForTodolist = allTodolistTasks
 
   if (todo.filter === "active") {
-    tasksForTodolist = allTodolistTasks.filter((task) => task.status === TaskStatus.New)
+    tasksForTodolist = allTodolistTasks.filter((task: any) => task.status === TaskStatus.New)
   }
 
   if (todo.filter === "completed") {
-    tasksForTodolist = allTodolistTasks.filter((task) => task.status === TaskStatus.Completed)
+    tasksForTodolist = allTodolistTasks.filter((task: any) => task.status === TaskStatus.Completed)
   }
   return (
     <>
@@ -36,7 +36,7 @@ export const Tasks = ({ todo }: Props) => {
         <p>Тасок нет</p>
       ) : (
         <List>
-          {tasksForTodolist?.map((task) => {
+          {tasksForTodolist?.map((task: any) => {
             return <Task key={task.id} task={task} todo={todo} />
           })}
         </List>

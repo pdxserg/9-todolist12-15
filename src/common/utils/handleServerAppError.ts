@@ -4,5 +4,5 @@ import { Respond } from "../types/types"
 
 export const handleServerAppError = <T>(data: Respond<T>, dispatch: Dispatch) => {
   dispatch(setAppStatus({ status: "failed" }))
-  dispatch(setAppError(data.messages[0]))
+  dispatch(setAppError({ error: data.messages[0] }))
 }

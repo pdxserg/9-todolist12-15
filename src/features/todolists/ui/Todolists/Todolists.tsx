@@ -18,7 +18,7 @@ export const Todolists = () => {
 
   return (
     <div>
-      {todolists.map((tl) => {
+      {todolists.map((tl: any) => {
         return (
           <Grid key={tl.id}>
             <Paper sx={{ p: "0 20px 20px 20px" }}>

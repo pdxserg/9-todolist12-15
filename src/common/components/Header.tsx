@@ -6,7 +6,7 @@ import MenuIcon from "@mui/icons-material/Menu"
 import { MenuButton } from "./MenuButton"
 import Switch from "@mui/material/Switch"
 import AppBar from "@mui/material/AppBar"
-import { changeModeAC } from "../../features/todolists/model/appSlice"
+import { changeMode } from "../../features/todolists/model/appSlice"
 import { getTheme } from "../theme/theme"
 import { useAppDispatch } from "../hooks/useAppDispatch"
 import { useAppSelector } from "../hooks/useAppSelector"
@@ -24,7 +24,7 @@ export const Header = () => {
   const dispatch = useAppDispatch()
 
   const changeModeHandler = () => {
-    dispatch(changeModeAC())
+    dispatch(changeMode())
   }
   const logoutHandler = () => {
     dispatch(logOutTC())

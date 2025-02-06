@@ -30,12 +30,12 @@ export const tasksReducer = (state = initState, action: ActionsType): TasksState
 
       return newTodolistTasks
     }
-    case "REMOVE-TODOLIST": {
+    case "todolists/removeTodolist": {
       let copyState = { ...state }
-      delete copyState[action.payload.id]
+      delete copyState[action.payload.todolistId]
       return copyState
     }
-    case "ADD-TODOLIST": {
+    case "todolists/addTodolist": {
       return { ...state, [action.payload.todolist.id]: [] }
     }
     case "UPDATE_TASK": {
@@ -77,7 +77,8 @@ export const fetchTasksTC = (todolistId: string) => (dispatch: AppDispatch) => {
         dispatch(setTasksAC({ tasks, todolistId }))
       } else {
         dispatch(setAppStatus({ status: "failed" }))
-        dispatch(setAppError(res.data.error))
+        // dispatch(setAppError(res.data.error))
+        dispatch(setAppError({ error: res.data.error }))
       }
     })
     .catch((err) => {
@@ -124,7 +125,7 @@ export const updateTaskTC =
 
     const allTask = getState().tasks
     const tasksForCurentTodolist = allTask[todoListId]
-    const task = tasksForCurentTodolist.find((e) => e.id === taskId)!
+    const task = tasksForCurentTodolist.find((e: any) => e.id === taskId)!
 
     tasksApi
       .updateTask({ task, updates })
