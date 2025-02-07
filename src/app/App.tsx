@@ -10,14 +10,14 @@ import { ErrorSnackbar } from "../common/components/ErrorSnackbar"
 import { Routing } from "../common/routing/Routing"
 import { RootStateType } from "./store"
 import { useAppDispatch } from "../common/hooks"
-import { initializeAppTC } from "../features/auth/model/authSlice"
+import { initializeAppTC, isInitializ } from "../features/auth/model/authSlice"
 import { CircularProgress } from "@mui/material"
 import { selectThemeMode } from "../features/todolists/model/appSlice"
 
 function App() {
   const themeMode = useAppSelector(selectThemeMode)
   const theme = getTheme(themeMode)
-  const isInitialized = useAppSelector((state: RootStateType) => state.auth.isInitialized)
+  const isInitialized = useAppSelector(isInitializ)
   console.log(isInitialized)
   const dispatch = useAppDispatch()
 
