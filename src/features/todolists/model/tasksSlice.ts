@@ -16,37 +16,25 @@ export const tasksSlice = createSlice({
   initialState: {} as TasksStateType,
   reducers: (create) => ({
     addTask: create.reducer<{ task: ApiTaskType }>((state, action) => {
-      const newTodolistTasks = {
-        ...state,
-        [action.payload.task.todoListId]: [action.payload.task, ...state[action.payload.task.todoListId]],
-      }
       state[action.payload.task.todoListId].unshift(action.payload.task)
     }),
     setTasks: create.reducer<{ tasks: ApiTaskType[]; todolistId: string }>((state, action) => {
-      return { ...state, [action.payload.todolistId]: action.payload.tasks }
+      state[action.payload.todolistId] = action.payload.tasks
     }),
     removeTask: create.reducer<{ taskId: string; todolistId: string }>((state, action) => {
-      const newTodolistTasks = {
-        ...state,
-        [action.payload.todolistId]: state[action.payload.todolistId].filter((t) => t.id !== action.payload.taskId),
+      const tasks = state[action.payload.todolistId]
+      const index = tasks.findIndex((t) => t.id === action.payload.taskId)
+      if (index !== -1) {
+        tasks.splice(index, 1)
       }
-      return newTodolistTasks
     }),
     updateTask: create.reducer<{ taskId: string; todoListId: string; updates: UpdateTaskDomainModel }>(
       (state, action) => {
-        const newTodolistTasks = {
-          ...state,
-          [action.payload.todoListId]: state[action.payload.todoListId].map((t) =>
-            t.id === action.payload.taskId
-              ? {
-                  ...t,
-                  ...action.payload.updates,
-                  // title: action.payload.title,
-                }
-              : t,
-          ),
+        const tasks = state[action.payload.todoListId]
+        const index = tasks.findIndex((t) => t.id === action.payload.taskId)
+        if (index !== -1) {
+          tasks[index] = { ...tasks[index], ...action.payload.updates }
         }
-        return newTodolistTasks
       },
     ),
   }),
