@@ -1,12 +1,11 @@
 // @flow
 import * as React from "react"
 import { useAppDispatch, useAppSelector } from "common/hooks"
-import { selectTodolists } from "../../model/todolistsSelectors"
 import { useEffect } from "react"
 import Grid from "@mui/material/Unstable_Grid2"
 import { Paper } from "@mui/material"
 import { Todolist } from "./Todolist/Todolist"
-import { fetchTodolistsTC } from "../../model/todolistsSlice"
+import { fetchTodolistsTC, selectTodolists } from "../../model/todolistsSlice"
 
 export const Todolists = () => {
   const todolists = useAppSelector(selectTodolists)
