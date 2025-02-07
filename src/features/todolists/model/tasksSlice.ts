@@ -5,7 +5,7 @@ import { setAppStatus, setAppError } from "./appSlice"
 import { handleServerAppError } from "../../../common/utils/handleServerAppError"
 import { handleServerNetworkError } from "../../../common/utils/handleServerNetworkError"
 import { createSlice } from "@reduxjs/toolkit"
-import { todolistsSlice } from "./todolistsSlice"
+import { addTodolist, removeTodolist, todolistsSlice } from "./todolistsSlice"
 
 export type TasksStateType = {
   [key: string]: ApiTaskType[]
@@ -38,6 +38,14 @@ export const tasksSlice = createSlice({
       },
     ),
   }),
+  extraReducers: (builder) => {
+    builder.addCase(removeTodolist, (state, action) => {
+      delete state[action.payload.todolistId]
+    })
+    builder.addCase(addTodolist, (state, action) => {
+      state[action.payload.todolist.id] = []
+    })
+  },
 })
 export const tasksReducer = tasksSlice.reducer
 export const { addTask, setTasks, removeTask, updateTask } = tasksSlice.actions
