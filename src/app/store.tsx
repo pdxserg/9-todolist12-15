@@ -1,9 +1,9 @@
-import { combineReducers, UnknownAction } from "redux"
-import { todolistsReducer } from "../features/todolists/model/todolistsSlice"
-import { tasksReducer } from "../features/todolists/model/tasksSlice"
-import { appReducer } from "../features/todolists/model/appSlice"
+import { UnknownAction } from "redux"
+import { todolistsReducer, todolistsSlice } from "../features/todolists/model/todolistsSlice"
+import { tasksReducer, tasksSlice } from "../features/todolists/model/tasksSlice"
+import { appReducer, appSlice } from "../features/todolists/model/appSlice"
 import { thunk, ThunkDispatch } from "redux-thunk"
-import { authReducer } from "../features/auth/model/authSlice"
+import { authReducer, authSlice } from "../features/auth/model/authSlice"
 
 import { configureStore } from "@reduxjs/toolkit"
 
@@ -16,10 +16,10 @@ import { configureStore } from "@reduxjs/toolkit"
 
 export const store = configureStore({
   reducer: {
-    todolists: todolistsReducer,
-    tasks: tasksReducer,
-    app: appReducer,
-    auth: authReducer,
+    [todolistsSlice.name]: todolistsReducer,
+    [tasksSlice.name]: tasksReducer,
+    [appSlice.name]: appReducer,
+    [authSlice.name]: authReducer,
   },
 })
 
