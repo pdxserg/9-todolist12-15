@@ -12,13 +12,16 @@ import { RootStateType } from "./store"
 import { useNavigate } from "react-router"
 import { useEffect } from "react"
 import { Path } from "../common/routing/Routing"
+import { selectIsLoggedIn } from "../features/auth/model/authSlice"
 
 export const Main = () => {
   const dispatch = useAppDispatch()
   const addTodolist = (title: string) => {
     dispatch(addTodolistTC(title))
   }
-  const isLoggedIn = useAppSelector((state: RootStateType) => state.auth?.isLoggedIn)
+  // const isLoggedIn = useAppSelector((state: RootStateType) => state.auth?.isLoggedIn)
+  const isLoggedIn = useAppSelector(selectIsLoggedIn)
+
   const navigate = useNavigate()
   useEffect(() => {
     if (!isLoggedIn) {
