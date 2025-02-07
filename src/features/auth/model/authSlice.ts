@@ -56,7 +56,7 @@ export const logOutTC = () => (dispatch: Dispatch) => {
         dispatch(setAppStatus({ status: "succeeded" }))
         dispatch(setIsLoggedIn({ isLoggedIn: false }))
         localStorage.removeItem("sn-token")
-        dispatch({ type: "LOGOUT" })
+        dispatch(resetStore())
       } else {
         handleServerAppError(res.data, dispatch)
       }
