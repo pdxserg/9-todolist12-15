@@ -1,7 +1,6 @@
 // @flow
 
 import { createSlice } from "@reduxjs/toolkit"
-
 export type ThemeMode = "dark" | "light"
 export type RequestStatus = "idle" | "loading" | "succeeded" | "failed"
 // type InitialStateType = typeof initialState
@@ -29,6 +28,11 @@ export const appSlice = createSlice({
       state.themeMode = state.themeMode === "light" ? "dark" : "light"
     }),
   }),
+  selectors: {
+    selectThemeMode: (state) => state.themeMode,
+    selectErrorSnackbar: (state) => state.error,
+  },
 })
 export const appReducer = appSlice.reducer
 export const { setAppError, changeMode, setAppStatus } = appSlice.actions
+export const { selectThemeMode, selectErrorSnackbar } = appSlice.selectors

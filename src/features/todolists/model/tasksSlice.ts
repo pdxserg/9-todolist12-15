@@ -53,34 +53,6 @@ export const tasksSlice = createSlice({
 export const tasksReducer = tasksSlice.reducer
 export const { addTask, setTasks, removeTask, updateTask } = tasksSlice.actions
 
-const initState: TasksStateType = {}
-export const _tasksReducer = (state = initState, action: any): TasksStateType => {
-  switch (action.type) {
-    case "todolists/removeTodolist": {
-      let copyState = { ...state }
-      delete copyState[action.payload.todolistId]
-      return copyState
-    }
-    case "todolists/addTodolist": {
-      return { ...state, [action.payload.todolist.id]: [] }
-    }
-
-    case "LOGOUT": {
-      return initState
-    }
-
-    default:
-      return state
-  }
-}
-
-// Actions types
-export type removeTaskType = ReturnType<typeof removeTask>
-export type addTaskType = ReturnType<typeof addTask>
-
-export type setTasks = ReturnType<typeof setTasks>
-type ActionsType = removeTaskType | addTaskType | setTasks
-
 // thunk
 
 export const fetchTasksTC = (todolistId: string) => (dispatch: AppDispatch) => {

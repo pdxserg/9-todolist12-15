@@ -7,7 +7,6 @@ import FormLabel from "@mui/material/FormLabel"
 import Grid from "@mui/material/Grid"
 import TextField from "@mui/material/TextField"
 import { useAppDispatch, useAppSelector } from "common/hooks"
-import { selectThemeMode } from "../../../../app/appSelectors"
 import { getTheme } from "../../../../common/theme/theme"
 import { Controller, SubmitHandler, useForm } from "react-hook-form"
 import { loginTC } from "../../model/authSlice"
@@ -15,6 +14,7 @@ import { RootStateType } from "../../../../app/store"
 import { useNavigate } from "react-router"
 import { useEffect } from "react"
 import { Path } from "../../../../common/routing/Routing"
+import { selectThemeMode } from "../../../todolists/model/appSlice"
 
 export type Inputs = {
   email: string

@@ -6,13 +6,13 @@ import CssBaseline from "@mui/material/CssBaseline"
 import { Header } from "../common/components/Header"
 import { getTheme } from "../common/theme/theme"
 import { useAppSelector } from "../common/hooks/useAppSelector"
-import { selectThemeMode } from "./appSelectors"
 import { ErrorSnackbar } from "../common/components/ErrorSnackbar"
 import { Routing } from "../common/routing/Routing"
 import { RootStateType } from "./store"
 import { useAppDispatch } from "../common/hooks"
 import { initializeAppTC } from "../features/auth/model/authSlice"
 import { CircularProgress } from "@mui/material"
+import { selectThemeMode } from "../features/todolists/model/appSlice"
 
 function App() {
   const themeMode = useAppSelector(selectThemeMode)

@@ -2,8 +2,7 @@ import { SyntheticEvent, useState } from "react"
 import Alert from "@mui/material/Alert"
 import Snackbar from "@mui/material/Snackbar"
 import { useAppDispatch, useAppSelector } from "../hooks"
-import { selectErrorSnackbar } from "../../app/appSelectors"
-import { setAppError } from "../../features/todolists/model/appSlice"
+import { selectErrorSnackbar, setAppError } from "../../features/todolists/model/appSlice"
 
 export const ErrorSnackbar = () => {
   // const [open, setOpen] = useState(true)
