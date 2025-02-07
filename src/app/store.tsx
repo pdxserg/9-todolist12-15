@@ -7,14 +7,21 @@ import { authReducer } from "../features/auth/model/authSlice"
 
 import { configureStore } from "@reduxjs/toolkit"
 
-const rootReducer = combineReducers({
-  todolists: todolistsReducer,
-  tasks: tasksReducer,
-  app: appReducer,
-  auth: authReducer,
-})
+// const rootReducer = combineReducers({
+//   todolists: todolistsReducer,
+//   tasks: tasksReducer,
+//   app: appReducer,
+//   auth: authReducer,
+// })
 
-export const store = configureStore({ reducer: rootReducer })
+export const store = configureStore({
+  reducer: {
+    todolists: todolistsReducer,
+    tasks: tasksReducer,
+    app: appReducer,
+    auth: authReducer,
+  },
+})
 
 export type RootStateType = ReturnType<typeof store.getState>
 
