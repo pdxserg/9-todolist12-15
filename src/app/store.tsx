@@ -6,6 +6,8 @@ import { thunk, ThunkDispatch } from "redux-thunk"
 import { authReducer, authSlice } from "../features/auth/model/authSlice"
 
 import { configureStore } from "@reduxjs/toolkit"
+import { todolistsApi } from "../features/todolists/api/todolistsApi"
+import { setupListeners } from "@reduxjs/toolkit/query"
 
 // const rootReducer = combineReducers({
 //   todolists: todolistsReducer,
@@ -20,9 +22,11 @@ export const store = configureStore({
     [tasksSlice.name]: tasksReducer,
     [appSlice.name]: appReducer,
     [authSlice.name]: authReducer,
+    [todolistsApi.reducerPath]: todolistsApi.reducer,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(todolistsApi.middleware),
 })
-
+setupListeners(store.dispatch)
 export type RootStateType = ReturnType<typeof store.getState>
 
 export type AppDispatch = ThunkDispatch<RootStateType, unknown, UnknownAction>

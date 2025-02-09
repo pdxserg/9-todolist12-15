@@ -6,18 +6,20 @@ import Grid from "@mui/material/Unstable_Grid2"
 import { Paper } from "@mui/material"
 import { Todolist } from "./Todolist/Todolist"
 import { fetchTodolistsTC, selectTodolists } from "../../model/todolistsSlice"
+import { useGetTodolistsQuery } from "../../api/todolistsApi"
 
 export const Todolists = () => {
-  const todolists = useAppSelector(selectTodolists)
-  const dispatch = useAppDispatch()
-
-  useEffect(() => {
-    dispatch(fetchTodolistsTC())
-  }, [])
+  const { data: todolists } = useGetTodolistsQuery()
+  // const todolists = useAppSelector(selectTodolists)
+  // const dispatch = useAppDispatch()
+  //
+  // useEffect(() => {
+  //   dispatch(fetchTodolistsTC())
+  // }, [])
 
   return (
     <div>
-      {todolists.map((tl: any) => {
+      {todolists?.map((tl: any) => {
         return (
           <Grid key={tl.id}>
             <Paper sx={{ p: "0 20px 20px 20px" }}>

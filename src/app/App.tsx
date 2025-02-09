@@ -18,7 +18,7 @@ function App() {
   const themeMode = useAppSelector(selectThemeMode)
   const theme = getTheme(themeMode)
   const isInitialized = useAppSelector(isInitializ)
-  console.log(isInitialized)
+  console.log("isInitialized", isInitialized)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
