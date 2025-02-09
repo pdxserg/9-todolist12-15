@@ -6,6 +6,7 @@ import { TodolistDomainType } from "../model/todolistsSlice"
 
 export const todolistsApi = createApi({
   reducerPath: "todolistsApi",
+  tagTypes: ["Todolist"],
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.REACT_APP_BASE_URL,
     prepareHeaders: (headers) => {
@@ -27,6 +28,7 @@ export const todolistsApi = createApi({
         }))
         return todolists
       },
+      providesTags: ["Todolist"],
     }),
     createTodolist: builder.mutation<Respond<{ item: TodolistType }>, string>({
       query: (title) => ({
@@ -34,6 +36,7 @@ export const todolistsApi = createApi({
         method: "POST",
         body: { title },
       }),
+      invalidatesTags: ["Todolist"],
     }),
     deleteTodolist: builder.mutation<Respond, string>({
       query: (id) => ({
@@ -41,11 +44,21 @@ export const todolistsApi = createApi({
         method: "DELETE",
         body: {},
       }),
+      invalidatesTags: ["Todolist"],
+    }),
+    updateTodolist: builder.mutation<Respond, { todolistId: string; title: string }>({
+      query: ({ todolistId, title }) => ({
+        url: `/todo-lists/${todolistId}`,
+        method: "PUT",
+        body: { title },
+      }),
+      invalidatesTags: ["Todolist"],
     }),
   }),
 })
 
-export const { useGetTodolistsQuery, useCreateTodolistMutation, useDeleteTodolistMutation } = todolistsApi
+export const { useGetTodolistsQuery, useCreateTodolistMutation, useDeleteTodolistMutation, useUpdateTodolistMutation } =
+  todolistsApi
 
 export const _todolistsApi = {
   getTodolists: () => {
