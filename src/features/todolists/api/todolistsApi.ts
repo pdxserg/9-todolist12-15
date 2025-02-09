@@ -28,10 +28,17 @@ export const todolistsApi = createApi({
         return todolists
       },
     }),
+    createTodolist: builder.mutation<Respond<{ item: TodolistType }>, string>({
+      query: (title) => ({
+        url: `/todo-lists`,
+        method: "POST",
+        body: { title },
+      }),
+    }),
   }),
 })
 
-export const { useGetTodolistsQuery } = todolistsApi
+export const { useGetTodolistsQuery, useCreateTodolistMutation } = todolistsApi
 
 export const _todolistsApi = {
   getTodolists: () => {

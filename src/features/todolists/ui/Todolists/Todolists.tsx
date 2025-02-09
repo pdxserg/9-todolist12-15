@@ -1,21 +1,12 @@
 // @flow
 import * as React from "react"
-import { useAppDispatch, useAppSelector } from "common/hooks"
-import { useEffect } from "react"
 import Grid from "@mui/material/Unstable_Grid2"
 import { Paper } from "@mui/material"
 import { Todolist } from "./Todolist/Todolist"
-import { fetchTodolistsTC, selectTodolists } from "../../model/todolistsSlice"
 import { useGetTodolistsQuery } from "../../api/todolistsApi"
 
 export const Todolists = () => {
   const { data: todolists } = useGetTodolistsQuery()
-  // const todolists = useAppSelector(selectTodolists)
-  // const dispatch = useAppDispatch()
-  //
-  // useEffect(() => {
-  //   dispatch(fetchTodolistsTC())
-  // }, [])
 
   return (
     <div>

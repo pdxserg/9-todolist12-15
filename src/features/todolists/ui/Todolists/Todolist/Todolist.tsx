@@ -1,7 +1,6 @@
 import { AddItemForm } from "../../../../../common/components/AddItemForm"
 import { addTaskTC } from "../../../model/tasksSlice"
 import { FilterTasksButtons } from "../FilterTasksButtons"
-
 import { Tasks } from "../Tasks/Tasks"
 import { TodolistTitle } from "./TodolistTitle"
 import { useAppDispatch } from "../../../../../common/hooks/useAppDispatch"
