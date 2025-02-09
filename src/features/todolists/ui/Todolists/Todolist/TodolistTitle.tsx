@@ -5,6 +5,7 @@ import IconButton from "@mui/material/IconButton"
 import DeleteIcon from "@mui/icons-material/Delete"
 import { changeTodolistTitleTC, deleteTodolistTC, TodolistDomainType } from "../../../model/todolistsSlice"
 import { useAppDispatch } from "common/hooks"
+import { useDeleteTodolistMutation } from "../../../api/todolistsApi"
 
 type Props = {
   todo: TodolistDomainType
@@ -12,8 +13,11 @@ type Props = {
 export const TodolistTitle = ({ todo }: Props) => {
   const dispatch = useAppDispatch()
 
+  const [deleteTodolist] = useDeleteTodolistMutation()
+
   const removeTodolistHandler = () => {
-    dispatch(deleteTodolistTC(todo.id))
+    // dispatch(deleteTodolistTC(todo.id))
+    deleteTodolist(todo.id)
   }
 
   const updateTodolistHandler = (title: string) => {
