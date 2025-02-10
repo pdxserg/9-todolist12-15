@@ -5,7 +5,6 @@ import { handleServerAppError } from "../../../common/utils/handleServerAppError
 import { handleServerNetworkError } from "../../../common/utils/handleServerNetworkError"
 
 import { createSlice } from "@reduxjs/toolkit"
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query"
 import { TodolistsType, TodolistType } from "../api/todolistsApi.types"
 import { _todolistsApi } from "../api/todolistsApi"
 
@@ -16,19 +15,6 @@ export type TodolistDomainType = TodolistType & {
 }
 
 const initialState: TodolistDomainType[] = []
-// export const todolistApi = createApi({
-//   reducerPath: "todolistApi",
-//   baseQuery: fetchBaseQuery({ baseUrl: "https://pokeapi.co/api/v2/" }),
-//   endpoints: (builder) => ({
-//     getPokemonByName: builder.query<any, any>({
-//       query: () => `pokemon/${name}`,
-//     }),
-//   }),
-// })
-//
-// // Export hooks for usage in functional components, which are
-// // auto-generated based on the defined endpoints
-// export const {} = todolistApi
 
 export const todolistsSlice = createSlice({
   name: "todolists",
