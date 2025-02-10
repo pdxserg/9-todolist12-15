@@ -1,5 +1,5 @@
 import "./App.css"
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { ThemeProvider } from "@mui/material/styles"
 import CssBaseline from "@mui/material/CssBaseline"
 
@@ -10,20 +10,28 @@ import { ErrorSnackbar } from "../common/components/ErrorSnackbar"
 import { Routing } from "../common/routing/Routing"
 import { RootStateType } from "./store"
 import { useAppDispatch } from "../common/hooks"
-import { initializeAppTC, isInitializ } from "../features/auth/model/authSlice"
 import { CircularProgress } from "@mui/material"
-import { selectThemeMode } from "../features/todolists/model/appSlice"
+import { selectThemeMode, setIsLoggedIn } from "../features/todolists/model/appSlice"
+import { useMeQuery } from "../features/auth/api/authApi"
 
 function App() {
   const themeMode = useAppSelector(selectThemeMode)
   const theme = getTheme(themeMode)
-  const isInitialized = useAppSelector(isInitializ)
-  console.log("isInitialized", isInitialized)
-  const dispatch = useAppDispatch()
+  // const isInitialized = useAppSelector(isInitializ)
+  // console.log("isInitialized", isInitialized)
 
+  const { data, isLoading } = useMeQuery()
+  console.log(data)
+  const dispatch = useAppDispatch()
+  const [isInitialized, setIsInitialized] = useState(false)
   useEffect(() => {
-    dispatch(initializeAppTC())
-  }, [])
+    if (!isLoading) {
+      setIsInitialized(true)
+      if (data?.resultCode === 0) {
+        dispatch(setIsLoggedIn({ isLoggedIn: true }))
+      }
+    }
+  }, [isLoading])
 
   if (!isInitialized) {
     return <CircularProgress size={150} thickness={3} />

@@ -9,12 +9,13 @@ import TextField from "@mui/material/TextField"
 import { useAppDispatch, useAppSelector } from "common/hooks"
 import { getTheme } from "../../../../common/theme/theme"
 import { Controller, SubmitHandler, useForm } from "react-hook-form"
-import { loginTC } from "../../model/authSlice"
 import { RootStateType } from "../../../../app/store"
 import { useNavigate } from "react-router"
 import { useEffect } from "react"
 import { Path } from "../../../../common/routing/Routing"
-import { selectThemeMode } from "../../../todolists/model/appSlice"
+import { selectThemeMode, setIsLoggedIn } from "../../../todolists/model/appSlice"
+import { useLoginMutation } from "../../api/authApi"
+import { resetStore } from "../../../todolists/model/todolistsSlice"
 
 export type Inputs = {
   email: string
@@ -25,7 +26,7 @@ export const Login = () => {
   const themeMode = useAppSelector(selectThemeMode)
   const theme = getTheme(themeMode)
   const dispatch = useAppDispatch()
-  const isLoggedIn = useAppSelector((state: RootStateType) => state.auth?.isLoggedIn)
+  const isLoggedIn = useAppSelector((state: RootStateType) => state.app.isLoggedIn)
   const navigate = useNavigate()
   useEffect(() => {
     if (isLoggedIn) {
@@ -40,9 +41,22 @@ export const Login = () => {
     control,
     formState: { errors },
   } = useForm<Inputs>({ defaultValues: { email: "", password: "", rememberMe: false } })
+
+  const [login] = useLoginMutation()
+  console.log("log", login)
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    dispatch(loginTC(data))
-    reset()
+    // dispatch(loginTC(data))
+    login(data)
+      .then((res) => {
+        if (res.data?.resultCode === 0) {
+          dispatch(setIsLoggedIn({ isLoggedIn: true }))
+          localStorage.setItem("sn-token", res.data.data.token)
+          dispatch(resetStore())
+        }
+      })
+      .finally(() => {
+        reset()
+      })
   }
   return (
     <Grid container justifyContent={"center"}>

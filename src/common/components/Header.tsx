@@ -13,14 +13,17 @@ import { useAppSelector } from "../hooks/useAppSelector"
 import { LinearProgress } from "@mui/material"
 import { RootStateType } from "../../app/store"
 import { logOutTC } from "../../features/auth/model/authSlice"
+import { useLogOutMutation } from "../../features/auth/api/authApi"
 
 export const Header = () => {
   const themeMode = useAppSelector(selectThemeMode)
   const status = useAppSelector((state) => state.app.status)
-  const isLoggedIn = useAppSelector((state: RootStateType) => state.auth.isLoggedIn)
+  const isLoggedIn = useAppSelector((state: RootStateType) => state.app.isLoggedIn)
 
   const theme = getTheme(themeMode)
   const dispatch = useAppDispatch()
+
+  const [] = useLogOutMutation()
 
   const changeModeHandler = () => {
     dispatch(changeMode())

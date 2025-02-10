@@ -8,8 +8,9 @@ import { Todolists } from "../features/todolists/ui/Todolists/Todolists"
 import { useAppSelector } from "../common/hooks"
 import { useNavigate } from "react-router"
 import { Path } from "../common/routing/Routing"
-import { selectIsLoggedIn } from "../features/auth/model/authSlice"
+
 import { useCreateTodolistMutation } from "../features/todolists/api/todolistsApi"
+import { selectIsLoggedIn } from "../features/todolists/model/appSlice"
 
 export const Main = () => {
   const [createTodolist] = useCreateTodolistMutation()
