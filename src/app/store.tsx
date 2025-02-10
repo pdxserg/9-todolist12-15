@@ -7,7 +7,6 @@ import { ThunkDispatch } from "redux-thunk"
 import { configureStore } from "@reduxjs/toolkit"
 import { setupListeners } from "@reduxjs/toolkit/query"
 import { baseApi } from "./baseApi"
-import { authReducer, authSlice } from "../features/auth/model/authSlice"
 
 // const rootReducer = combineReducers({
 //   todolists: todolistsReducer,
@@ -21,7 +20,7 @@ export const store = configureStore({
     [todolistsSlice.name]: todolistsReducer,
     [tasksSlice.name]: tasksReducer,
     [appSlice.name]: appReducer,
-    [authSlice.name]: authReducer,
+    // [authSlice.name]: authReducer,
     // [todolistsApi.reducerPath]: todolistsApi.reducer,
     [baseApi.reducerPath]: baseApi.reducer,
   },

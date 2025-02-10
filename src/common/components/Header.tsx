@@ -6,16 +6,14 @@ import MenuIcon from "@mui/icons-material/Menu"
 import { MenuButton } from "./MenuButton"
 import Switch from "@mui/material/Switch"
 import AppBar from "@mui/material/AppBar"
-import { changeMode, selectThemeMode, setAppStatus, setIsLoggedIn } from "../../features/todolists/model/appSlice"
+import { changeMode, selectThemeMode, setIsLoggedIn } from "../../features/todolists/model/appSlice"
 import { getTheme } from "../theme/theme"
 import { useAppDispatch } from "../hooks/useAppDispatch"
 import { useAppSelector } from "../hooks/useAppSelector"
 import { LinearProgress } from "@mui/material"
 import { RootStateType } from "../../app/store"
-import { logOutTC } from "../../features/auth/model/authSlice"
 import { useLogOutMutation } from "../../features/auth/api/authApi"
 import { resetStore } from "../../features/todolists/model/todolistsSlice"
-import { handleServerAppError } from "../utils/handleServerAppError"
 
 export const Header = () => {
   const themeMode = useAppSelector(selectThemeMode)

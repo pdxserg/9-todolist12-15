@@ -43,9 +43,7 @@ export const Login = () => {
   } = useForm<Inputs>({ defaultValues: { email: "", password: "", rememberMe: false } })
 
   const [login] = useLoginMutation()
-  console.log("log", login)
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    // dispatch(loginTC(data))
     login(data)
       .then((res) => {
         if (res.data?.resultCode === 0) {
